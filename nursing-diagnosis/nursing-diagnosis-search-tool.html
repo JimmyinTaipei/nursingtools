@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nursing Diagnosis Search Tool</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Additional custom styles */
+        .hidden {
+            display: none;
+        }
+        .search-results {
+            max-height: 300px;
+            overflow-y: auto;
+        }
+        /* Link styling */
+        .diagnosis-link {
+            color: #3182ce;
+            text-decoration: underline;
+            cursor: pointer;
+        }
+        .diagnosis-link:hover {
+            color: #2c5282;
+        }
+        /* Admin panel styles */
+        .admin-panel {
+            position: fixed;
+            top: 0;
+            right: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            z-index: 1000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow-y: auto;
+        }
+        .admin-content {
+            background-color: white;
+            border-radius: 8px;
+            padding: 2rem;
+            width: 90%;
+            max-width: 800px;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+    </style>
+</head>
+<body class="min-h-screen bg-gray-50">
+    <header class="text-white p-4 shadow-md" style="background-color: #3498db;">
+        <div class="container mx-auto">
+            <h1 style="font-size: 32px; text-align: center; font-weight: bold;">Nursing Diagnosis Search Tool</h1>
+        </div>
+    </header>
+    
+    <main class="container mx-auto p-4">
+        <div class="bg-white rounded-lg shadow-md p-6 mb-6">
+            <div class="mb-4">
+                <label for="search" class="block text-gray-700 font-medium mb-2">
+                    Search Medical Diagnosis:
+                </label>
+                <div class="relative">
+                    <input
+                        type="text"
+                        id="search"
+                        class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        placeholder="Type a medical diagnosis (e.g., Diabetes Mellitus, Pneumonia)"
+                    />
+                    <div id="searchResults" class="absolute z-10 w-full mt-1 bg-white border border-gray-300 rounded-lg shadow-lg hidden search-results">
+                        <!-- Search results will be inserted here by JavaScript -->
+                    </div>
+                </div>
+            </div>
+            
+            <div class="mt-4">
+                <h3 class="text-md font-semibold text-gray-700 mb-2">Try these examples:</h3>
+                <div class="flex flex-wrap gap-2" id="examples">
+                    <!-- Example buttons will be inserted here by JavaScript -->
+                </div>
+            </div>
+        </div>
+
+        <div id="loadingIndicator" class="text-center py-6 hidden">
+            <p>Loading diagnosis database...</p>
+        </div>
+
+        <div id="diagnosisResult" class="bg-white rounded-lg shadow-md p-6 hidden">
+            <h2 id="diagnosisTitle" class="text-xl font-bold mb-4 text-blue-700"></h2>
+            <div class="border-t border-gray-200 pt-4">
+                <h3 class="font-semibold text-gray-800 mb-3">Associated Nursing Diagnoses:</h3>
+                <ul id="diagnosisList" class="space-y-2">
+                    <!-- Diagnosis descriptions will be inserted here by JavaScript -->
+                </ul>
+            </div>
+        </div>
+
+        <div id="noResults" class="bg-white rounded-lg shadow-md p-6 text-center hidden">
+            <p class="text-gray-600">No results found for "<span id="searchTermDisplay"></span>". Try a different medical diagnosis.</p>
+        </div>
+        
+        <div class="text-center mt-8 mb-4">
+            <button id="openAdminBtn" class="bg-gray-200 hover:bg-gray-300 text-gray-700 font-semibold py-2 px-4 rounded">
+                Add/Edit Diagnoses
+            </button>
+        </div>
+    </main>
+    
+    <footer class="bg-gray-100 p-4 border-t border-gray-200 mt-8">
+        <div class="container mx-auto text-center text-gray-600">
+            <p>© <span id="currentYear"></span> Nursing Diagnosis Search Tool</p>
+            <p class="text-sm mt-1">This tool is for educational purposes only. Always use clinical judgment when making nursing diagnoses.</p>
+        </div>
+    </footer>
+    
+    <!-- Admin Panel for adding/editing diagnoses -->
+    <div id="adminPanel" class="admin-panel hidden">
+        <div class="admin-content">
+            <h2 class="text-xl font-bold mb-4">Manage Diagnoses</h2>
+            
+            <div class="mb-6">
+                <h3 class="font-semibold mb-2">Add/Edit Medical Diagnosis</h3>
+                <div class="grid grid-cols-1 gap-4">
+                    <div>
+                        <label class="block text-sm font-medium mb-1">Medical Diagnosis Name:</label>
+                        <input type="text" id="medicalDiagnosisInput" class="w-full p-2 border rounded" placeholder="e.g., Hypertension">
+                    </div>
+                    
+                    <div>
+                        <label class="block text-sm font-medium mb-1">Associated Nursing Diagnoses:</label>
+                        <textarea id="nursingDiagnosesInput" class="w-full p-2 border rounded h-32" placeholder="Enter one nursing diagnosis per line, e.g.:&#10;Anxiety r/t change in health status&#10;Risk for Falls: Risk factor: dizziness"></textarea>
+                    </div>
+                    
+                    <div class="text-right">
+                        <button id="saveMedicalDiagnosisBtn" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                            Save Medical Diagnosis
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="border-t pt-6 mb-6">
+                <h3 class="font-semibold mb-2">Add/Edit Nursing Diagnosis Link</h3>
+                <div class="grid grid-cols-1 gap-4">
+                    <div>
+                        <label class="block text-sm font-medium mb-1">Nursing Diagnosis:</label>
+                        <input type="text" id="nursingDiagnosisInput" class="w-full p-2 border rounded" placeholder="e.g., Acute Pain">
+                    </div>
+                    
+                    <div>
+                        <label class="block text-sm font-medium mb-1">Detail Page URL:</label>
+                        <input type="text" id="diagnosisLinkInput" class="w-full p-2 border rounded" placeholder="e.g., acute-pain.html">
+                    </div>
+                    
+                    <div class="text-right">
+                        <button id="saveDiagnosisLinkBtn" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                            Save Diagnosis Link
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="border-t pt-6">
+                <h3 class="font-semibold mb-2">Export/Import Data</h3>
+                <div class="grid grid-cols-1 gap-4">
+                    <div>
+                        <button id="exportDataBtn" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded w-full">
+                            Export Data
+                        </button>
+                    </div>
+                    
+                    <div>
+                        <label class="block text-sm font-medium mb-1">Import Data:</label>
+                        <textarea id="importDataInput" class="w-full p-2 border rounded h-32" placeholder="Paste exported data here"></textarea>
+                    </div>
+                    
+                    <div class="text-right">
+                        <button id="importDataBtn" class="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded">
+                            Import Data
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="mt-6 text-center">
+                <button id="closeAdminBtn" class="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded">
+                    Close
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Initialize localStorage if not already set
+        if (!localStorage.getItem('diagnosisDatabase')) {
+            // Initialize the diagnosis database with some sample data
+            const initialDiagnosisDatabase = {
+                "Diabetes Mellitus": {
+                    descriptions: [
+                        "Ineffective Health maintenance r/t complexity of therapeutic regimen",
+                        "Imbalanced Nutrition: less than body requirements r/t inability to use glucose",
+                        "Ineffective peripheral Tissue perfusion r/t impaired arterial circulation",
+                        "Risk for unstable blood Glucose level",
+                        "Risk for Infection: Risk factors: hyperglycemia, impaired healing",
+                        "Risk for impaired Skin integrity: Risk factor: loss of pain perception in extremities"
+                    ]
+                },
+                "Pneumonia": {
+                    descriptions: [
+                        "Ineffective Airway clearance r/t inflammation and presence of secretions",
+                        "Impaired Gas exchange r/t decreased functional lung tissue",
+                        "Ineffective Thermoregulation r/t infectious process",
+                        "Risk for deficient Fluid volume: Risk factor: inadequate intake of fluids",
+                        "Acute Pain r/t inflammatory process"
+                    ]
+                },
+                "Myocardial Infarction": {
+                    descriptions: [
+                        "Activity intolerance r/t imbalance between oxygen supply and demand",
+                        "Anxiety r/t threat of death, possible change in role status",
+                        "Decreased Cardiac output r/t myocardial injury",
+                        "Acute Pain r/t myocardial tissue damage from inadequate blood supply",
+                        "Risk for decreased Cardiac tissue perfusion: Risk factors: coronary artery spasm, hypertension"
+                    ]
+                },
+                    "Diabetes Mellitus":{
+                        "descriptions":[
+                            "Ineffective Health maintenance r/t complexity of therapeutic regimen",
+                            "Imbalanced Nutrition: less than body requirements r/t inability to use glucose",
+                            "Ineffective peripheral Tissue perfusion r/t impaired arterial circulation",
+                            "Risk for unstable blood Glucose level",
+                            "Risk for Infection: Risk factors: hyperglycemia, impaired healing",
+                            "Risk for impaired Skin integrity: Risk factor: loss of pain perception in extremities"
+                        ]
+                    }
+                
+            };
+            localStorage.setItem('diagnosisDatabase', JSON.stringify(initialDiagnosisDatabase));
+        }
+
+        if (!localStorage.getItem('diagnosisLinks')) {
+            // Initialize the diagnosis links with some sample data
+            const initialDiagnosisLinks = {
+                "Acute Pain": "acute-pain-website.html",
+                "Anxiety": "anxiety.html",
+                "Impaired Gas exchange": "impaired-gas-exchange.html",
+                "Decreased Cardiac output": "decreased-cardiac-output.html",
+                "Ineffective Breathing pattern": "ineffective-breathing-pattern.html",
+                "Ineffective Airway clearance": "ineffective-airway-clearance.html"
+            };
+            localStorage.setItem('diagnosisLinks', JSON.stringify(initialDiagnosisLinks));
+        }
+
+        // Load data from localStorage
+        let diagnosisDatabase = JSON.parse(localStorage.getItem('diagnosisDatabase'));
+        let diagnosisLinks = JSON.parse(localStorage.getItem('diagnosisLinks'));
+        
+        // DOM elements
+        const searchInput = document.getElementById('search');
+        const searchResults = document.getElementById('searchResults');
+        const examplesContainer = document.getElementById('examples');
+        const loadingIndicator = document.getElementById('loadingIndicator');
+        const diagnosisResult = document.getElementById('diagnosisResult');
+        const diagnosisTitle = document.getElementById('diagnosisTitle');
+        const diagnosisList = document.getElementById('diagnosisList');
+        const noResults = document.getElementById('noResults');
+        const searchTermDisplay = document.getElementById('searchTermDisplay');
+        const currentYear = document.getElementById('currentYear');
+        const openAdminBtn = document.getElementById('openAdminBtn');
+        const closeAdminBtn = document.getElementById('closeAdminBtn');
+        const adminPanel = document.getElementById('adminPanel');
+        const saveMedicalDiagnosisBtn = document.getElementById('saveMedicalDiagnosisBtn');
+        const saveDiagnosisLinkBtn = document.getElementById('saveDiagnosisLinkBtn');
+        const exportDataBtn = document.getElementById('exportDataBtn');
+        const importDataBtn = document.getElementById('importDataBtn');
+
+        // Set the current year for the footer
+        currentYear.textContent = new Date().getFullYear();
+
+        // Create example buttons
+        function createExampleButtons() {
+            examplesContainer.innerHTML = '';
+            const examples = Object.keys(diagnosisDatabase);
+            examples.forEach(example => {
+                const button = document.createElement('button');
+                button.className = 'bg-blue-100 hover:bg-blue-200 text-blue-700 text-sm px-3 py-1 rounded-full';
+                button.textContent = example;
+                button.addEventListener('click', () => {
+                    searchInput.value = example;
+                    handleSelectDiagnosis(example);
+                });
+                examplesContainer.appendChild(button);
+            });
+        }
+
+        // Function to create linkable text in nursing diagnoses
+        function createLinkableText(diagnosisText) {
+            // First, get the base diagnosis (before r/t or Risk factors)
+            let baseDiagnosis = diagnosisText;
+            
+            if (diagnosisText.includes(' r/t ')) {
+                baseDiagnosis = diagnosisText.split(' r/t ')[0];
+            } else if (diagnosisText.includes('Risk factor')) {
+                baseDiagnosis = diagnosisText.split('Risk factor')[0].trim();
+                if (baseDiagnosis.endsWith(':')) {
+                    baseDiagnosis = baseDiagnosis.slice(0, -1).trim();
+                }
+            }
+            
+            // Check if we have a link for this diagnosis
+            const hasLink = Object.keys(diagnosisLinks).some(key => 
+                baseDiagnosis.includes(key)
+            );
+            
+            if (hasLink) {
+                // Find which diagnosis key is contained in the text
+                const matchedKey = Object.keys(diagnosisLinks).find(key => 
+                    baseDiagnosis.includes(key)
+                );
+                
+                // Replace the matched key with a linked version
+                return diagnosisText.replace(
+                    matchedKey, 
+                    `<span class="diagnosis-link" data-link="${diagnosisLinks[matchedKey]}">${matchedKey}</span>`
+                );
+            }
+            
+            return diagnosisText;
+        }
+
+        // Handle search input changes
+        searchInput.addEventListener('input', () => {
+            const term = searchInput.value;
+            
+            if (term.trim() === '') {
+                searchResults.classList.add('hidden');
+                return;
+            }
+            
+            // Simple search algorithm - case insensitive partial match
+            const results = Object.keys(diagnosisDatabase).filter(diagnosis => 
+                diagnosis.toLowerCase().includes(term.toLowerCase())
+            );
+            
+            // Display search results
+            searchResults.innerHTML = '';
+            
+            if (results.length > 0) {
+                results.forEach(diagnosis => {
+                    const resultItem = document.createElement('div');
+                    resultItem.className = 'p-3 hover:bg-gray-100 cursor-pointer border-b last:border-b-0';
+                    resultItem.textContent = diagnosis;
+                    resultItem.addEventListener('click', () => handleSelectDiagnosis(diagnosis));
+                    searchResults.appendChild(resultItem);
+                });
+                
+                searchResults.classList.remove('hidden');
+            } else {
+                searchResults.classList.add('hidden');
+            }
+        });
+
+        // Handle selection of a medical diagnosis
+        function handleSelectDiagnosis(diagnosis) {
+            searchInput.value = diagnosis;
+            searchResults.classList.add('hidden');
+            
+            if (diagnosisDatabase[diagnosis]) {
+                // Show the diagnosis result section
+                diagnosisTitle.textContent = diagnosis;
+                diagnosisList.innerHTML = '';
+                
+                // Add each nursing diagnosis to the list
+                diagnosisDatabase[diagnosis].descriptions.forEach(description => {
+                    const listItem = document.createElement('li');
+                    listItem.className = 'bg-gray-50 p-3 rounded-md';
+                    listItem.innerHTML = createLinkableText(description);
+                    diagnosisList.appendChild(listItem);
+                });
+                
+                // Add click event listeners to the diagnosis links
+                const diagnosisLinkElements = document.querySelectorAll('.diagnosis-link');
+                diagnosisLinkElements.forEach(link => {
+                    link.addEventListener('click', function() {
+                        const url = this.getAttribute('data-link');
+                        window.location.href = url;
+                    });
+                });
+                
+                diagnosisResult.classList.remove('hidden');
+                noResults.classList.add('hidden');
+            } else {
+                // Show the no results section
+                searchTermDisplay.textContent = diagnosis;
+                diagnosisResult.classList.add('hidden');
+                noResults.classList.remove('hidden');
+            }
+        }
+
+        // Admin Panel Functions
+        openAdminBtn.addEventListener('click', () => {
+            adminPanel.classList.remove('hidden');
+        });
+        
+        closeAdminBtn.addEventListener('click', () => {
+            adminPanel.classList.add('hidden');
+        });
+        
+        // Save medical diagnosis
+        saveMedicalDiagnosisBtn.addEventListener('click', () => {
+            const medicalDiagnosis = document.getElementById('medicalDiagnosisInput').value.trim();
+            const nursingDiagnoses = document.getElementById('nursingDiagnosesInput').value.trim();
+            
+            if (medicalDiagnosis && nursingDiagnoses) {
+                // Split nursing diagnoses by new line
+                const descriptions = nursingDiagnoses.split('\n').filter(desc => desc.trim() !== '');
+                
+                // Add or update the diagnosis in the database
+                diagnosisDatabase[medicalDiagnosis] = {
+                    descriptions: descriptions
+                };
+                
+                // Save to localStorage
+                localStorage.setItem('diagnosisDatabase', JSON.stringify(diagnosisDatabase));
+                
+                // Update example buttons
+                createExampleButtons();
+                
+                // Clear inputs
+                document.getElementById('medicalDiagnosisInput').value = '';
+                document.getElementById('nursingDiagnosesInput').value = '';
+                
+                alert(`Medical diagnosis "${medicalDiagnosis}" saved successfully!`);
+            } else {
+                alert('Please fill in both fields.');
+            }
+        });
+        
+        // Save diagnosis link
+        saveDiagnosisLinkBtn.addEventListener('click', () => {
+            const nursingDiagnosis = document.getElementById('nursingDiagnosisInput').value.trim();
+            const diagnosisLink = document.getElementById('diagnosisLinkInput').value.trim();
+            
+            if (nursingDiagnosis && diagnosisLink) {
+                // Add or update the diagnosis link
+                diagnosisLinks[nursingDiagnosis] = diagnosisLink;
+                
+                // Save to localStorage
+                localStorage.setItem('diagnosisLinks', JSON.stringify(diagnosisLinks));
+                
+                // Clear inputs
+                document.getElementById('nursingDiagnosisInput').value = '';
+                document.getElementById('diagnosisLinkInput').value = '';
+                
+                alert(`Nursing diagnosis link for "${nursingDiagnosis}" saved successfully!`);
+            } else {
+                alert('Please fill in both fields.');
+            }
+        });
+        
+        // Export data
+        exportDataBtn.addEventListener('click', () => {
+            const exportData = {
+                diagnosisDatabase: diagnosisDatabase,
+                diagnosisLinks: diagnosisLinks
+            };
+            
+            const exportString = JSON.stringify(exportData, null, 2);
+            
+            // Create a temporary textarea to copy the data
+            const textarea = document.createElement('textarea');
+            textarea.value = exportString;
+            document.body.appendChild(textarea);
+            textarea.select();
+            document.execCommand('copy');
+            document.body.removeChild(textarea);
+            
+            alert('Data exported and copied to clipboard!');
+        });
+        
+        // Import data
+        importDataBtn.addEventListener('click', () => {
+            const importDataString = document.getElementById('importDataInput').value.trim();
+            
+            if (importDataString) {
+                try {
+                    const importData = JSON.parse(importDataString);
+                    
+                    if (importData.diagnosisDatabase && importData.diagnosisLinks) {
+                        diagnosisDatabase = importData.diagnosisDatabase;
+                        diagnosisLinks = importData.diagnosisLinks;
+                        
+                        // Save to localStorage
+                        localStorage.setItem('diagnosisDatabase', JSON.stringify(diagnosisDatabase));
+                        localStorage.setItem('diagnosisLinks', JSON.stringify(diagnosisLinks));
+                        
+                        // Update example buttons
+                        createExampleButtons();
+                        
+                        // Clear input
+                        document.getElementById('importDataInput').value = '';
+                        
+                        alert('Data imported successfully!');
+                    } else {
+                        alert('Invalid import data format.');
+                    }
+                } catch (error) {
+                    alert('Error parsing import data: ' + error.message);
+                }
+            } else {
+                alert('Please enter import data.');
+            }
+        });
+
+        // Close search results when clicking outside
+        document.addEventListener('click', (event) => {
+            if (!searchInput.contains(event.target) && !searchResults.contains(event.target)) {
+                searchResults.classList.add('hidden');
+            }
+        });
+        
+        // Initialize the example buttons
+        createExampleButtons();
+    </script>
+</body>
+</html>

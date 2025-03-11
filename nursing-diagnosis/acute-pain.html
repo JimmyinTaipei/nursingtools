@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nursing Diagnosis - Acute Pain</title>
+    <style>
+        :root {
+            --primary: #2c3e50;
+            --secondary: #3498db;
+            --tertiary: #e74c3c;
+            --background: #f9f9f9;
+            --text: #333;
+            --light-gray: #ecf0f1;
+            --border: #ddd;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: var(--background);
+            color: var(--text);
+            line-height: 1.6;
+        }
+        
+        header {
+            background-color: var(--primary);
+            color: white;
+            padding: 1rem;
+            text-align: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        .container {
+            display: flex;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 1rem;
+        }
+        
+        .sidebar {
+            width: 250px;
+            background-color: white;
+            border-radius: 8px;
+            padding: 1rem;
+            margin-right: 1rem;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            position: sticky;
+            top: 80px;
+            height: fit-content;
+        }
+        
+        .main-content {
+            flex: 1;
+            background-color: white;
+            border-radius: 8px;
+            padding: 2rem;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+        
+        h1, h2, h3, h4 {
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+        
+        h1 {
+            font-size: 2rem;
+            border-bottom: 2px solid var(--secondary);
+            padding-bottom: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        h2 {
+            font-size: 1.5rem;
+            margin-top: 2rem;
+            border-left: 4px solid var(--secondary);
+            padding-left: 0.8rem;
+        }
+        
+        h3 {
+            font-size: 1.2rem;
+            margin-top: 1.5rem;
+            color: var(--secondary);
+        }
+        
+        p, ul, ol {
+            margin-bottom: 1rem;
+        }
+        
+        ul, ol {
+            padding-left: 2rem;
+        }
+        
+        li {
+            margin-bottom: 0.5rem;
+        }
+        
+        .diagnosis-nav {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .diagnosis-nav li {
+            margin-bottom: 0.5rem;
+            padding: 0.5rem;
+            border-radius: 4px;
+            transition: all 0.3s;
+        }
+        
+        .diagnosis-nav li.active {
+            background-color: var(--secondary);
+            color: white;
+            font-weight: bold;
+        }
+        
+        .diagnosis-nav li:hover:not(.active) {
+            background-color: var(--light-gray);
+            cursor: pointer;
+        }
+        
+        .section {
+            margin-bottom: 2rem;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 1rem;
+        }
+        
+        .section:last-child {
+            border-bottom: none;
+        }
+        
+        .tag {
+            display: inline-block;
+            background-color: var(--light-gray);
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            margin-right: 0.5rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .tag.independent {
+            background-color: #3498db;
+            color: white;
+        }
+        
+        .tag.collaborative {
+            background-color: #e74c3c;
+            color: white;
+        }
+        
+        .tag.ebn {
+            background-color: #2ecc71;
+            color: white;
+        }
+        
+        .tag.eb {
+            background-color: #9b59b6;
+            color: white;
+        }
+        
+        .add-button {
+            background-color: var(--secondary);
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-top: 1rem;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            transition: all 0.3s;
+        }
+        
+        .add-button:hover {
+            background-color: var(--tertiary);
+        }
+        
+        .search-box {
+            width: 100%;
+            padding: 0.5rem;
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            margin-bottom: 1rem;
+        }
+        
+        .footnote {
+            margin-top: 2rem;
+            padding-top: 1rem;
+            border-top: 1px solid var(--border);
+            font-size: 0.9rem;
+            color: #777;
+        }
+        
+        .legend {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 1rem;
+            font-size: 0.85rem;
+        }
+        
+        .risk-factors-section {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        
+        .risk-factors-column {
+            flex: 1;
+            min-width: 250px;
+        }
+        
+        .intervention {
+            margin-bottom: 1.5rem;
+            padding-left: 10px;
+            border-left: 3px solid var(--light-gray);
+        }
+        
+        .intervention-header {
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+        
+        .rationale {
+            font-style: italic;
+            font-size: 0.95rem;
+            color: #555;
+        }
+        
+        .special-section {
+            background-color: var(--light-gray);
+            padding: 1rem;
+            border-radius: 8px;
+            margin: 1rem 0;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+            }
+            
+            .sidebar {
+                width: 100%;
+                margin-right: 0;
+                margin-bottom: 1rem;
+                position: static;
+            }
+            
+            .risk-factors-section {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header style="background-color: #3498db">
+        <h1 style="color: white;">Nursing Diagnosis Library</h1>
+    </header>
+    
+    <div class="container">
+        <aside class="sidebar">
+            <input type="text" class="search-box" placeholder="Search diagnoses...">
+            
+            <h3>Nursing Diagnoses</h3>
+            <ul class="diagnosis-nav">
+                <li href="Risk-for-infection.html">Risk for Infection</li>
+                <li class="active">Acute Pain</li>
+                <!-- Template for future diagnoses -->
+                <li>Add new diagnosis...</li>
+            </ul>
+            
+            <button class="add-button">+ Add New Diagnosis</button>
+            
+            <div class="legend" style="margin-top: 20px;">
+                <div><span class="tag independent">•</span> Independent</div>
+                <div><span class="tag collaborative">!</span> Collaborative</div>
+                <div><span class="tag ebn">EBN</span> Evidence-Based Nursing</div>
+                <div><span class="tag eb">EB</span> Evidence-Based</div>
+            </div>
+        </aside>
+        
+        <main class="main-content">
+            <h1>Acute Pain</h1>
+            
+            <!-- NANDA-I Definition -->
+            <div class="section">
+                <h2>NANDA-I Definition</h2>
+                <p>An unpleasant sensory and emotional experience associated with actual or potential tissue damage, or described in terms of such damage (International Association for the Study of Pain, 1979); sudden or slow onset of any intensity from mild to severe with an anticipated or predictable end</p>
+            </div>
+            
+            <!-- Defining Characteristics -->
+            <div class="section">
+                <h2>Defining Characteristics</h2>
+                <p>Appetite change; change in physiological parameter (e.g., blood pressure, heart rate, respiratory rate, oxygen saturation, and end-tidal CO<sub>2</sub>); diaphoresis; distraction behavior; evidence of pain using standardized pain behavior checklist for those unable to communicate verbally (e.g., Neonatal Infant Pain Scale, Pain Assessment Checklist for Seniors with Limited Ability to Communicate); expressive behavior (e.g., restlessness, crying, vigilance); facial expression of pain (e.g., eyes lack luster, beaten look, fixed or scattered movement, grimace); guarding behavior; hopelessness; narrowed focus (e.g., time, perception, thought processes, interaction with people and environment); positioning to ease pain; protective behavior; proxy report of pain behavior/activity changes (e.g., family member, caregiver); pupil dilation; self-focused; self-report of intensity using standardized pain scale (e.g., Wong-Baker FACES scale, visual analog scale, numerical rating scale); self-report of pain characteristics using standardized pain instrument (e.g., McGill Pain Questionnaire, Brief Pain Inventory)</p>
+            </div>
+            
+            <!-- Related Factors -->
+            <div class="section">
+                <h2>Related Factors (r/t)</h2>
+                <p>Biological injury agent (e.g., infection, ischemia, neoplasm); chemical injury agent (e.g., burn, capsaicin, methylene chloride, mustard agent); physical injury agent (e.g., abscess, amputation, burn, cut, heavy lifting, operative procedure, trauma, overtraining)</p>
+            </div>
+            
+            <!-- NOC Outcomes -->
+            <div class="section">
+                <h2>NOC (Nursing Outcomes Classification)</h2>
+                <h3>Suggested NOC Outcomes</h3>
+                <ul>
+                    <li>Pain Control</li>
+                    <li>Pain Level</li>
+                    <li>Pain: Adverse Psychological Response</li>
+                </ul>
+                
+                <h3>Example NOC Outcome</h3>
+                <p><strong>Pain Level</strong> as evidenced by severity of observed or reported pain.</p>
+                <p>NOTE: Pain Level is the NOC Outcome label; this text recommends use of the self-report numerical pain rating scale in place of the NOC indicator scales because of the amount of research supporting its use.</p>
+            </div>
+            
+            <!-- Client Outcomes -->
+            <div class="section">
+                <h2>Client Outcomes</h2>
+                <p>Client Will (Specify Time Frame)</p>
+                <h3>For the client who is able to provide a self-report</h3>
+                <ul>
+                    <li>Use a self-report pain tool to identify current pain intensity level and establish a comfort-function goal</li>
+                    <li>Report that pain management regimen achieves comfort-function goal without side effects</li>
+                    <li>Describe nonpharmacological methods that can be used to help achieve comfort-function goal</li>
+                    <li>Perform activities of recovery or activities of daily living (ADLs) easily</li>
+                    <li>Describe how unrelieved pain will be managed</li>
+                    <li>State ability to obtain sufficient amounts of rest and sleep</li>
+                    <li>Notify member of the health care team promptly for pain intensity level that is consistently greater than the comfort-function goal, or occurrence of side effects</li>
+                </ul>
+
+                <h3>For the client who is unable to provide a self-report</h3>
+                <ul>
+                    <li>Decrease in pain-related behaviors</li>
+                    <li>Perform activities of recovery or ADLs easily as determined by client condition</li>
+                    <li>Demonstrate the absence of side effects of analgesics</li>
+                    <li>No pain-related behaviors will be evident in the client who is completely unresponsive; a reasonable outcome is to demonstrate the absence of side effects related to the prescribed pain treatment plan</li>
+                </ul>
+            </div>
+            
+            <!-- NIC Interventions -->
+            <div class="section">
+                <h2>NIC (Nursing Interventions Classification)</h2>
+                <h3>Suggested NIC Interventions</h3>
+                <ul>
+                    <li>Analgesic Administration</li>
+                    <li>Pain Management</li>
+                    <li>Patient-Controlled Analgesia (PCA) Assistance</li>
+                </ul>
+                
+                <h3>Example NIC Activities—Pain Management</h3>
+                <p>Ensure client attentive analgesic care; Perform a comprehensive assessment of pain to include location, characteristics, onset/duration, frequency, quality, intensity or severity of pain, and precipitating factors</p>
+            </div>
+            
+            <!-- Nursing Interventions and Rationales -->
+            <div class="section">
+                <h2>Nursing Interventions and Rationales</h2>
+                
+                <div class="intervention">
+                    <p class="intervention-header"><span class="tag independent">•</span> During the initial assessment and interview, if the client is experiencing pain, conduct and document a comprehensive pain assessment, using appropriate pain assessment tools.</p>
+                    <p class="rationale"><span class="tag eb">CEB</span>: Determining location, temporal aspects, pain intensity, characteristics, and the impact of pain on function and quality of life are critical to determine the underlying cause of pain and effectiveness of treatment (McCaffery, 1968; McCaffery et al, 2011). The initial assessment includes all pain information that the client can provide for the development of the individualized pain management plan (McCaffery et al, 2011).</p>
+                </div>
+
+                <div class="intervention">
+                    <p class="intervention-header"><span class="tag independent">•</span> Assess if the client is able to provide a self-report of pain intensity, and if so, assess pain intensity level using a valid and reliable self-report pain tool, such as the 0-10 numerical pain rating scale.</p>
+                    <p class="rationale"><span class="tag eb">CEB</span>: Self-report is considered the single most reliable indicator of pain presence and intensity and single-dimension pain ratings are valid and reliable as measures of pain intensity level (McCaffery et al, 2011). <span class="tag eb">EB</span>: Regularly and routinely assess the client for pain presence during activity and rest and with interventions or procedures likely to cause pain. <span class="tag eb">CEB</span>: Acute pain should be reliably assessed both at rest (important for comfort) and during movement (important for function and decreased client risk for cardiopulmonary and thromboembolic events) (McCaffery et al, 2011).</p>
+                </div>
+                
+                <div class="intervention">
+                    <p class="intervention-header"><span class="tag independent">•</span> Ask the client to describe prior experiences with pain, effectiveness of pain management interventions, responses to analgesic medications including occurrence of side effects, and concerns about pain and its treatment (e.g., fear about addiction, worries, or anxiety) and informational needs.</p>
+                    <p class="rationale"><span class="tag ebn">EBN</span>: Obtaining an individualized pain history helps identify potential factors that may influence the client's willingness to report pain, as well as factors that may influence pain intensity, the client's response to pain, anxiety, and pharmacokinetics of analgesics (Pasero 2009a; Pasero & Portenoy, 2011).</p>
+                </div>
+                
+                <div class="intervention">
+                    <p class="intervention-header"><span class="tag independent">•</span> Using a self-report pain tool, ask the client to identify a comfort-function goal that will allow the client to perform necessary or desired activities easily.</p>
+                    <p class="rationale"><span class="tag ebn">EBN</span>: The comfort-function goal provides the basis for individualized pain management plans and assists in determining effectiveness of pain management interventions (McCaffery et al, 2011).</p>
+                </div>
+                
+                <div class="intervention">
+                    <p class="intervention-header"><span class="tag collaborative">!</span> Describe the adverse effects of unrelieved pain.</p>
+                    <p class="rationale"><span class="tag ebn">CEB/EBN</span>: Unrelieved acute pain can have physiological and psychological consequences that facilitate negative client outcomes. Ineffective management of acute pain has the potential for neurohumoral changes, neuronal remodeling, an impact on immune function, and long-lasting physiological, psychological, and emotional distress, and it may lead to persistent pain syndromes (Pasero, 2011; Pasero & Portenoy, 2011).</p>
+                </div>
+                
+                <div class="intervention">
+                    <p class="intervention-header"><span class="tag independent">•</span> Use the Hierarchy of Pain Measures as a framework for pain assessment (McCaffery et al, 2011): (1) attempt to obtain the client's self-report of pain; (2) consider the client's condition and search for possible causes of pain (e.g., presence of tissue injury, pathological conditions, or exposure to procedures/interventions that are thought to result in pain); (3) observe for behaviors that may indicate pain presence (e.g., facial expressions, crying, restlessness, and changes in activity); (4) evaluate physiological indicators, with the understanding that these are the least sensitive indicators of pain and may be related to conditions other than pain (e.g., shock, hypovolemia, anxiety); and (5) conduct an analgesic trial.</p>
+                    <p class="rationale"><span class="tag ebn">EBN</span>: When a client is unable to use a self-report tool (e.g., cognitively impaired, critically ill, anesthetized or sedated), the presence of pain may be assessed by observing specific client behaviors using a valid and reliable behavioral tool (e.g., Critical Care Observation Tool in critically ill or Checklist of Nonverbal Pain Indicators in cognitively impaired older adults) (Puntillo et al, 2014; McCaffery et al, 2011).</p>
+                </div>
+                
+                <div class="intervention">
+                    <p class="intervention-header"><span class="tag collaborative">!</span> Manage acute pain using a multimodal approach.</p>
+                    <p class="rationale"><span class="tag eb">EB</span>: A multimodal approach (combining two or more drugs that act by different mechanisms for providing analgesia) enhances pain relief and allows the lowest effective dose of each drug to be administered, resulting in fewer or less severe side effects, such as nausea, sedation, and respiratory depression (Pasero et al, 2011c).</p>
+                </div>
+                
+                <div class="intervention">
+                    <p class="intervention-header"><span class="tag collaborative">!</span> Administer a nonopioid analgesic for mild to moderate pain and add an opioid analgesic if indicated for moderate to severe acute pain.</p>
+                    <p class="rationale"><span class="tag eb">EB</span>: Nonopioids, such as acetaminophen and nonsteroidal anti-inflammatory drugs, are first-line analgesics for the treatment of mild and some moderate acute pain, while opioids are included for the treatment of moderate to severe acute pain (Pasero et al, 2011a; Young & Buvanendran, 2012).</p>
+                </div>
+                
+                <div class="intervention">
+                    <p class="intervention-header"><span class="tag independent">•</span> Administer analgesics around-the-clock for continuous pain (expected to be present approximately 50% of the day, such as postoperative pain) and PRN (as needed) for intermittent or breakthrough pain.</p>
+                    <p class="rationale"><span class="tag eb">CEB</span>: If pain is present most of the day, the use of PRN medications alone will lead to periods of undermedication and poor pain control and periods of excessive medication and adverse effects (Pasero, 2010).</p>
+                </div>
+                
+                <div class="intervention">
+                    <p class="intervention-header"><span class="tag independent">•</span> Support the client's use of nonpharmacological methods to supplement pharmacological analgesic approaches to help control pain, such as distraction, imagery, music therapy, simple massage, relaxation, and application of heat and cold.</p>
+                    <p class="rationale"><span class="tag ebn">EBN</span>: Although more evidence is needed to conclude effectiveness, nonpharmacological methods (which are low cost and low risk) can be used to complement pharmacological treatment of pain (Gelinas & Arbour, 2009; Ignatavicius, 2013).</p>
+                </div>
+                
+                <h3>Pediatric</h3>
+                <div class="special-section">
+                    <div class="intervention">
+                        <p class="intervention-header"><span class="tag independent">•</span> Assess for the presence of pain using a valid and reliable pain scale based on age, cognitive development, and the child's ability to provide a self-report.</p>
+                        <p class="rationale"><span class="tag ebn">EBN</span>: Scales that depict faces at various levels of pain intensity are commonly used in young children and have been shown to be reliable and valid in children as young as 3 years old (Oakes, 2011). <span class="tag eb">EB</span>: Behavioral tools such as the FLACC Scale may be used to assess pain in infants and children who cannot provide a self-report (Crellin et al, 2015).</p>
+                    </div>
+                    
+                    <div class="intervention">
+                        <p class="intervention-header"><span class="tag collaborative">!</span> Administer prescribed analgesics using a multimodal approach to treat pain in children, infants, and neonates.</p>
+                        <p class="rationale"><span class="tag eb">EB</span>: PCA may be used by children as young as 4 years of age, and intraspinal and perineural analgesic techniques may be used for major surgical procedures (Oakes, 2011).</p>
+                    </div>
+                    
+                    <div class="intervention">
+                        <p class="intervention-header"><span class="tag independent">•</span> Use a topical local anesthetic such as eutectic mixture of local anesthetics (EMLA) cream or LMX-4 before performing venipuncture in neonates, infants, and children.</p>
+                        <p class="rationale"><span class="tag ebn">EBN</span>: The use of EMLA with prolonged application time for pediatric venipuncture in the emergency department results in improved venipuncture success and reduced pain (Baxter et al, 2013).</p>
+                    </div>
+                </div>
+                
+                <h3>Geriatric</h3>
+                <div class="special-section">
+                    <p>Refer to the Nursing Interventions and Rationales in the care plan for Chronic Pain.</p>
+                </div>
+                
+                <h3>Home Care</h3>
+                <div class="special-section">
+                    <div class="intervention">
+                        <p class="intervention-header"><span class="tag collaborative">!</span> Develop the treatment plan with the client and caregivers.</p>
+                        <p class="rationale"><span class="tag eb">EB</span>: Client education and motivation play important roles in self-management of clients with pain. Self-management is influenced by client-provider communication (Dorflinger et al, 2013).</p>
+                    </div>
+                    
+                    <div class="intervention">
+                        <p class="intervention-header"><span class="tag collaborative">!</span> Assess the client's full medication profile, including medications prescribed by all health care providers and all over-the-counter medications for drug interactions, and instruct the client to refrain from mixing medications without health care provider approval.</p>
+                        <p class="rationale"><span class="tag eb">EB</span>: Pain medications may significantly affect or be affected by other medications and may cause severe side effects; in a study of diabetic pregabalin and duloxetine users, potential duloxetine drug-drug interactions and drug-condition interactions were associated with significant increases in mean health care costs (Johnston et al, 2013).</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Client/Family Teaching -->
+            <div class="section">
+                <h2>Client/Family Teaching and Discharge Planning</h2>
+                <p><strong>NOTE:</strong> To avoid the negative connotations associated with the words "drugs" and "narcotics," use the term "pain medicine" when teaching clients.</p>
+                
+                <div class="intervention">
+                    <p class="intervention-header"><span class="tag independent">•</span> Discuss the various discomforts encompassed by the word "pain" and ask the client to give examples of previously experienced pain. Explain the pain assessment process and the purpose of the pain rating scale.</p>
+                    <p class="rationale"><span class="tag eb">CEB</span>: It is often difficult for clients to understand the concept of pain and describe their pain experience. Using alternative words and providing a complete description of the assessment process, including the use of scales, ensures that an accurate treatment plan is developed (McCaffery et al, 2011).</p>
+                </div>
+                
+                <div class="intervention">
+                    <p class="intervention-header"><span class="tag independent">•</span> Teach the client to use the self-report pain tool to rate the intensity of past or current pain. Ask the client to set a comfort-function goal by selecting a pain level on the self-report tool that will allow performance of desired or necessary activities of recovery with relative ease (e.g., turn, cough, deep breathe, ambulate, participate in physical therapy).</p>
+                    <p class="rationale"><span class="tag eb">CEB</span>: The use of comfort-function goals provides the basis for the direction and modification of the treatment plan (McCaffery et al, 2011).</p>
+                </div>
+                
+                <div class="intervention">
+                    <p class="intervention-header"><span class="tag independent">•</span> Provide written educational materials on various aspects of pain control to improve client understanding of pain and pain-related interventions.</p>
+                    <p class="rationale"><span class="tag eb">EB</span>: Written materials and other educational tools assist in improving clients' knowledge related to pain management. In knee replacement clients, the use of an educational pamphlet and a compact disc was associated with decreased postoperative pain and increased participation in physical rehabilitation (Chen et al, 2014).</p>
+                </div>
+                
+                <div class="intervention">
+                    <p class="intervention-header"><span class="tag collaborative">!</span> Reinforce the importance of taking pain medications to maintain the comfort-function goal.</p>
+                    <p class="rationale"><span class="tag eb">CEB</span>: Teaching clients to stay on top of their pain and prevent it from getting out of control will improve the ability to accomplish the goals of recovery (McCaffery et al, 2011).</p>
+                </div>
+                
+                <div class="intervention">
+                    <p class="intervention-header"><span class="tag collaborative">!</span> Reinforce that taking opioids for pain relief is not addiction and that addiction is very unlikely to occur.</p>
+                    <p class="rationale"><span class="tag eb">CEB</span>: The development of addiction when opioids are taken for pain relief is rare (Pasero et al, 2011c).</p>
+                </div>
+            </div>
+            
+            <div class="footnote">
+                <p>References have been abbreviated for this template. For full references, please refer to the original source material.</p>
+                <p>Template created: March 8, 2025</p>
+            </div>
+        </main>
+    </div>
+    
+    <script>
+        // This JavaScript code provides the template functionality
+        document.querySelector('.add-button').addEventListener('click', function() {
+            // Create modal overlay
+            const modal = document.createElement('div');
+            modal.style.position = 'fixed';
+            modal.style.top = '0';
+            modal.style.left = '0';
+            modal.style.width = '100%';
+            modal.style.height = '100%';
+            modal.style.backgroundColor = 'rgba(0,0,0,0.7)';
+            modal.style.zIndex = '999';
+            modal.style.display = 'flex';
+            modal.style.justifyContent = 'center';
+            modal.style.alignItems = 'center';
+            
+            // Create modal content
+            const modalContent = document.createElement('div');
+            modalContent.style.backgroundColor = 'white';
+            modalContent.style.padding = '30px';
+            modalContent.style.borderRadius = '8px';
+            modalContent.style.maxWidth = '600px';
+            modalContent.style.width = '80%';
+            modalContent.style.maxHeight = '80vh';
+            modalContent.style.overflow = 'auto';
+            
+            // Add heading
+            const heading = document.createElement('h2');
+            heading.textContent = 'How to Add a New Nursing Diagnosis';
+            heading.style.marginBottom = '20px';
+            modalContent.appendChild(heading);
+            
+            // Add instructions
+            const instructions = document.createElement('div');
+            instructions.innerHTML = `
+                <p>This is a static HTML template. To add a new nursing diagnosis, follow these steps:</p>
+                
+                <ol style="margin-bottom: 20px;">
+                    <li>Save this HTML file to your computer</li>
+                    <li>Make a copy of the file and rename it (e.g., "anxiety-nursing-diagnosis.html")</li>
+                    <li>Open the new file in a text editor or HTML editor</li>
+                    <li>Replace the content in each section with information for your new diagnosis:
+                        <ul style="margin-top: 10px;">
+                            <li>Update the title in the &lt;title&gt; tag</li>
+                            <li>Change "Acute Pain" to your new diagnosis name in the content section</li>
+                            <li>Update the NANDA-I definition</li>
+                            <li>Update the defining characteristics or risk factors</li>
+                            <li>Update the related factors or risk factors</li>
+                            <li>Update the NOC outcomes</li>
+                            <li>Update the client outcomes</li>
+                            <li>Update the NIC interventions</li>
+                            <li>Replace the nursing interventions and rationales</li>
+                            <li>Update the client/family teaching section</li>
+                        </ul>
+                    </li>
+                    <li>In the sidebar navigation list, add your new diagnosis</li>
+                    <li>Save the file and open it in a web browser</li>
+                </ol>
+                
+                <p>To build a complete library, repeat this process for each nursing diagnosis.</p>
+                
+                <p><strong>Pro Tip:</strong> You can also modify the CSS styles in the &lt;style&gt; section to customize colors, fonts, and layout to your preference.</p>
+            `;
+            modalContent.appendChild(instructions);
+            
+            // Add close button
+            const closeButton = document.createElement('button');
+            closeButton.textContent = 'Close';
+            closeButton.style.backgroundColor = '#3498db';
+            closeButton.style.color = 'white';
+            closeButton.style.border = 'none';
+            closeButton.style.padding = '10px 20px';
+            closeButton.style.borderRadius = '4px';
+            closeButton.style.cursor = 'pointer';
+            closeButton.style.marginTop = '20px';
+            closeButton.addEventListener('click', function() {
+                document.body.removeChild(modal);
+            });
+            modalContent.appendChild(closeButton);
+            
+            // Add modal to body
+            modal.appendChild(modalContent);
+            document.body.appendChild(modal);
+            
+            // Close modal when clicking outside
+            modal.addEventListener('click', function(e) {
+                if (e.target === modal) {
+                    document.body.removeChild(modal);
+                }
+            });
+        });
+        
+        // Add click event to "Add new diagnosis..." list item
+        document.querySelectorAll('.diagnosis-nav li').forEach(item => {
+            if (item.textContent.includes('Add new diagnosis...')) {
+                item.addEventListener('click', function() {
+                    document.querySelector('.add-button').click();
+                });
+            }
+        });
+        
+        // Add click event to other diagnosis list items
+        document.querySelectorAll('.diagnosis-nav li').forEach(item => {
+            if (item.textContent === 'Risk for Infection') {
+                item.addEventListener('click', function() {
+                    window.location.href = 'Risk-for-infection.html';
+                });
+            }
+        });
+        
+        // Sample search functionality
+        document.querySelector('.search-box').addEventListener('input', function(e) {
+            let searchTerm = e.target.value.toLowerCase();
+            let diagnosisItems = document.querySelectorAll('.diagnosis-nav li');
+            
+            diagnosisItems.forEach(item => {
+                if (item.innerText.toLowerCase().includes(searchTerm) || searchTerm === '') {
+                    item.style.display = 'block';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        });
+    </script>
+</body>
+</html>

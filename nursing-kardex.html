@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>護理交班儀表板</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.js"></script>
+    <style>
+        :root {
+            --section-basic: #EBF5FF;
+            --section-neuro: #F5EBFF;
+            --section-tubes: #EBFFF0;
+            --section-io: #FFFAEB; 
+            --section-vitals: #FFEBEB;
+            --section-labs: #EBEEFF;
+            --section-diet: #FFEBF5;
+            --section-extra: #F5F5F5;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f2f5;
+            min-height: 100vh;
+        }
+        .dashboard-container {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: 8px;
+            padding: 8px;
+            max-width: 1600px;
+            margin: 0 auto;
+        }
+        .card {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            padding: 10px;
+            margin-bottom: 8px;
+            overflow: hidden;
+        }
+        .card-header {
+            font-weight: bold;
+            padding-bottom: 6px;
+            margin-bottom: 6px;
+            border-bottom: 1px solid #eaeaea;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .card-header-color-1 { color: #2563EB; }
+        .card-header-color-2 { color: #7C3AED; }
+        .card-header-color-3 { color: #10B981; }
+        .card-header-color-4 { color: #D97706; }
+        .card-header-color-5 { color: #EF4444; }
+        .card-header-color-6 { color: #6366F1; }
+        .card-header-color-7 { color: #EC4899; }
+        .card-header-color-8 { color: #6B7280; }
+        
+        label {
+            display: block;
+            font-size: 12px;
+            font-weight: 500;
+            margin-bottom: 2px;
+            color: #4B5563;
+        }
+        input, textarea, select {
+            width: 100%;
+            padding: 4px 6px;
+            border: 1px solid #D1D5DB;
+            border-radius: 4px;
+            font-size: 12px;
+            margin-bottom: 5px;
+        }
+        textarea {
+            resize: vertical;
+            min-height: 40px;
+        }
+        .grid-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+        }
+        .grid-container-3 {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 8px;
+        }
+        .btn {
+            padding: 6px 12px;
+            border-radius: 4px;
+            font-weight: 500;
+            cursor: pointer;
+            font-size: 14px;
+        }
+        .btn-primary {
+            background-color: #2563EB;
+            color: white;
+            border: none;
+        }
+        .btn-secondary {
+            background-color: white;
+            color: #374151;
+            border: 1px solid #D1D5DB;
+        }
+        .span-col-3 { grid-column: span 3; }
+        .span-col-4 { grid-column: span 4; }
+        .span-col-6 { grid-column: span 6; }
+        .span-col-8 { grid-column: span 8; }
+        .span-col-12 { grid-column: span 12; }
+        
+        /* 響應式設計 */
+        @media (max-width: 1280px) {
+            .dashboard-container {
+                grid-template-columns: repeat(8, 1fr);
+            }
+            .span-col-3, .span-col-4 { grid-column: span 4; }
+            .span-col-6, .span-col-8 { grid-column: span 8; }
+        }
+        @media (max-width: 768px) {
+            .dashboard-container {
+                grid-template-columns: repeat(4, 1fr);
+            }
+            .span-col-3, .span-col-4, .span-col-6, .span-col-8 { grid-column: span 4; }
+            .grid-container, .grid-container-3 {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="p-2">
+        <h1 class="text-xl font-bold text-center my-2">護理交班儀表板</h1>
+        
+        <form id="handoverForm">
+            <div class="dashboard-container">
+                <!-- 第一行：基本資訊、神經系統評估、生命徵象 -->
+                <div class="card span-col-3">
+                    <div class="card-header card-header-color-1">基本資訊</div>
+                    <div class="grid-container">
+                        <div>
+                            <label for="bedNumber">床號</label>
+                            <input type="text" id="bedNumber" name="bedNumber">
+                        </div>
+                        <div>
+                            <label for="patientName">姓名</label>
+                            <input type="text" id="patientName" name="patientName">
+                        </div>
+                    </div>
+                    <div>
+                        <label for="diagnosis">診斷</label>
+                        <textarea id="diagnosis" name="diagnosis" rows="2"></textarea>
+                    </div>
+                </div>
+
+                <div class="card span-col-4">
+                    <div class="card-header card-header-color-2">神經系統評估</div>
+                    <div class="grid-container">
+                        <div>
+                            <label for="gcs">GCS</label>
+                            <input type="text" id="gcs" name="gcs" placeholder="E_ V_ M_">
+                        </div>
+                        <div class="grid-container">
+                            <div>
+                                <label for="pupilSizeLeft">瞳孔(左)</label>
+                                <input type="text" id="pupilSizeLeft" name="pupilSizeLeft" placeholder="mm">
+                            </div>
+                            <div>
+                                <label for="pupilSizeRight">瞳孔(右)</label>
+                                <input type="text" id="pupilSizeRight" name="pupilSizeRight" placeholder="mm">
+                            </div>
+                        </div>
+                        <div>
+                            <label for="musclePowerUL">肌力(上肢)</label>
+                            <input type="text" id="musclePowerUL" name="musclePowerUL" placeholder="左/右">
+                        </div>
+                        <div>
+                            <label for="musclePowerLL">肌力(下肢)</label>
+                            <input type="text" id="musclePowerLL" name="musclePowerLL" placeholder="左/右">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card span-col-5">
+                    <div class="card-header card-header-color-5">生命徵象</div>
+                    <div class="grid-container-3">
+                        <div>
+                            <label for="temperature">體溫</label>
+                            <input type="text" id="temperature" name="temperature" placeholder="°C">
+                        </div>
+                        <div>
+                            <label for="pulse">脈搏</label>
+                            <input type="text" id="pulse" name="pulse" placeholder="次/分">
+                        </div>
+                        <div>
+                            <label for="respiration">呼吸</label>
+                            <input type="text" id="respiration" name="respiration" placeholder="次/分">
+                        </div>
+                        <div>
+                            <label for="bloodPressure">血壓</label>
+                            <input type="text" id="bloodPressure" name="bloodPressure" placeholder="mmHg">
+                        </div>
+                        <div>
+                            <label for="spo2">血氧飽和度</label>
+                            <input type="text" id="spo2" name="spo2" placeholder="%">
+                        </div>
+                        <div>
+                            <label for="bloodGlucose">血糖值</label>
+                            <input type="text" id="bloodGlucose" name="bloodGlucose" placeholder="mg/dL">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 第二行：管路與傷口、進出量 -->
+                <div class="card span-col-6">
+                    <div class="card-header card-header-color-3">管路與傷口</div>
+                    <div class="grid-container">
+                        <div>
+                            <label for="tubes">管路</label>
+                            <textarea id="tubes" name="tubes" rows="2" placeholder="IV, NG, Foley, 中心導管等"></textarea>
+                        </div>
+                        <div>
+                            <label for="wounds">傷口</label>
+                            <textarea id="wounds" name="wounds" rows="2" placeholder="位置, 大小, 狀態等"></textarea>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card span-col-6">
+                    <div class="card-header card-header-color-4">進出量 (I/O)</div>
+                    <div class="grid-container">
+                        <div>
+                            <h3 class="text-xs font-medium mb-1">攝入量(Input)</h3>
+                            <div class="grid-container">
+                                <div>
+                                    <label for="intakeOral">口服</label>
+                                    <input type="text" id="intakeOral" name="intakeOral" placeholder="ml">
+                                </div>
+                                <div>
+                                    <label for="intakeIV">靜脈</label>
+                                    <input type="text" id="intakeIV" name="intakeIV" placeholder="ml">
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <h3 class="text-xs font-medium mb-1">排出量(Output)</h3>
+                            <div class="grid-container">
+                                <div>
+                                    <label for="outputUrine">尿量</label>
+                                    <input type="text" id="outputUrine" name="outputUrine" placeholder="ml">
+                                </div>
+                                <div>
+                                    <label for="outputOther">其他</label>
+                                    <input type="text" id="outputOther" name="outputOther" placeholder="ml">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 第三行：實驗室結果與計劃, 飲食與用藥 -->
+                <div class="card span-col-6">
+                    <div class="card-header card-header-color-6">實驗室結果與計劃</div>
+                    <div class="grid-container">
+                        <div>
+                            <label for="abnormalLabResults">異常抽血數據記錄</label>
+                            <textarea id="abnormalLabResults" name="abnormalLabResults" rows="2"></textarea>
+                        </div>
+                        <div>
+                            <label for="scheduledProcedures">今天要做的檢查與手術</label>
+                            <textarea id="scheduledProcedures" name="scheduledProcedures" rows="2"></textarea>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card span-col-6">
+                    <div class="card-header card-header-color-7">飲食與用藥</div>
+                    <div class="grid-container">
+                        <div>
+                            <label for="diet">飲食狀態</label>
+                            <select id="diet" name="diet">
+                                <option value="">選擇飲食狀態</option>
+                                <option value="NPO">NPO (禁食)</option>
+                                <option value="半流質">半流質</option>
+                                <option value="流質">流質</option>
+                                <option value="軟質">軟質</option>
+                                <option value="普通飲食">普通飲食</option>
+                                <option value="特殊飲食">特殊飲食</option>
+                            </select>
+                            <div id="specialDietContainer" style="display: none;">
+                                <input type="text" id="specialDiet" placeholder="請說明特殊飲食">
+                            </div>
+                        </div>
+                        <div>
+                            <label for="medications">藥物</label>
+                            <textarea id="medications" name="medications" rows="2" placeholder="定時用藥, PRN用藥等"></textarea>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 第四行：額外資訊 -->
+                <div class="card span-col-12">
+                    <div class="card-header card-header-color-8">額外資訊</div>
+                    <div class="grid-container-3">
+                        <div>
+                            <label for="allergies">過敏史</label>
+                            <textarea id="allergies" name="allergies" rows="1"></textarea>
+                        </div>
+                        <div>
+                            <label for="isolationPrecautions">隔離防護</label>
+                            <select id="isolationPrecautions" name="isolationPrecautions">
+                                <option value="">選擇隔離類型</option>
+                                <option value="無">無</option>
+                                <option value="接觸隔離">接觸隔離</option>
+                                <option value="飛沫隔離">飛沫隔離</option>
+                                <option value="空氣隔離">空氣隔離</option>
+                                <option value="保護性隔離">保護性隔離</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label for="painScore">疼痛評分</label>
+                            <input type="text" id="painScore" name="painScore" placeholder="0-10">
+                        </div>
+                        <div>
+                            <label for="fallRisk">跌倒風險評估</label>
+                            <select id="fallRisk" name="fallRisk">
+                                <option value="">選擇風險等級</option>
+                                <option value="低風險">低風險</option>
+                                <option value="中等風險">中等風險</option>
+                                <option value="高風險">高風險</option>
+                            </select>
+                        </div>
+                        <div class="grid-column-span-3">
+                            <label for="specialNotes">特別注意事項</label>
+                            <textarea id="specialNotes" name="specialNotes" rows="1"></textarea>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 提交按鈕 -->
+                <div class="span-col-12 flex justify-end space-x-2 mt-2">
+                    <button type="button" id="clearFormBtn" class="btn btn-secondary">清空</button>
+                    <button type="submit" class="btn btn-primary">提交交班單</button>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // 特殊飲食選項顯示/隱藏邏輯
+            const dietSelect = document.getElementById('diet');
+            const specialDietContainer = document.getElementById('specialDietContainer');
+            
+            dietSelect.addEventListener('change', function() {
+                if (this.value === '特殊飲食') {
+                    specialDietContainer.style.display = 'block';
+                } else {
+                    specialDietContainer.style.display = 'none';
+                }
+            });
+
+            // 清空表單按鈕
+            document.getElementById('clearFormBtn').addEventListener('click', function() {
+                document.getElementById('handoverForm').reset();
+                specialDietContainer.style.display = 'none';
+            });
+
+            // 表單提交處理
+            document.getElementById('handoverForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                // 收集表單數據
+                const formData = new FormData(this);
+                const formDataObj = {};
+                
+                formData.forEach((value, key) => {
+                    formDataObj[key] = value;
+                });
+                
+                // 特殊飲食的處理
+                if (dietSelect.value === '特殊飲食') {
+                    formDataObj.specialDietDetails = document.getElementById('specialDiet').value;
+                }
+                
+                // 在這裡可以添加發送數據到服務器的代碼
+                console.log('表單提交數據:', formDataObj);
+                
+                // 顯示提交成功訊息
+                alert('交班單已成功提交！');
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>護理工作檢查清單</title>
+    <link rel="stylesheet" href="css/nursing-checklist.css">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>護理工作檢查清單</h1>
+            <div>
+                <div class="shift-selector">
+                    <button class="shift-btn active" data-shift="D">白班</button>
+                    <button class="shift-btn" data-shift="N">小夜</button>
+                    <button class="shift-btn" data-shift="E">大夜</button>
+                </div>
+            </div>
+        </div>
+        
+        <div class="add-patient-form" id="add-patient-form">
+            <h2>新增病患</h2>
+            <div class="form-group">
+                <label for="patient-id">病床號</label>
+                <input type="text" id="patient-id" placeholder="請輸入病床號" required autofocus>
+            </div>
+            <div class="form-group">
+                <label for="patient-name">病患姓名</label>
+                <input type="text" id="patient-name" placeholder="請輸入病患姓名(可空白)">
+            </div>
+            <div class="form-group">
+                <label for="patient-diagnosis">診斷</label>
+                <input type="text" id="patient-diagnosis" placeholder="請輸入診斷(可空白)">
+            </div>
+            <button id="add-patient-btn">新增病患</button>
+        </div>
+        
+        <div class="patients-container" id="patients-container"></div>
+    </div>
+    
+    <script>
+        // 初始化應用程式
+        document.addEventListener('DOMContentLoaded', function() {
+            // 從本地存儲加載數據
+            loadPatientsFromStorage();
+            
+            // 新增病患按鈕事件
+            document.getElementById('add-patient-btn').addEventListener('click', addNewPatient);
+            
+            // 為表單新增Enter鍵提交事件
+            /*
+            const form = document.getElementById('add-patient-form');
+            form.addEventListener('keydown', function(event) {
+                if (event.key === 'Enter') {
+                    event.preventDefault(); // 防止表單默認提交
+                    addNewPatient();
+                }
+            });
+            */
+            
+            // 班別切換事件
+            document.querySelectorAll('.shift-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    document.querySelectorAll('.shift-btn').forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+                    updateAllChecklistsForShift(this.dataset.shift);
+                });
+            });
+        });
+        
+        // 定義護理檢查項目
+        const nursingTasks = [
+            { category: '每日必填', items: [
+                '早上Vital Sign',
+                '下午Vital Sign',
+                '每日評估',
+                '跌倒評估',
+                '護理計劃'
+            ]},
+            { category: '需檢查', items: [
+                '疼痛評估',
+                '傷口紀錄',
+                '壓傷評估(每週五)',
+                '出院準備評估(每週五)',
+                '管路管理與評估',
+                '輸入輸出 I/O',
+                '血糖值'
+            ]},
+            { category: 'Care與換藥', items: [
+                'NG Care',
+                'Foley Care',
+                '傷口換藥'
+            ]},
+            { category: '護理紀錄', items: [
+                '護理計劃',
+                '護理評值',
+                '高風險用藥紀錄',
+                '檢查紀錄',
+                '病解紀錄'
+            ]},
+            { category: '檢查與手術', items: [
+                'X-ray',
+                '心超'
+            ]},
+            { category: '藥物提醒', items: [
+                'S-pump',
+                '抗生素1',
+                '胃藥',
+                '9點口服藥',
+                '11點口服藥'
+            ]},
+            { category: '其他', items: [
+            '交班單',
+            '計價',
+        ]}
+
+        ];
+        
+        // 新增病患
+        function addNewPatient() {
+            const nameInput = document.getElementById('patient-name');
+            const idInput = document.getElementById('patient-id');
+            const diagnosisInput = document.getElementById('patient-diagnosis');
+            
+            const name = nameInput.value.trim();
+            const id = idInput.value.trim();
+            const diagnosis = diagnosisInput.value.trim();
+            
+            if (!id) {
+                alert('請輸入病床號');
+                return;
+            }
+            
+            const patient = {
+                id: Date.now().toString(),
+                name: name,
+                bedId: id,
+                diagnosis: diagnosis,
+                checklists: {
+                    'D': createNewChecklist(),
+                    'N': createNewChecklist(),
+                    'E': createNewChecklist()
+                }
+            };
+            
+            // 添加到本地存儲
+            const patients = JSON.parse(localStorage.getItem('patients') || '[]');
+            patients.push(patient);
+            localStorage.setItem('patients', JSON.stringify(patients));
+            
+            // 重新加載病患列表
+            loadPatientsFromStorage();
+            
+            // 清空輸入欄位
+            nameInput.value = '';
+            idInput.value = '';
+            diagnosisInput.value = '';
+            
+            // 聚焦回病患姓名輸入框，方便繼續輸入
+            nameInput.focus();
+        }
+        
+        // 創建新的檢查清單
+        function createNewChecklist() {
+            const checklist = [];
+            
+            nursingTasks.forEach(category => {
+                category.items.forEach(task => {
+                    checklist.push({
+                        task: task,
+                        category: category.category,
+                        completed: false,
+                        time: null,
+                        isCustom: false
+                    });
+                });
+            });
+            
+            return checklist;
+        }
+        
+        // 從本地存儲加載病患
+        function loadPatientsFromStorage() {
+            const patients = JSON.parse(localStorage.getItem('patients') || '[]');
+            const container = document.getElementById('patients-container');
+            const currentShift = document.querySelector('.shift-btn.active').dataset.shift;
+            
+            container.innerHTML = '';
+            
+            if (patients.length === 0) {
+                container.innerHTML = '<p>尚未新增病患</p>';
+                return;
+            }
+            
+            patients.forEach(patient => {
+                // 確保病患有所有班別的清單
+                if (!patient.checklists) {
+                    patient.checklists = {
+                        'D': createNewChecklist(),
+                        'N': createNewChecklist(),
+                        'E': createNewChecklist()
+                    };
+                }
+                
+                // 確保每個任務項目有isCustom屬性
+                Object.keys(patient.checklists).forEach(shift => {
+                    patient.checklists[shift].forEach(item => {
+                        if (item.isCustom === undefined) {
+                            item.isCustom = false;
+                        }
+                    });
+                });
+                
+                const patientCard = createPatientCard(patient, currentShift);
+                container.appendChild(patientCard);
+            });
+            
+            // 更新本地存儲
+            localStorage.setItem('patients', JSON.stringify(patients));
+        }
+        
+        // 創建病患卡片
+        function createPatientCard(patient, shift) {
+            const card = document.createElement('div');
+            card.className = 'patient-card';
+            card.dataset.patientId = patient.id;
+            
+            const checklist = patient.checklists[shift] || createNewChecklist();
+            const completedCount = checklist.filter(item => item.completed).length;
+            const totalCount = checklist.length;
+            const progressPercentage = Math.round((completedCount / totalCount) * 100);
+            
+            card.innerHTML = `
+                <button class="delete-btn" onclick="deletePatient('${patient.id}')">✕</button>
+                <div class="patient-info">
+                    <h3>${patient.bedId}  ${patient.name ? maskMiddleChar(patient.name) : ' '}</h3>
+                    <div>診斷：${patient.diagnosis || '無'}</div>
+                </div>
+                <div class="checklist-container">
+                    <ul class="checklist" id="checklist-${patient.id}"></ul>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress" style="width: ${progressPercentage}%"></div>
+                </div>
+                <div class="statistics">
+                    <span>完成: ${completedCount}/${totalCount}</span>
+                    <span>${progressPercentage}%</span>
+                </div>
+            `;
+            
+            setTimeout(() => {
+                const checklistEl = document.getElementById(`checklist-${patient.id}`);
+                renderChecklist(checklistEl, checklist, patient.id, shift);
+            }, 0);
+            
+            return card;
+        }
+        
+        // 渲染檢查清單
+        function renderChecklist(container, checklist, patientId, shift) {
+            // 按類別分組
+            const categories = {};
+            checklist.forEach(item => {
+                if (!categories[item.category]) {
+                    categories[item.category] = [];
+                }
+                categories[item.category].push(item);
+            });
+            
+            // 清空容器
+            container.innerHTML = '';
+            
+            // 為每個類別渲染項目
+            Object.keys(categories).forEach(category => {
+                const categoryHeader = document.createElement('div');
+                categoryHeader.className = 'checklist-category';
+                categoryHeader.innerHTML = `
+                    ${category}
+                    <button class="add-task-btn" onclick="showAddTaskInput('${patientId}', '${shift}', '${category}')">+</button>
+                `;
+                container.appendChild(categoryHeader);
+                
+                // 添加任務輸入欄位（初始為隱藏）
+                const taskInputContainer = document.createElement('div');
+                taskInputContainer.className = 'task-input-container hidden';
+                taskInputContainer.id = `task-input-${patientId}-${category.replace(/\s+/g, '-')}`;
+                taskInputContainer.innerHTML = `
+                    <input type="text" class="task-input" placeholder="輸入新任務">
+                    <button class="add-task-confirm" onclick="addCustomTask('${patientId}', '${shift}', '${category}')">新增</button>
+                `;
+                
+                // 為新任務輸入框添加Enter鍵事件
+                taskInputContainer.addEventListener('keydown', function(event) {
+                    if (event.key === 'Enter') {
+                        event.preventDefault();
+                        addCustomTask(patientId, shift, category);
+                    }
+                });
+                
+                container.appendChild(taskInputContainer);
+                
+                categories[category].forEach((item, index) => {
+                    const itemElement = document.createElement('li');
+                    itemElement.className = 'checklist-item' + (item.completed ? ' completed' : '');
+                    
+                    // 添加點擊事件到整個項目
+                    itemElement.addEventListener('click', function(e) {
+                        // 確保不是點擊刪除按鈕
+                        if (e.target.className !== 'delete-task-btn') {
+                            const checkbox = this.querySelector('input[type="checkbox"]');
+                            checkbox.checked = !checkbox.checked;
+                            toggleTaskCompletion(patientId, shift, item.task, checkbox.checked);
+                        }
+                    });
+                    
+                    const checkbox = document.createElement('input');
+                    checkbox.type = 'checkbox';
+                    checkbox.checked = item.completed;
+                    checkbox.onclick = function(e) {
+                        // 阻止事件傳播，避免觸發項目的點擊事件
+                        e.stopPropagation();
+                        toggleTaskCompletion(patientId, shift, item.task, this.checked);
+                    };
+                    
+                    const label = document.createElement('label');
+                    label.textContent = item.task;
+                    
+                    const time = document.createElement('span');
+                    time.className = 'time';
+                    time.textContent = item.time || '';
+                    
+                    // 項目刪除按鈕
+                    if (item.isCustom, item.task) {
+                        const deleteTaskBtn = document.createElement('button');
+                        deleteTaskBtn.textContent = '✕';
+                        deleteTaskBtn.className = 'delete-task-btn';
+                        deleteTaskBtn.style.fontSize = '12px';
+                        deleteTaskBtn.style.padding = '3px 6px';
+                        deleteTaskBtn.style.marginLeft = '5px';
+                        deleteTaskBtn.style.backgroundColor = '#D3D3D3';
+                        deleteTaskBtn.onclick = function(e) {
+                            e.stopPropagation();
+                            deleteCustomTask(patientId, shift, item.task);
+                        };
+                        time.appendChild(deleteTaskBtn);
+                    }
+                    
+                    itemElement.appendChild(checkbox);
+                    itemElement.appendChild(label);
+                    itemElement.appendChild(time);
+                    container.appendChild(itemElement);
+                });
+            });
+        }
+        
+        // 顯示添加任務輸入框
+        function showAddTaskInput(patientId, shift, category) {
+            const inputContainerId = `task-input-${patientId}-${category.replace(/\s+/g, '-')}`;
+            const inputContainer = document.getElementById(inputContainerId);
+            
+            if (inputContainer) {
+                inputContainer.classList.toggle('hidden');
+                if (!inputContainer.classList.contains('hidden')) {
+                    inputContainer.querySelector('input').focus();
+                }
+            }
+        }
+        
+        // 新增自訂任務
+        function addCustomTask(patientId, shift, category) {
+            const inputContainerId = `task-input-${patientId}-${category.replace(/\s+/g, '-')}`;
+            const inputContainer = document.getElementById(inputContainerId);
+            const taskInput = inputContainer.querySelector('input');
+            const taskName = taskInput.value.trim();
+            
+            if (!taskName) {
+                return;
+            }
+            
+            const patients = JSON.parse(localStorage.getItem('patients') || '[]');
+            const patientIndex = patients.findIndex(p => p.id === patientId);
+            
+            if (patientIndex !== -1) {
+                const patient = patients[patientIndex];
+                const checklist = patient.checklists[shift];
+                
+                // 檢查是否重複
+                const isDuplicate = checklist.some(item => item.task === taskName);
+                if (isDuplicate) {
+                    alert('此任務已存在！');
+                    return;
+                }
+                
+                // 新增任務
+                checklist.push({
+                    task: taskName,
+                    category: category,
+                    completed: false,
+                    time: null,
+                    isCustom: true
+                });
+                
+                // 更新本地存儲
+                localStorage.setItem('patients', JSON.stringify(patients));
+                
+                // 更新UI
+                taskInput.value = '';
+                inputContainer.classList.add('hidden');
+                updatePatientCard(patient, shift);
+            }
+        }
+        
+        // 刪除自訂任務
+        function deleteCustomTask(patientId, shift, taskName) {
+            if (confirm('確定要刪除此任務嗎？')) {
+                const patients = JSON.parse(localStorage.getItem('patients') || '[]');
+                const patientIndex = patients.findIndex(p => p.id === patientId);
+                
+                if (patientIndex !== -1) {
+                    const patient = patients[patientIndex];
+                    patient.checklists[shift] = patient.checklists[shift].filter(item => item.task !== taskName);
+                    
+                    // 更新本地存儲
+                    localStorage.setItem('patients', JSON.stringify(patients));
+                    
+                    // 更新UI
+                    updatePatientCard(patient, shift);
+                }
+            }
+        }
+        
+        // 切換任務完成狀態
+        function toggleTaskCompletion(patientId, shift, taskName, isCompleted) {
+            const patients = JSON.parse(localStorage.getItem('patients') || '[]');
+            const patientIndex = patients.findIndex(p => p.id === patientId);
+            
+            if (patientIndex !== -1) {
+                const patient = patients[patientIndex];
+                const checklist = patient.checklists[shift];
+                
+                const taskIndex = checklist.findIndex(item => item.task === taskName);
+                if (taskIndex !== -1) {
+                    checklist[taskIndex].completed = isCompleted;
+                    checklist[taskIndex].time = isCompleted ? getCurrentTime() : null;
+                    
+                    // 更新本地存儲
+                    localStorage.setItem('patients', JSON.stringify(patients));
+                    
+                    // 更新 UI
+                    updatePatientCard(patient, shift);
+                }
+            }
+        }
+        
+        // 更新病患卡片
+        function updatePatientCard(patient, shift) {
+            const card = document.querySelector(`.patient-card[data-patient-id="${patient.id}"]`);
+            if (card) {
+                const checklist = patient.checklists[shift];
+                const checklistEl = document.getElementById(`checklist-${patient.id}`);
+                
+                renderChecklist(checklistEl, checklist, patient.id, shift);
+                
+                // 更新進度條
+                const completedCount = checklist.filter(item => item.completed).length;
+                const totalCount = checklist.length;
+                const progressPercentage = Math.round((completedCount / totalCount) * 100);
+                
+                card.querySelector('.progress').style.width = `${progressPercentage}%`;
+                card.querySelector('.statistics').innerHTML = `
+                    <span>完成: ${completedCount}/${totalCount}</span>
+                    <span>${progressPercentage}%</span>
+                `;
+            }
+        }
+        
+        // 獲取當前時間
+        function getCurrentTime() {
+            const now = new Date();
+            const hours = now.getHours().toString().padStart(2, '0');
+            const minutes = now.getMinutes().toString().padStart(2, '0');
+            return `${hours}:${minutes}`;
+        }
+        
+        // 刪除病患
+        function deletePatient(patientId) {
+            if (confirm('確定要刪除此病患嗎？此操作無法復原。')) {
+                const patients = JSON.parse(localStorage.getItem('patients') || '[]');
+                const updatedPatients = patients.filter(p => p.id !== patientId);
+                
+                localStorage.setItem('patients', JSON.stringify(updatedPatients));
+                
+                // 重新加載病患列表
+                loadPatientsFromStorage();
+            }
+        }
+        
+        // 更新所有清單的班別
+        function updateAllChecklistsForShift(shift) {
+            const patients = JSON.parse(localStorage.getItem('patients') || '[]');
+            loadPatientsFromStorage();
+        }
+
+        // 處理姓名中間字元遮蔽
+        function maskMiddleChar(name) {
+            if (!name || name.length <= 1) return name;
+            
+            if (name.length === 2) {
+                // 對於2個字的姓名，遮蔽第二個字
+                return name.charAt(0) + "Ｏ";
+            } else {
+                // 對於3個字或更多的姓名，遮蔽中間字元
+                const middleIndex = Math.floor(name.length / 2);
+                return name.substring(0, middleIndex) + "Ｏ" + name.substring(middleIndex + 1);
+            }
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,291 @@
+body {
+    font-family: Arial, 'Microsoft JhengHei', sans-serif;
+    padding: 20px;
+    max-width: 1400px;
+    margin: 0 auto;
+    background-color: #f9f9f9;
+}
+h1 {
+    color: #2c3e50;
+    text-align: center;
+    margin-bottom: 20px;
+}
+.controls {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    margin-bottom: 20px;
+    align-items: center;
+}
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    margin-right: 10px;
+}
+label {
+    font-weight: 600;
+    color: #34495e;
+}
+input, select {
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 14px;
+    width: 180px;
+}
+button {
+    background-color: #2980b9;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 8px 15px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.2s;
+}
+button:hover {
+    background-color: #3498db;
+}
+.timeline-container {
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 1px 6px rgba(0, 0, 0, 0.1);
+    padding: 15px;
+    overflow-x: auto;
+}
+
+/* 班別選擇器 */
+.shift-selector {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+.shift-btn {
+    background-color: #95a5a6;
+    border-radius: 4px;
+    padding: 8px 15px;
+    font-weight: bold;
+}
+.shift-btn:hover {
+    background-color: #3498db;
+}
+.shift-btn.active {
+    background-color: #3498db;
+}
+
+/* 時間表格 */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    border: 1px solid #e0e0e0;
+}
+th, td {
+    border: 1px solid #e0e0e0;
+    padding: 8px;
+    text-align: center;
+    height: 40px;
+}
+th {
+    background-color: #f5f5f5;
+    font-weight: bold;
+    text-align: left;
+}
+td.bed-number {
+    background-color: #f1f8ff;
+    font-weight: bold;
+    width: 80px;
+}
+
+
+/* 任務樣式 - 更新，使任務可以堆疊顯示，半小時垂直虛線樣式 */
+.time-cell {
+    position: relative;
+    height: 80px; /* 增加高度，容納多個任務 */
+    vertical-align: top;
+    padding: 0 !important; /* 移除內部間距 */
+}
+
+/* 為每個時間單元格添加半小時標記 */
+.time-cell::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 50%;
+    height: 100%;
+    border-left: 1px dashed #ccc;
+    pointer-events: none;
+}
+
+/* 確保不會和其他元素衝突 */
+.task {
+    z-index: 2;
+}
+
+
+.task {
+    position: absolute;
+    left: 0;
+    padding: 5px;
+    color: white;
+    border-radius: 8px;
+    margin: 2px;
+    cursor: pointer;
+    font-size: 13px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+    z-index: 10;
+    height: 20px; /* 固定高度 */
+    box-sizing: border-box;
+    text-align: center;
+    line-height: 12px;
+}
+.task.exam {
+    background-color: #9b59b6;
+}
+.task.medication {
+    background-color: #27ae60;
+}
+.task.surgery {
+    background-color: #2980b9;
+}
+.task.treatment {
+    background-color: #FA8072;
+}
+.task.other {
+    background-color: #f39c12;
+}
+
+/* 過濾器 */
+.filters {
+    display: flex;
+    gap: 10px;
+    margin: 15px 0;
+    flex-wrap: wrap;
+}
+.filter-item {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+.filter-label {
+    padding: 5px 10px;
+    border-radius: 4px;
+    color: white;
+    font-size: 13px;
+}
+
+/* 彈出詳情窗 */
+.task-details {
+    position: absolute;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+    padding: 15px;
+    z-index: 1000;
+    min-width: 250px;
+    display: none;
+}
+.task-details h3 {
+    margin-top: 0;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 10px;
+}
+.detail-row {
+    margin: 10px 0;
+}
+.detail-label {
+    font-weight: 600;
+    margin-right: 10px;
+    color: #34495e;
+}
+.task-actions {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 15px;
+}
+.delete-btn {
+    background-color: #e74c3c;
+}
+.delete-btn:hover {
+    background-color: #c0392b;
+}
+
+/* hover on task to show time */
+.task-time-tooltip {
+    position: absolute;
+    background-color: rgba(52,73,94);
+    color: white;
+    padding: 10px 15px;
+    border-radius: 8px;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+    z-index: 200;
+    pointer-events: none;
+    width: 90%;
+    text-align: center;
+    font-weight: bold;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 80%;
+}
+
+
+/* Fit different device */
+@media (max-width: 768px) {
+    .controls {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    input, select {
+        width: 100%;
+    }
+    .shift-selector {
+        flex-direction: column;
+    }
+}
+
+/* Current time indicator */
+#current-time-indicator {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    z-index: 100;
+    pointer-events: none; /* Allow clicking through the indicator */
+}
+#current-time-indicator .time-label {
+    position: absolute;
+    top: 0;
+    right: 0;
+    transform: translateX(50%);
+    background-color: #e74c3c;
+    color: white;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: bold;
+    white-space: nowrap;
+}
+#current-time-indicator .time-line {
+    position: absolute;
+    top: 20px; /* Start below the time label */
+    bottom: 0;
+    width: 2px;
+    background-color: #e74c3c;
+    left: 0;
+}
+/* Make sure the timeline container has position relative */
+.timeline-container {
+    position: relative;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 1px 6px rgba(0, 0, 0, 0.1);
+    padding: 15px;
+    overflow-x: auto;
+}
