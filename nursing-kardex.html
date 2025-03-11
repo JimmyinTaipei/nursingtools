@@ -18,7 +18,7 @@
         }
         body {
             font-family: Arial, sans-serif;
-            background-color: #f0f2f5;
+            background-color: #f9f9f9;
             min-height: 100vh;
         }
         .dashboard-container {
@@ -103,9 +103,29 @@
         }
         .span-col-3 { grid-column: span 3; }
         .span-col-4 { grid-column: span 4; }
+        .span-col-5{ grid-column: span 5;}
         .span-col-6 { grid-column: span 6; }
         .span-col-8 { grid-column: span 8; }
         .span-col-12 { grid-column: span 12; }
+
+        /* 布局組件 */
+        .navigation {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 10px;
+            background-color: #3498db;
+            padding: 20px;
+        }
+
+        .navigation a {
+            color: white;
+            text-decoration: none;
+        }
+
+        .navigation a:hover {
+            text-decoration: underline;
+        }
         
         /* 響應式設計 */
         @media (max-width: 1280px) {
@@ -128,6 +148,16 @@
 </head>
 <body>
     <div class="p-2">
+        <div class="navigation">
+            <a href="user-guide.html">使用說明</a>
+            <a href="index.html">護理工作時間表</a>
+            <a href="nursing-checklist.html">護理工作Checklist</a>
+            <a href="nursing-clinical-tools.html">護理臨床小工具</a>
+            <a href="surgery-and-exam-checklist.html">手術與檢查Checklist</a>
+            <a href="clinical-cheatsheet.html">臨床懶人包</a>
+            <a href="nursing-diagnosis-search-tool.html">護理診斷查詢工具</a>
+            <a href="nursing-kardex.html">交班單（prototype）</a>
+        </div>
         <h1 class="text-xl font-bold text-center my-2">護理交班儀表板</h1>
         
         <form id="handoverForm">

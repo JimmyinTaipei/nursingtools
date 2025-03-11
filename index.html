@@ -3,18 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>工作時間表</title>
+    <title>護理工作時間表</title>
     <link rel="stylesheet" href="css/nursing-timetable.css">
 </head>
 <body>
-    <h1>工作時間表</h1>
-            <div class="navigation">
-            <a href="nursing-clinical-tools.html">護理臨床小工具</a>
-            <a href="nursing-checklist.html">護理工作Checklist</a>
-            <a href="clinical-cheatsheet.html">臨床懶人包</a>
-            <a href="surgery-and-exam-checklist.html">手術與檢查Checklist</a>
-            <a href="nursing-diagnosis/nursing-diagnosis-search-tool.html">護理診斷查詢工具</a>
-        </div>
+    <div class="navigation">
+        <a href="user-guide.html">使用說明</a>
+        <a href="index.html">護理工作時間表</a>
+        <a href="nursing-checklist.html">護理工作Checklist</a>
+        <a href="nursing-clinical-tools.html">護理臨床小工具</a>
+        <a href="surgery-and-exam-checklist.html">手術與檢查Checklist</a>
+        <a href="clinical-cheatsheet.html">臨床懶人包</a>
+        <a href="nursing-diagnosis-search-tool.html">護理診斷查詢工具</a>
+        <a href="nursing-kardex.html">交班單（prototype）</a>
+    </div>
+    <h1>護理工作時間表</h1>
     
     <!-- 班別選擇器 - 調整順序為大夜、白班、小夜 -->
     <div class="shift-selector">
@@ -62,30 +65,48 @@
         </div>
     </div>
 
+    <!--各種模板-->
+    <div class="templates-container">
+        <h3>常用模板</h3>
+        <div class="templates-grid">
+            <button class="template-btn" data-template="vital-tid">
+                <span class="template-name">Vital Sign (TID)</span>
+                <span class="template-desc">每日三次生命徵象</span>
+            </button>
+            <button class="template-btn" data-template="glucose-qidac">
+                <span class="template-name">Blood Glucose (QIDAC)</span>
+                <span class="template-desc">飯前血糖檢測</span>
+            </button>
+            <button class="template-btn" data-template="iv-drip">
+                <span class="template-name">IV Drip (Q8H)</span>
+                <span class="template-desc">每8小時靜脈注射</span>
+            </button>
+            <button class="template-btn" data-template="medication-qid">
+                <span class="template-name">Medication (QID)</span>
+                <span class="template-desc">一日四次給藥</span>
+            </button>
+        </div>
+    </div>
+
     <!-- 過濾器 -->
     <div class="filters">
         <div class="filter-item">
-            <input type="checkbox" id="exam-filter" style="width:10px" checked>
-            <label for="exam-filter" class="filter-label" style="background-color:#9b59b6;">檢查</label>
+            <button id="exam-filter" class="toggle-btn active" data-type="exam">檢查</button>
         </div>
         <div class="filter-item">
-            <input type="checkbox" id="medication-filter" style="width:10px" checked>
-            <label for="medication-filter" class="filter-label" style="background-color:#27ae60;">給藥</label>
+            <button id="medication-filter" class="toggle-btn active" data-type="medication">給藥</button>
         </div>
         <div class="filter-item">
-            <input type="checkbox" id="surgery-filter" style="width:10px" checked>
-            <label for="surgery-filter" class="filter-label" style="background-color:#2980b9;">手術</label>
+            <button id="surgery-filter" class="toggle-btn active" data-type="surgery">手術</button>
         </div>
         <div class="filter-item">
-            <input type="checkbox" id="treatment-filter" style="width:10px" checked>
-            <label for="treatment-filter" class="filter-label" style="background-color:#FA8072;">治療</label>
+            <button id="treatment-filter" class="toggle-btn active" data-type="treatment">治療</button>
         </div>
         <div class="filter-item">
-            <input type="checkbox" id="other-filter" style="width:10px" checked>
-            <label for="other-filter" class="filter-label" style="background-color:#f39c12;">其他</label>
+            <button id="other-filter" class="toggle-btn active" data-type="other">其他</button>
         </div>
-
-        <div style="margin-left:52%">
+    
+        <div style="margin-left:auto">
             <button id="add-task">添加工作</button>
             <button id="save-data">儲存資料</button>
             <button id="clear-data" style="background-color: #e74c3c;">清除所有資料</button>
@@ -152,6 +173,57 @@
                 evening: {
                     name: '小夜',
                     hours: generateHourLabels(15, 1) // 15:00 到 01:00
+                }
+            };
+
+            //常規模板
+            const nursingTemplates = {
+                // TID 生命徵象模板
+                'vital-tid': {
+                    name: 'Vital Sign (TID)',
+                    type: 'exam',
+                    description: '測量生命徵象',
+                    timings: {
+                        day: ['09:00-09:30', '13:00-13:30'], // 白班 9點和13點
+                        evening: ['17:00-17:30', '21:00-21:30'], // 小夜 17點和21點
+                        night: ['05:00-05:30'] // 大夜 5點
+                    }
+                },
+                
+                // QIDAC 飯前血糖檢測
+                'glucose-qidac': {
+                    name: 'Blood Glucose (QIDAC)',
+                    type: 'exam', 
+                    description: '飯前血糖檢測',
+                    timings: {
+                        day: ['07:30-07:45', '11:30-11:45'], // 早餐前、午餐前
+                        evening: ['17:30-17:45'], // 晚餐前
+                        night: ['21:30-21:45'] // 睡前點心前
+                    }
+                },
+                
+                // Q8H 靜脈注射
+                'iv-drip': {
+                    name: 'IV Drip (Q8H)',
+                    type: 'medication',
+                    description: '靜脈注射藥物',
+                    timings: {
+                        day: ['08:00-08:30', '16:00-16:30'],
+                        evening: ['16:00-16:30', '00:00-00:30'],
+                        night: ['00:00-00:30', '08:00-08:30']
+                    }
+                },
+                
+                // QID 一日四次給藥
+                'medication-qid': {
+                    name: 'Medication (QID)',
+                    type: 'medication',
+                    description: '口服藥物給藥',
+                    timings: {
+                        day: ['08:00-08:15', '12:00-12:15'],
+                        evening: ['18:00-18:15', '22:00-22:15'],
+                        night: ['08:00-08:15'] // 早班交接班前給早上的第一劑
+                    }
                 }
             };
             
@@ -443,6 +515,81 @@
                 // 檢查任務是否與班別時間重疊
                 return (taskStartMinutes < shiftEndMinutes && taskEndMinutes > shiftStartMinutes);
             }
+
+            // 床號選擇彈窗功能
+            function showBedSelector(templateId) {
+                const template = nursingTemplates[templateId];
+                if (!template) return;
+                
+                // 創建彈窗
+                const modal = document.createElement('div');
+                modal.className = 'bed-selector-modal';
+                
+                modal.innerHTML = `
+                    <div class="bed-selector-content">
+                        <h3>${template.name}</h3>
+                        <p>請輸入要套用此模板的床號和病患姓名（選填）</p>
+                        
+                        <div class="bed-input-row">
+                            <label for="template-bed-number">床號</label>
+                            <input type="text" id="template-bed-number" placeholder="例如: 101" required>
+                        </div>
+                        
+                        <div class="bed-input-row">
+                            <label for="template-patient-name">病患姓名</label>
+                            <input type="text" id="template-patient-name" placeholder="輸入病患姓名(選填)">
+                        </div>
+                        
+                        <div class="bed-selector-actions">
+                            <button id="cancel-template" class="delete-btn">取消</button>
+                            <button id="apply-template">套用模板</button>
+                        </div>
+                    </div>
+                `;
+                
+                document.body.appendChild(modal);
+                
+                // 設定事件
+                document.getElementById('cancel-template').addEventListener('click', function() {
+                    modal.remove();
+                });
+                
+                document.getElementById('apply-template').addEventListener('click', function() {
+                    const bedNumber = document.getElementById('template-bed-number').value.trim();
+                    const patientName = document.getElementById('template-patient-name').value.trim();
+                    
+                    if (!bedNumber) {
+                        alert('請輸入床號');
+                        return;
+                    }
+                    
+                    applyTemplate(templateId, bedNumber, patientName);
+                    modal.remove();
+                });
+            }
+
+            // 套用模板功能
+            function applyTemplate(templateId, bedNumber, patientName) {
+                const template = nursingTemplates[templateId];
+                if (!template) return;
+                
+                // 獲取當前班別
+                const currentShiftTimings = template.timings[currentShift];
+                
+                if (!currentShiftTimings || currentShiftTimings.length === 0) {
+                    alert(`${template.name} 在當前班別沒有設定任務時間。`);
+                    return;
+                }
+                
+                // 為當前班別添加任務
+                currentShiftTimings.forEach(timing => {
+                    const [startTime, endTime] = timing.split('-');
+                    addTask(bedNumber, patientName, template.type, template.description, startTime, endTime);
+                });
+                
+                alert(`已為 ${bedNumber} 床號添加 ${template.name} 模板`);
+            }
+
             
             // 渲染單個任務
             function renderTask(bedNumber, task) {
@@ -822,12 +969,13 @@
             }
             
             // 過濾任務
+            // 修改原有的 filterTasks 函數
             function filterTasks() {
-                const showExam = document.getElementById('exam-filter').checked;
-                const showMedication = document.getElementById('medication-filter').checked;
-                const showSurgery = document.getElementById('surgery-filter').checked;
-                const showTreatment = document.getElementById('treatment-filter').checked;
-                const showOther = document.getElementById('other-filter').checked;
+                const showExam = document.getElementById('exam-filter').classList.contains('active');
+                const showMedication = document.getElementById('medication-filter').classList.contains('active');
+                const showSurgery = document.getElementById('surgery-filter').classList.contains('active');
+                const showTreatment = document.getElementById('treatment-filter').classList.contains('active');
+                const showOther = document.getElementById('other-filter').classList.contains('active');
                 
                 // 重新渲染所有任務以便重新計算位置
                 renderAllTasks();
@@ -1045,6 +1193,21 @@
                 
                 addTask(bedNumber, patientName, taskType, description, startTime, endTime);
                 document.getElementById('task-description').value = '';
+            });
+
+                // 為每個過濾按鈕添加點擊事件
+                document.querySelectorAll('.toggle-btn').forEach(btn => {
+                    btn.addEventListener('click', function() {
+                        this.classList.toggle('active');
+                        filterTasks();
+                    });
+                });
+
+            document.querySelectorAll('.template-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const templateId = this.dataset.template;
+                    showBedSelector(templateId);
+                });
             });
             
             document.getElementById('close-details').addEventListener('click', function() {
