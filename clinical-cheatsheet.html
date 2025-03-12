@@ -374,6 +374,31 @@
             font-size: 12px;
             text-align: center;
         }
+
+        .power-input {
+            width: 80px;
+            padding: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            text-align: center;
+            font-size: 16px;
+        }
+        
+        .power-input:focus {
+            outline: none;
+            border-color: #3498db;
+            box-shadow: 0 0 5px rgba(52, 152, 219, 0.5);
+        }
+        
+        /* 隱藏輸入框上下箭頭 */
+        .power-input::-webkit-inner-spin-button, 
+        .power-input::-webkit-outer-spin-button { 
+            -webkit-appearance: none; 
+            margin: 0; 
+        }
+        .power-input {
+            -moz-appearance: textfield;
+        }
     </style>
 </head>
 <body>
@@ -399,6 +424,7 @@
         <div class="tab" onclick="openTab('vital')">生命徵象與血糖<br>Vital Signs & Glucose</div>
         <div class="tab" onclick="openTab('pressure')">壓傷評估<br>Pressure Injury</div>
         <div class="tab" onclick="openTab('edema')">水腫評估<br>Edema Assessment</div>
+        <div class="tab" onclick="openTab('sixp')">6P評估<br>6P Assessment</div>
     </div>
 
     <div id="gcs" class="tab-content active">
@@ -764,41 +790,41 @@
             <table class="muscle-table">
                 <thead>
                     <tr>
-                        <th>分級 <br> Grade</th>
+                        <th>分數 <br> Grade</th>
                         <th>定義 <br> Definition</th>
                         <th>說明 <br> Description</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
-                        <td class="score">5/5</td>
-                        <td>正常肌力 <br> Normal Power</td>
-                        <td>能對抗檢查者的阻力做完整範圍的運動 <br> Full movement against gravity and full resistance</td>
+                        <td class="score">5</td>
+                        <td>正常肌力</td>
+                        <td>能對抗檢查者的阻力做完整範圍的運動</td>
                     </tr>
                     <tr>
-                        <td class="score">4/5</td>
-                        <td>中度肌力 <br> Moderate Power</td>
-                        <td>能對抗部分阻力做完整範圍的運動 <br> Full movement against gravity and moderate resistance</td>
+                        <td class="score">4</td>
+                        <td>中度肌力</td>
+                        <td>能對抗部分阻力做完整範圍的運動</td>
                     </tr>
                     <tr>
-                        <td class="score">3/5</td>
-                        <td>輕度肌力 <br> Fair Power</td>
-                        <td>能對抗地心引力做完整範圍的運動，但無法對抗阻力 <br> Full movement against gravity but no resistance</td>
+                        <td class="score">3</td>
+                        <td>輕度肌力</td>
+                        <td>能對抗地心引力做完整範圍的運動，但無法對抗阻力</td>
                     </tr>
                     <tr>
-                        <td class="score">2/5</td>
-                        <td>微弱肌力 <br> Poor Power</td>
-                        <td>能在排除重力影響的情況下做完整範圍的運動 <br> Full movement with gravity eliminated</td>
+                        <td class="score">2</td>
+                        <td>微弱肌力</td>
+                        <td>能在排除重力影響的情況下做完整範圍的運動</td>
                     </tr>
                     <tr>
-                        <td class="score">1/5</td>
-                        <td>痕跡肌力 <br> Trace Power</td>
-                        <td>可見或觸及肌肉收縮，但無法產生運動 <br> Visible or palpable muscle contraction but no movement</td>
+                        <td class="score">1</td>
+                        <td>痕跡肌力</td>
+                        <td>可見或觸及肌肉收縮，但無法產生運動</td>
                     </tr>
                     <tr>
-                        <td class="score">0/5</td>
-                        <td>完全癱瘓 <br> No Power</td>
-                        <td>完全無肌肉收縮 <br> No muscle contraction</td>
+                        <td class="score">0</td>
+                        <td>完全癱瘓</td>
+                        <td>完全無肌肉收縮</td>
                     </tr>
                 </tbody>
             </table>
@@ -817,101 +843,37 @@
                         <tr>
                             <td>上肢近端 <br> Proximal Upper Limb</td>
                             <td>
-                                <select id="r-upper-prox" class="power-select">
-                                    <option value="">選擇</option>
-                                    <option value="5">5/5</option>
-                                    <option value="4">4/5</option>
-                                    <option value="3">3/5</option>
-                                    <option value="2">2/5</option>
-                                    <option value="1">1/5</option>
-                                    <option value="0">0/5</option>
-                                </select>
+                                <input type="number" id="r-upper-prox" class="power-input" min="0" max="5" step="1" placeholder="0-5">
                             </td>
                             <td>
-                                <select id="l-upper-prox" class="power-select">
-                                    <option value="">選擇</option>
-                                    <option value="5">5/5</option>
-                                    <option value="4">4/5</option>
-                                    <option value="3">3/5</option>
-                                    <option value="2">2/5</option>
-                                    <option value="1">1/5</option>
-                                    <option value="0">0/5</option>
-                                </select>
+                                <input type="number" id="l-upper-prox" class="power-input" min="0" max="5" step="1" placeholder="0-5">
                             </td>
                         </tr>
                         <tr>
                             <td>上肢遠端 <br> Distal Upper Limb</td>
                             <td>
-                                <select id="r-upper-dist" class="power-select">
-                                    <option value="">選擇</option>
-                                    <option value="5">5/5</option>
-                                    <option value="4">4/5</option>
-                                    <option value="3">3/5</option>
-                                    <option value="2">2/5</option>
-                                    <option value="1">1/5</option>
-                                    <option value="0">0/5</option>
-                                </select>
+                                <input type="number" id="r-upper-dist" class="power-input" min="0" max="5" step="1" placeholder="0-5">
                             </td>
                             <td>
-                                <select id="l-upper-dist" class="power-select">
-                                    <option value="">選擇</option>
-                                    <option value="5">5/5</option>
-                                    <option value="4">4/5</option>
-                                    <option value="3">3/5</option>
-                                    <option value="2">2/5</option>
-                                    <option value="1">1/5</option>
-                                    <option value="0">0/5</option>
-                                </select>
+                                <input type="number" id="l-upper-dist" class="power-input" min="0" max="5" step="1" placeholder="0-5">
                             </td>
                         </tr>
                         <tr>
                             <td>下肢近端 <br> Proximal Lower Limb</td>
                             <td>
-                                <select id="r-lower-prox" class="power-select">
-                                    <option value="">選擇</option>
-                                    <option value="5">5/5</option>
-                                    <option value="4">4/5</option>
-                                    <option value="3">3/5</option>
-                                    <option value="2">2/5</option>
-                                    <option value="1">1/5</option>
-                                    <option value="0">0/5</option>
-                                </select>
+                                <input type="number" id="r-lower-prox" class="power-input" min="0" max="5" step="1" placeholder="0-5">
                             </td>
                             <td>
-                                <select id="l-lower-prox" class="power-select">
-                                    <option value="">選擇</option>
-                                    <option value="5">5/5</option>
-                                    <option value="4">4/5</option>
-                                    <option value="3">3/5</option>
-                                    <option value="2">2/5</option>
-                                    <option value="1">1/5</option>
-                                    <option value="0">0/5</option>
-                                </select>
+                                <input type="number" id="l-lower-prox" class="power-input" min="0" max="5" step="1" placeholder="0-5">
                             </td>
                         </tr>
                         <tr>
                             <td>下肢遠端 <br> Distal Lower Limb</td>
                             <td>
-                                <select id="r-lower-dist" class="power-select">
-                                    <option value="">選擇</option>
-                                    <option value="5">5/5</option>
-                                    <option value="4">4/5</option>
-                                    <option value="3">3/5</option>
-                                    <option value="2">2/5</option>
-                                    <option value="1">1/5</option>
-                                    <option value="0">0/5</option>
-                                </select>
+                                <input type="number" id="r-lower-dist" class="power-input" min="0" max="5" step="1" placeholder="0-5">
                             </td>
                             <td>
-                                <select id="l-lower-dist" class="power-select">
-                                    <option value="">選擇</option>
-                                    <option value="5">5/5</option>
-                                    <option value="4">4/5</option>
-                                    <option value="3">3/5</option>
-                                    <option value="2">2/5</option>
-                                    <option value="1">1/5</option>
-                                    <option value="0">0/5</option>
-                                </select>
+                                <input type="number" id="l-lower-dist" class="power-input" min="0" max="5" step="1" placeholder="0-5">
                             </td>
                         </tr>
                     </tbody>
@@ -1077,33 +1039,32 @@
                     </thead>
                     <tbody>
                         <tr>
-                            <td rowspan="1">1.</td>
-                            <td>血液培養</td>
-                            <td style="background-color: #f5f5f5;">使用蝴蝶針嘴氧瓶先深厭氧瓶</td>
-                            <td>N/A</td>
+                            <td rowspan="2">1.</td>
+                            <td>血液培養：厭氧</td>
+                            <td style="background-color: #800060; color: white;">蝴蝶針：先好氧再厭氧</td>
+                            <td><img src="images/IMG_2857.JPG" alt="厭氧" width="270" height="110"></td>
                         </tr>
                         <tr>
-                            <td rowspan="1">2.</td>
-                            <td>凝血管</td>
-                            <td style="background-color: #f0f0f0;">透明</td>
-                            <td>Non additive</td>
+                            <td>血液培養：好氧</td>
+                            <td style="background-color: #0000b3; color: white;">好氧</td>
+                            <td><img src="images/IMG_2858.JPG" alt="好氧" width="270" height="110"></td>
                         </tr>
                         <tr>
-                            <td rowspan="2">3.</td>
-                            <td>血液凝固</td>
-                            <td style="background-color: #add8e6;">淺藍色</td>
-                            <td>Buffered 3.2% sodium citrate</td>
+                            <td rowspan="2">2.</td>
+                            <td>凝血功能</td>
+                            <td style="background-color: #4682B4;">淺藍色</td>
+                            <td><img src="images/IMG_2849.jpg" alt="藍頭管" width="270" height="110"></td>
                         </tr>
                         <tr>
                             <td>紅血球沉降速率<br>ESR</td>
-                            <td style="background-color: #000000; color: white;">黑色(ESR)</td>
-                            <td>Buffered citrate</td>
+                            <td style="background-color: #000000; color: white;">黑色</td>
+                            <td><img src="images/IMG_2854.JPG" alt="藍頭管" width="270" height="110"></td>
                         </tr>
                         <tr>
                             <td rowspan="3">4.</td>
                             <td>生化血清</td>
                             <td style="background-color: #ff0000; color: white;">紅色</td>
-                            <td>Silicone Coated</td>
+                            <td><img src="images/IMG_2852.jpg" alt="紅頭管" width="270" height="110"></td>
                         </tr>
                         <tr>
                             <td>血清/血庫</td>
@@ -1119,7 +1080,7 @@
                             <td rowspan="2">5.</td>
                             <td>生化血漿&特殊</td>
                             <td style="background-color: #008000; color: white;">綠色</td>
-                            <td>Heparin</td>
+                            <td><img src="images/IMG_2850.jpg" alt="綠頭管" width="270" height="110"></td>
                         </tr>
                         <tr>
                             <td>血氣<br>Gas</td>
@@ -1129,8 +1090,8 @@
                         <tr>
                             <td rowspan="3">6.</td>
                             <td>血液學及血庫</td>
-                            <td style="background-color: #e6e6fa;">紫色</td>
-                            <td>K₂EDTA</td>
+                            <td style="background-color: #9400D3;">紫色</td>
+                            <td><img src="images/IMG_2851.jpg" alt="紫頭管" width="270" height="110"></td>
                         </tr>
                         <tr>
                             <td>微量元素</td>
@@ -1146,13 +1107,7 @@
                             <td rowspan="1">7.</td>
                             <td>血糖</td>
                             <td style="background-color: #808080; color: white;">灰色</td>
-                            <td>NaF / K Oxalate<br>NaF / Na EDTA</td>
-                        </tr>
-                        <tr>
-                            <td rowspan="1">8.</td>
-                            <td>親子鑑定</td>
-                            <td style="background-color: #ffffe0;">淡黃色</td>
-                            <td>Acid Citrate Dextrose</td>
+                            <td><img src="images/IMG_2853.jpg" alt="灰頭管" width="270" height="110"></td>
                         </tr>
                     </tbody>
                 </table>
@@ -1187,12 +1142,12 @@
                         </tr>
                         <tr>
                             <td style="font-weight: bold; text-align: center;">18G</td>
-                            <td style="background-color: #90EE90; color: black; text-align: center;">綠色</td>
+                            <td style="background-color: #39ac6b; color: black; text-align: center;">綠色</td>
                             <td>一般輸液、輸血、採血</td>
                         </tr>
                         <tr>
                             <td style="font-weight: bold; text-align: center;">20G</td>
-                            <td style="background-color: #FFC0CB; color: black; text-align: center;">粉紅色</td>
+                            <td style="background-color: #ff80bf; color: black; text-align: center;">粉紅色</td>
                             <td>一般輸液、日常用途</td>
                         </tr>
                         <tr>
@@ -1202,7 +1157,7 @@
                         </tr>
                         <tr>
                             <td style="font-weight: bold; text-align: center;">24G</td>
-                            <td style="background-color: #FFFF00; color: black; text-align: center;">黃色</td>
+                            <td style="background-color: #ffff4d; color: black; text-align: center;">黃色</td>
                             <td>兒童、新生兒、脆弱血管</td>
                         </tr>
                         <tr>
@@ -1239,12 +1194,12 @@
                     <tr>
                         <td>心率</td>
                         <td class="normal-value">60-100 次/分鐘</td>
-                        <td>運動員可能低於60</td>
+                        <td>運動員可能低於60<br>有其他證據指出有95%的心率在50-95 次/分鐘之間</td>
                     </tr>
                     <tr>
                         <td>呼吸速率</td>
-                        <td class="normal-value">12-20 次/分鐘</td>
-                        <td>深且規律</td>
+                        <td class="normal-value">10-20 次/分鐘</td>
+                        <td>需判斷呼吸型態<br>有文獻指出呼吸速率為16-25 次/分<br>呼吸過緩&lt;8-12次/分<br>呼吸過速>20次/分</td>
                     </tr>
                     <tr>
                         <td>血壓</td>
@@ -1253,7 +1208,7 @@
                             舒張壓：60-80 mmHg
                         </td>
                         <td>
-                            正常: &lt;120/80 mmHg<br>Normal: &lt;120/80 mmHg<br>
+                            正常: &lt;120/80 mmHg<br>
                             高血壓前期: 120-139/80-89 mmHg<br>
                             高血壓: ≥140/90 mmHg
                         </td>
@@ -1261,13 +1216,15 @@
                     <tr>
                         <td>體溫</td>
                         <td class="normal-value">
-                            口腔: 36.5-37.5°C<br>
-                            腋下: 36.0-37.0°C<br>
-                            肛門: 37.0-38.0°C
+                            耳溫: 35.9-37.6°C<br>
+                            口腔: 36.4-37.6°C<br>
+                            腋下: 35.2-36.9°C<br>
+                            肛門: 37.0-38.1°C
                         </td>
                         <td>
-                            低體溫: &lt;35.0°C<br>
-                            發燒: &gt;38.0°C
+                            發燒溫度: 耳溫37.5°C, 肛溫37.8°C<br>
+                            參考基本護理學課本，課本發燒定義為38°C<br>
+                            請根據實際狀況判斷
                         </td>
                     </tr>
                     <tr>
@@ -1277,39 +1234,6 @@
                             低氧: &lt;94%<br>
                             嚴重低氧: &lt;90%
                         </td>
-                    </tr>
-                    <tr class="vital-category">
-                        <td colspan="3">兒童生命徵象 Pediatric Vital Signs</td>
-                    </tr>
-                    <tr>
-                        <td>新生兒心率</td>
-                        <td class="normal-value">120-160 次/分鐘<br></td>
-                        <td rowspan="3">
-                            隨年齡增長心率逐漸下降
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>嬰兒心率 (1-12月)</td>
-                        <td class="normal-value">80-140 次/分鐘
-                    </tr>
-                    <tr>
-                        <td>兒童心率 (1-10歲)</td>
-                        <td class="normal-value">70-120 次/分鐘</td>
-                    </tr>
-                    <tr>
-                        <td>新生兒呼吸速率</td>
-                        <td class="normal-value">30-60 次/分鐘</td>
-                        <td rowspan="3">
-                            隨年齡增長呼吸速率逐漸下降
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>嬰兒呼吸速率</td>
-                        <td class="normal-value">20-40 次/分鐘</td>
-                    </tr>
-                    <tr>
-                        <td>兒童呼吸速率</td>
-                        <td class="normal-value">15-30 次/分鐘</td>
                     </tr>
                     <tr class="vital-category">
                         <td colspan="3">血糖值</td>
@@ -1652,314 +1576,197 @@
                 </tbody>
             </table>
             
-            <!-- Edema Assessment Tool -->
-            <div class="result-section">
-                <h2>水腫評估記錄 <br> Edema Assessment Record</h2>
-                <table class="edema-table">
-                    <thead>
-                        <tr>
-                            <th>評估部位</th>
-                            <th>右側</th>
-                            <th>左側</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>腳踝 (Ankle)</td>
-                            <td>
-                                <select class="edema-select" id="right-ankle">
-                                    <option value="">選擇</option>
-                                    <option value="0">無 (None)</option>
-                                    <option value="1">1+</option>
-                                    <option value="2">2+</option>
-                                    <option value="3">3+</option>
-                                    <option value="4">4+</option>
-                                </select>
-                            </td>
-                            <td>
-                                <select class="edema-select" id="left-ankle">
-                                    <option value="">選擇</option>
-                                    <option value="0">無 (None)</option>
-                                    <option value="1">1+</option>
-                                    <option value="2">2+</option>
-                                    <option value="3">3+</option>
-                                    <option value="4">4+</option>
-                                </select>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>小腿 (Leg)</td>
-                            <td>
-                                <select class="edema-select" id="right-leg">
-                                    <option value="">選擇</option>
-                                    <option value="0">無 (None)</option>
-                                    <option value="1">1+</option>
-                                    <option value="2">2+</option>
-                                    <option value="3">3+</option>
-                                    <option value="4">4+</option>
-                                </select>
-                            </td>
-                            <td>
-                                <select class="edema-select" id="left-leg">
-                                    <option value="">選擇</option>
-                                    <option value="0">無 (None)</option>
-                                    <option value="1">1+</option>
-                                    <option value="2">2+</option>
-                                    <option value="3">3+</option>
-                                    <option value="4">4+</option>
-                                </select>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>膝蓋 (Knee)</td>
-                            <td>
-                                <select class="edema-select" id="right-knee">
-                                    <option value="">選擇</option>
-                                    <option value="0">無 (None)</option>
-                                    <option value="1">1+</option>
-                                    <option value="2">2+</option>
-                                    <option value="3">3+</option>
-                                    <option value="4">4+</option>
-                                </select>
-                            </td>
-                            <td>
-                                <select class="edema-select" id="left-knee">
-                                    <option value="">選擇</option>
-                                    <option value="0">無 (None)</option>
-                                    <option value="1">1+</option>
-                                    <option value="2">2+</option>
-                                    <option value="3">3+</option>
-                                    <option value="4">4+</option>
-                                </select>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>大腿 (Thigh)</td>
-                            <td>
-                                <select class="edema-select" id="right-thigh">
-                                    <option value="">選擇</option>
-                                    <option value="0">無 (None)</option>
-                                    <option value="1">1+</option>
-                                    <option value="2">2+</option>
-                                    <option value="3">3+</option>
-                                    <option value="4">4+</option>
-                                </select>
-                            </td>
-                            <td>
-                                <select class="edema-select" id="left-thigh">
-                                    <option value="">選擇</option>
-                                    <option value="0">無 (None)</option>
-                                    <option value="1">1+</option>
-                                    <option value="2">2+</option>
-                                    <option value="3">3+</option>
-                                    <option value="4">4+</option>
-                                </select>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>手 (Hand)</td>
-                            <td>
-                                <select class="edema-select" id="right-hand">
-                                    <option value="">選擇</option>
-                                    <option value="0">無 (None)</option>
-                                    <option value="1">1+</option>
-                                    <option value="2">2+</option>
-                                    <option value="3">3+</option>
-                                    <option value="4">4+</option>
-                                </select>
-                            </td>
-                            <td>
-                                <select class="edema-select" id="left-hand">
-                                    <option value="">選擇</option>
-                                    <option value="0">無 (None)</option>
-                                    <option value="1">1+</option>
-                                    <option value="2">2+</option>
-                                    <option value="3">3+</option>
-                                    <option value="4">4+</option>
-                                </select>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>手臂 (Arm)</td>
-                            <td>
-                                <select class="edema-select" id="right-arm">
-                                    <option value="">選擇</option>
-                                    <option value="0">無 (None)</option>
-                                    <option value="1">1+</option>
-                                    <option value="2">2+</option>
-                                    <option value="3">3+</option>
-                                    <option value="4">4+</option>
-                                </select>
-                            </td>
-                            <td>
-                                <select class="edema-select" id="left-arm">
-                                    <option value="">選擇</option>
-                                    <option value="0">無 (None)</option>
-                                    <option value="1">1+</option>
-                                    <option value="2">2+</option>
-                                    <option value="3">3+</option>
-                                    <option value="4">4+</option>
-                                </select>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>臉部 (Face)</td>
-                            <td colspan="2">
-                                <select class="edema-select" id="face">
-                                    <option value="">選擇</option>
-                                    <option value="0">無 (None)</option>
-                                    <option value="1">輕微 (Mild)</option>
-                                    <option value="2">中度 (Moderate)</option>
-                                    <option value="3">嚴重 (Severe)</option>
-                                </select>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>腹部 (Abdomen)</td>
-                            <td colspan="2">
-                                <select class="edema-select" id="abdomen">
-                                    <option value="">選擇</option>
-                                    <option value="0">無 (None)</option>
-                                    <option value="1">輕微 (Mild)</option>
-                                    <option value="2">中度 (Moderate)</option>
-                                    <option value="3">嚴重 (Severe)</option>
-                                </select>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-                
-                <!-- Edema Characteristics -->
-                <h3 style="margin-top: 20px;">水腫特性記錄 <br> Edema Characteristics</h3>
-                <table class="edema-table">
-                    <thead>
-                        <tr>
-                            <th>特性</th>
-                            <th>選項</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>水腫類型</td>
-                            <td>
-                                <select id="edema-type">
-                                    <option value="">選擇</option>
-                                    <option value="pitting">壓陷性 (Pitting)</option>
-                                    <option value="non-pitting">非壓陷性 (Non-pitting)</option>
-                                    <option value="mixed">混合型 (Mixed)</option>
-                                </select>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>分佈</td>
-                            <td>
-                                <select id="edema-distribution">
-                                    <option value="">選擇</option>
-                                    <option value="localized">局部性 (Localized)</option>
-                                    <option value="unilateral">單側 (Unilateral)</option>
-                                    <option value="bilateral">雙側 (Bilateral)</option>
-                                    <option value="generalized">全身性 (Generalized)</option>
-                                </select>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>時間模式</td>
-                            <td>
-                                <select id="edema-timing">
-                                    <option value="">選擇</option>
-                                    <option value="morning">晨間優勢 (Morning predominance)</option>
-                                    <option value="evening">晚間優勢 (Evening predominance)</option>
-                                    <option value="constant">恆定 (Constant)</option>
-                                    <option value="intermittent">間歇性 (Intermittent)</option>
-                                </select>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
+        </div>
+    </div>
+    <!-- 6P Assessment tab -->
+    <div id="sixp" class="tab-content">
+        <div class="container">
+            <h1>6P神經血管評估 <br> 6P Neurovascular Assessment</h1>
             
-            <!-- Edema Clinical Correlation -->
-            <h2 style="margin-top: 30px;">水腫臨床關聯 <br> Clinical Correlation of Edema</h2>
             <table class="edema-table">
                 <thead>
                     <tr>
-                        <th>水腫類型</th>
-                        <th>常見原因</th>
-                        <th>特點</th>
+                        <th>評估項目</th>
+                        <th>正常表現</th>
+                        <th>異常表現</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
-                        <td>心源性水腫</td>
-                        <td>心臟衰竭、心臟病</td>
+                        <td>Pain<br>疼痛</td>
                         <td>
                             <ul>
-                                <li>雙側下肢水腫，對稱</li>
-                                <li>晚間加重，臥床休息後可能改善</li>
-                                <li>可能伴有呼吸困難、疲勞</li>
+                                <li>無疼痛</li>
+                                <li>輕微不適</li>
+                            </ul>
+                        </td>
+                        <td>
+                            <ul>
+                                <li>突然發生的嚴重疼痛</li>
+                                <li>持續性疼痛</li>
+                                <li>活動時加劇的疼痛</li>
                             </ul>
                         </td>
                     </tr>
                     <tr>
-                        <td>腎源性水腫</td>
-                        <td>腎病症候群、腎臟疾病</td>
+                        <td>Pallor<br>蒼白</td>
                         <td>
                             <ul>
-                                <li>眼瞼、臉部和下肢水腫</li>
-                                <li>晨間加重（尤其是眼瞼）</li>
-                                <li>全身性，可能伴有尿量減少</li>
+                                <li>皮膚顏色正常</li>
+                                <li>指甲床顏色粉紅</li>
+                            </ul>
+                        </td>
+                        <td>
+                            <ul>
+                                <li>皮膚蒼白</li>
+                                <li>指甲床發白</li>
+                                <li>皮膚發紫或發青</li>
                             </ul>
                         </td>
                     </tr>
                     <tr>
-                        <td>肝源性水腫</td>
-                        <td>肝硬化、肝功能不全</td>
+                        <td>Pulse<br>脈搏</td>
                         <td>
                             <ul>
-                                <li>腹水和下肢水腫</li>
-                                <li>可能伴有黃疸、脾腫大</li>
-                                <li>腹部靜脈曲張</li>
+                                <li>脈搏強度正常</li>
+                                <li>脈搏節律規律</li>
+                                <li>肢體血循正常</li>
+                            </ul>
+                        </td>
+                        <td>
+                            <ul>
+                                <li>脈搏微弱或消失</li>
+                                <li>末梢脈搏不可觸及</li>
+                                <li>毛細血管充盈時間延長（>3秒）</li>
                             </ul>
                         </td>
                     </tr>
                     <tr>
-                        <td>靜脈性水腫</td>
-                        <td>靜脈功能不全、深靜脈血栓</td>
+                        <td>Paresthesia<br>感覺異常</td>
                         <td>
                             <ul>
-                                <li>單側或雙側下肢水腫</li>
-                                <li>長時間站立後加重</li>
-                                <li>可能伴有皮膚色素沉著、靜脈曲張</li>
+                                <li>感覺正常</li>
+                                <li>觸覺敏感度正常</li>
+                                <li>無異常感覺</li>
+                            </ul>
+                        </td>
+                        <td>
+                            <ul>
+                                <li>刺痛感</li>
+                                <li>麻木感</li>
+                                <li>灼熱感</li>
+                                <li>觸覺敏感度減低</li>
                             </ul>
                         </td>
                     </tr>
                     <tr>
-                        <td>淋巴性水腫</td>
-                        <td>淋巴管阻塞、淋巴結切除</td>
+                        <td>Paralysis<br>癱瘓</td>
                         <td>
                             <ul>
-                                <li>非壓陷性水腫</li>
-                                <li>單側肢體常見</li>
-                                <li>頑固性，不易消退</li>
-                                <li>皮膚增厚</li>
+                                <li>肢體活動自如</li>
+                                <li>肌力正常</li>
+                                <li>關節活動度正常</li>
+                            </ul>
+                        </td>
+                        <td>
+                            <ul>
+                                <li>肢體活動受限</li>
+                                <li>肌力下降</li>
+                                <li>無法完成正常動作</li>
+                                <li>肢體活動障礙進行性加重</li>
                             </ul>
                         </td>
                     </tr>
                     <tr>
-                        <td>藥物性水腫</td>
-                        <td>鈣通道阻斷劑、NSAIDs、類固醇</td>
+                        <td>Poikilothermia<br>溫度異常</td>
                         <td>
                             <ul>
-                                <li>全身性或下肢水腫</li>
-                                <li>開始用藥後出現</li>
-                                <li>停藥後可能緩解</li>
+                                <li>患肢溫度正常</li>
+                                <li>溫度與對側肢體相當</li>
+                            </ul>
+                        </td>
+                        <td>
+                            <ul>
+                                <li>患肢溫度明顯下降</li>
+                                <li>患肢較對側肢體冰冷</li>
+                                <li>溫度變化隨病情進展加重</li>
                             </ul>
                         </td>
                     </tr>
                 </tbody>
             </table>
             
-            <button class="btn-reset" onclick="resetEdema()">重置</button>
+            <!-- Common Clinical Scenarios -->
+            <h2 style="margin-top: 30px;">臨床相關疾病 <br> Associated Clinical Conditions</h2>
+            <table class="edema-table">
+                <thead>
+                    <tr>
+                        <th>疾病/狀況</th>
+                        <th>常見6P表現</th>
+                        <th>臨床注意事項</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>急性動脈閉塞</td>
+                        <td>
+                            <ul>
+                                <li>突發性劇烈疼痛</li>
+                                <li>肢體蒼白</li>
+                                <li>脈搏消失</li>
+                                <li>麻木感</li>
+                                <li>肢體活動受限</li>
+                                <li>肢體冰冷</li>
+                            </ul>
+                        </td>
+                        <td>緊急醫療狀況，需立即報告醫師並評估介入治療</td>
+                    </tr>
+                    <tr>
+                        <td>深靜脈血栓</td>
+                        <td>
+                            <ul>
+                                <li>肢體疼痛</li>
+                                <li>可能出現紫脹</li>
+                                <li>脈搏大多保留</li>
+                                <li>輕微麻木感</li>
+                                <li>輕度活動受限</li>
+                                <li>溫度通常正常或輕微升高</li>
+                            </ul>
+                        </td>
+                        <td>需記錄肢體周徑，評估血栓風險，預防肺栓塞</td>
+                    </tr>
+                    <tr>
+                        <td>腔室症候群</td>
+                        <td>
+                            <ul>
+                                <li>嚴重疼痛（與創傷或施加的壓力不成比例）</li>
+                                <li>肢體可能蒼白或紫脹</li>
+                                <li>末梢脈搏可能正常</li>
+                                <li>肢體感覺異常明顯</li>
+                                <li>進行性肌肉無力和癱瘓</li>
+                                <li>肢體可能冰冷</li>
+                            </ul>
+                        </td>
+                        <td>外傷後需密切監測，緊急處理可能需要筋膜切開術</td>
+                    </tr>
+                    <tr>
+                        <td>周邊神經損傷</td>
+                        <td>
+                            <ul>
+                                <li>疼痛沿神經傳導路徑</li>
+                                <li>皮膚顏色正常</li>
+                                <li>脈搏正常</li>
+                                <li>明顯感覺異常</li>
+                                <li>特定肌群活動受限</li>
+                                <li>溫度可能正常</li>
+                            </ul>
+                        </td>
+                        <td>評估肌力和感覺分布，了解神經解剖路徑，評估恢復情況</td>
+                    </tr>
+                </tbody>
+            </table>
+            
+            <button class="btn-reset" onclick="resetSixP()">重置</button>
         </div>
     </div>
 
@@ -2051,8 +1858,8 @@
         }
         
         function resetMuscle() {
-            document.querySelectorAll('.power-select').forEach(select => {
-                select.value = '';
+            document.querySelectorAll('.power-input').forEach(input => {
+                input.value = '';
             });
         }
         
@@ -2119,16 +1926,6 @@
             document.getElementById('pupilEquality').textContent = '瞳孔等大 (Equal)';
         }
         
-        // Edema Assessment Functions
-        function resetEdema() {
-            document.querySelectorAll('.edema-select').forEach(select => {
-                select.value = '';
-            });
-            
-            document.getElementById('edema-type').value = '';
-            document.getElementById('edema-distribution').value = '';
-            document.getElementById('edema-timing').value = '';
-        }
         
         // Add event listeners for pupil reactivity
         document.addEventListener('DOMContentLoaded', function() {
@@ -2150,5 +1947,12 @@
             updatePupilSize('left', 4);
             updatePupilSize('right', 4);
         });
+
+        // 6P Assessment Functions
+        function resetSixP() {
+            document.querySelectorAll('.sixp-select').forEach(select => {
+                select.value = '';
+            });
+        }
     </Script>
 </body>
