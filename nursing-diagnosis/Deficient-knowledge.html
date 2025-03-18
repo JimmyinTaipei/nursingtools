@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nursing Diagnosis - Acute Pain</title>
+    <title>Nursing Diagnosis - Deficient Knowledge</title>
     <link rel="stylesheet" href="diagnosis.css">
 </head>
 <body>
@@ -25,23 +25,25 @@
                     <option value="domain2">Domain 2: Nutrition</option>
                     <option value="domain3">Domain 3: Elimination and Exchange</option>
                     <option value="domain4">Domain 4: Activity/Rest</option>
-                    <option value="domain5">Domain 5: Perception/Cognition</option>
+                    <option value="domain5" selected>Domain 5: Perception/Cognition</option>
                     <option value="domain6">Domain 6: Self-Perception</option>
                     <option value="domain7">Domain 7: Role Relationship</option>
                     <option value="domain8">Domain 8: Sexuality</option>
                     <option value="domain9">Domain 9: Coping/Stress Tolerance</option>
                     <option value="domain10">Domain 10: Life Principles</option>
                     <option value="domain11">Domain 11: Safety/Protection</option>
-                    <option value="domain12" selected>Domain 12: Comfort</option>
+                    <option value="domain12">Domain 12: Comfort</option>
                     <option value="domain13">Domain 13: Growth/Development</option>
                 </select>
                 
                 <!-- Class filter dropdown (will be populated based on domain selection) -->
                 <select id="class-filter" class="taxonomy-filter">
                     <option value="all">All Classes</option>
-                    <option value="class1" selected>Class 1: Physical Comfort</option>
-                    <option value="class2">Class 2: Environmental Comfort</option>
-                    <option value="class3">Class 3: Social Comfort</option>
+                    <option value="class1">Class 1: Attention</option>
+                    <option value="class2">Class 2: Orientation</option>
+                    <option value="class3">Class 3: Sensation/Perception</option>
+                    <option value="class4" selected>Class 4: Cognition</option>
+                    <option value="class5">Class 5: Communication</option>
                 </select>
             </div>
             
@@ -457,7 +459,7 @@
                     <div class="class-group" id="domain12-class1">
                         <h4 class="class-title">Physical Comfort</h4>
                         <ul class="diagnosis-nav">
-                            <li class="active" data-domain="domain12" data-class="class1">Acute Pain</li>
+                            <li href="Acute-pain.html" data-domain="domain12" data-class="class1">Acute Pain</li>
                             <li href="Chronic-pain.html" data-domain="domain12" data-class="class1">Chronic Pain</li>
                             <li href="Chronic-pain-syndrome.html" data-domain="domain12" data-class="class1">Chronic Pain Syndrome</li>
                             <li href="Nausea.html" data-domain="domain12" data-class="class1">Nausea</li>
@@ -520,24 +522,24 @@
         </aside>
         
         <main class="main-content">
-            <h1>Acute Pain</h1>
+            <h1>Deficient Knowledge</h1>
             
             <!-- NANDA-I Definition -->
             <div class="section">
                 <h2>NANDA-I Definition</h2>
-                <p>An unpleasant sensory and emotional experience associated with actual or potential tissue damage, or described in terms of such damage (International Association for the Study of Pain, 1979); sudden or slow onset of any intensity from mild to severe with an anticipated or predictable end</p>
+                <p>Absence or deficiency of cognitive information related to a specific topic</p>
             </div>
             
             <!-- Defining Characteristics -->
             <div class="section">
                 <h2>Defining Characteristics</h2>
-                <p>Appetite change; change in physiological parameter (e.g., blood pressure, heart rate, respiratory rate, oxygen saturation, and end-tidal CO<sub>2</sub>); diaphoresis; distraction behavior; evidence of pain using standardized pain behavior checklist for those unable to communicate verbally (e.g., Neonatal Infant Pain Scale, Pain Assessment Checklist for Seniors with Limited Ability to Communicate); expressive behavior (e.g., restlessness, crying, vigilance); facial expression of pain (e.g., eyes lack luster, beaten look, fixed or scattered movement, grimace); guarding behavior; hopelessness; narrowed focus (e.g., time, perception, thought processes, interaction with people and environment); positioning to ease pain; protective behavior; proxy report of pain behavior/activity changes (e.g., family member, caregiver); pupil dilation; self-focused; self-report of intensity using standardized pain scale (e.g., Wong-Baker FACES scale, visual analog scale, numerical rating scale); self-report of pain characteristics using standardized pain instrument (e.g., McGill Pain Questionnaire, Brief Pain Inventory)</p>
+                <p>Inaccurate follow through of instruction; inaccurate performance on a test; inappropriate behavior (e.g., hysterical, hostile, agitated, apathetic); insufficient knowledge</p>
             </div>
             
             <!-- Related Factors -->
             <div class="section">
                 <h2>Related Factors (r/t)</h2>
-                <p>Biological injury agent (e.g., infection, ischemia, neoplasm); chemical injury agent (e.g., burn, capsaicin, methylene chloride, mustard agent); physical injury agent (e.g., abscess, amputation, burn, cut, heavy lifting, operative procedure, trauma, overtraining)</p>
+                <p>Alteration in cognitive functioning; alteration in memory; insufficient information; insufficient interest in learning; insufficient knowledge of resources; misinformation presented by others</p>
             </div>
             
             <!-- NOC Outcomes -->
@@ -545,37 +547,35 @@
                 <h2>NOC (Nursing Outcomes Classification)</h2>
                 <h3>Suggested NOC Outcomes</h3>
                 <ul>
-                    <li>Pain Control</li>
-                    <li>Pain Level</li>
-                    <li>Pain: Adverse Psychological Response</li>
+                    <li>Knowledge: Disease Process</li>
+                    <li>Energy Conservation</li>
+                    <li>Health Behavior</li>
+                    <li>Health Resources</li>
+                    <li>Healthy Diet</li>
+                    <li>Infection Management</li>
+                    <li>Medication</li>
+                    <li>Personal Safety</li>
+                    <li>Prescribed Activity</li>
+                    <li>Substance Use Control</li>
+                    <li>Treatment Procedure(s)</li>
+                    <li>Treatment Regimen</li>
                 </ul>
                 
-                <h3>Example NOC Outcome</h3>
-                <p><strong>Pain Level</strong> as evidenced by severity of observed or reported pain.</p>
-                <p>NOTE: Pain Level is the NOC Outcome label; this text recommends use of the self-report numerical pain rating scale in place of the NOC indicator scales because of the amount of research supporting its use.</p>
+                <h3>Example NOC Outcome with Indicators</h3>
+                <p><strong>Knowledge: Health Behavior</strong> as evidenced by the following indicators: Healthy nutritional practices/Benefits of regular exercise/Safe use of prescribed and nonprescribed medication. (Rate the outcome and indicators of Knowledge: Health Behavior: 1 = no knowledge, 2 = limited knowledge, 3 = moderate knowledge, 4 = substantial knowledge, 5 = extensive knowledge)</p>
             </div>
             
             <!-- Client Outcomes -->
             <div class="section">
                 <h2>Client Outcomes</h2>
                 <p>Client Will (Specify Time Frame)</p>
-                <h3>For the client who is able to provide a self-report</h3>
                 <ul>
-                    <li>Use a self-report pain tool to identify current pain intensity level and establish a comfort-function goal</li>
-                    <li>Report that pain management regimen achieves comfort-function goal without side effects</li>
-                    <li>Describe nonpharmacological methods that can be used to help achieve comfort-function goal</li>
-                    <li>Perform activities of recovery or activities of daily living (ADLs) easily</li>
-                    <li>Describe how unrelieved pain will be managed</li>
-                    <li>State ability to obtain sufficient amounts of rest and sleep</li>
-                    <li>Notify member of the health care team promptly for pain intensity level that is consistently greater than the comfort-function goal, or occurrence of side effects</li>
-                </ul>
-
-                <h3>For the client who is unable to provide a self-report</h3>
-                <ul>
-                    <li>Decrease in pain-related behaviors</li>
-                    <li>Perform activities of recovery or ADLs easily as determined by client condition</li>
-                    <li>Demonstrate the absence of side effects of analgesics</li>
-                    <li>No pain-related behaviors will be evident in the client who is completely unresponsive; a reasonable outcome is to demonstrate the absence of side effects related to the prescribed pain treatment plan</li>
+                    <li>Explain disease state, recognize need for medications, and understand treatments</li>
+                    <li>Describe the rationale for therapy/treatment options</li>
+                    <li>Incorporate knowledge of health regimen into lifestyle</li>
+                    <li>State confidence in one's ability to manage health situation and remain in control of life</li>
+                    <li>Demonstrate how to perform health-related procedure(s) satisfactorily</li>
+                    <li>Identify resources that can be used for more information or support after discharge</li>
                 </ul>
             </div>
             
@@ -584,13 +584,11 @@
                 <h2>NIC (Nursing Interventions Classification)</h2>
                 <h3>Suggested NIC Interventions</h3>
                 <ul>
-                    <li>Analgesic Administration</li>
-                    <li>Pain Management</li>
-                    <li>Patient-Controlled Analgesia (PCA) Assistance</li>
+                    <li>Teaching: Disease Process, Individual, Learning Facilitation</li>
                 </ul>
                 
-                <h3>Example NIC Activities—Pain Management</h3>
-                <p>Ensure client attentive analgesic care; Perform a comprehensive assessment of pain to include location, characteristics, onset/duration, frequency, quality, intensity or severity of pain, and precipitating factors</p>
+                <h3>Example NIC Activities—Teaching: Disease Process</h3>
+                <p>Discuss therapy/treatment options; Describe rationale behind management/therapy/treatment recommendations</p>
             </div>
             
             <!-- Nursing Interventions and Rationales -->
@@ -598,88 +596,88 @@
                 <h2>Nursing Interventions and Rationales</h2>
                 
                 <div class="intervention">
-                    <p class="intervention-header"><span class="tag independent">•</span> During the initial assessment and interview, if the client is experiencing pain, conduct and document a comprehensive pain assessment, using appropriate pain assessment tools.</p>
-                    <p class="rationale"><span class="tag eb">CEB</span>: Determining location, temporal aspects, pain intensity, characteristics, and the impact of pain on function and quality of life are critical to determine the underlying cause of pain and effectiveness of treatment (McCaffery, 1968; McCaffery et al, 2011). The initial assessment includes all pain information that the client can provide for the development of the individualized pain management plan (McCaffery et al, 2011).</p>
+                    <p class="intervention-header"><span class="tag independent">•</span> Consider the health literacy and the readiness to learn for all clients and caregivers (e.g., mental acuity, ability to see or hear, existing pain, emotional readiness, motivation, and previous knowledge).</p>
+                    <p class="rationale"><span class="tag ebn">EBN</span>: Findings from a cross-sectional study support the notion that health literacy, as a "sixth vital sign" be addressed in all settings because health literacy can vary depending on the situation and complexities of a chronic condition (Heinrich, 2012). <span class="tag eb">CEB</span>: In a descriptive study, Olinzock (2008) found that readiness to learn for persons with spinal cord injury ranged from dependent to self-directed based on situational, physical, and emotional challenges of the client.</p>
                 </div>
 
                 <div class="intervention">
-                    <p class="intervention-header"><span class="tag independent">•</span> Assess if the client is able to provide a self-report of pain intensity, and if so, assess pain intensity level using a valid and reliable self-report pain tool, such as the 0-10 numerical pain rating scale.</p>
-                    <p class="rationale"><span class="tag eb">CEB</span>: Self-report is considered the single most reliable indicator of pain presence and intensity and single-dimension pain ratings are valid and reliable as measures of pain intensity level (McCaffery et al, 2011). <span class="tag eb">EB</span>: Regularly and routinely assess the client for pain presence during activity and rest and with interventions or procedures likely to cause pain. <span class="tag eb">CEB</span>: Acute pain should be reliably assessed both at rest (important for comfort) and during movement (important for function and decreased client risk for cardiopulmonary and thromboembolic events) (McCaffery et al, 2011).</p>
+                    <p class="intervention-header"><span class="tag independent">•</span> Focus on the nature of spoken and written communication when teaching clients and caregivers, especially those who may have health literacy needs.</p>
+                    <p class="rationale"><span class="tag ebn">EBN</span>: Lambert and Keogh (2014) provide an overview of tools for effective teaching communication including providing feedback, actively seeking questions, using a teach-back method, and providing age-appropriate client education materials that are in are written in everyday layman language. <span class="tag eb">EB</span>: An evaluation study of 97 client education materials in three clinics found more than 90% were beyond the ninth grade reading level, although recommendations are that all educational materials should be on a fifth grade level by all adults regardless of health literacy (Ryan et al, 2014).</p>
                 </div>
                 
                 <div class="intervention">
-                    <p class="intervention-header"><span class="tag independent">•</span> Ask the client to describe prior experiences with pain, effectiveness of pain management interventions, responses to analgesic medications including occurrence of side effects, and concerns about pain and its treatment (e.g., fear about addiction, worries, or anxiety) and informational needs.</p>
-                    <p class="rationale"><span class="tag ebn">EBN</span>: Obtaining an individualized pain history helps identify potential factors that may influence the client's willingness to report pain, as well as factors that may influence pain intensity, the client's response to pain, anxiety, and pharmacokinetics of analgesics (Pasero 2009a; Pasero & Portenoy, 2011).</p>
+                    <p class="intervention-header"><span class="tag independent">•</span> Consider the context, timing, and order of how information is presented.</p>
+                    <p class="rationale"><span class="tag eb">EB</span>: A systematic review of 56 studies on educational interventions found that presenting the most important information first and the use of simplifying, "chunking," and grouping information presented in short sessions were effective (Berkman et al, 2011).</p>
                 </div>
                 
                 <div class="intervention">
-                    <p class="intervention-header"><span class="tag independent">•</span> Using a self-report pain tool, ask the client to identify a comfort-function goal that will allow the client to perform necessary or desired activities easily.</p>
-                    <p class="rationale"><span class="tag ebn">EBN</span>: The comfort-function goal provides the basis for individualized pain management plans and assists in determining effectiveness of pain management interventions (McCaffery et al, 2011).</p>
+                    <p class="intervention-header"><span class="tag independent">•</span> Use client-centered approaches that engage clients and caregivers as active vs. passive learners.</p>
+                    <p class="rationale"><span class="tag eb">EB</span>: A systematic review of 38 trials with clients with asthma found that using empathy-building strategies within a framework of person-centered counseling would maximize the effectiveness of self-care interventions for those with poorly controlled asthma (Denford et al, 2014). <span class="tag ebn">EBN</span>: A synthesis of studies by Cameron (2013) concluded that using multiple or a combination of teaching methods adapted to client learning styles and priority concerns were effective for client outcomes.</p>
                 </div>
                 
                 <div class="intervention">
-                    <p class="intervention-header"><span class="tag collaborative">!</span> Describe the adverse effects of unrelieved pain.</p>
-                    <p class="rationale"><span class="tag ebn">CEB/EBN</span>: Unrelieved acute pain can have physiological and psychological consequences that facilitate negative client outcomes. Ineffective management of acute pain has the potential for neurohumoral changes, neuronal remodeling, an impact on immune function, and long-lasting physiological, psychological, and emotional distress, and it may lead to persistent pain syndromes (Pasero, 2011; Pasero & Portenoy, 2011).</p>
+                    <p class="intervention-header"><span class="tag independent">•</span> Reinforce learning through frequent repetition and follow-up sessions.</p>
+                    <p class="rationale"><span class="tag ebn">EBN</span>: A systematic review of six studies found that frequent and regular educational sessions, including "boost" sessions, improved medication and self-care management outcomes for those with a chronic condition, including stroke clients (Chapman & Bogle, 2014). <span class="tag eb">EB</span>: In a cohort study of 400 clients at discharge, 59.2% were found to have a misunderstanding of indication, dose, and frequency of their medications, leading investigators to stress the importance of repetition of medication teaching before discharge for all clients regardless of health literacy (Mixon et al, 2014).</p>
                 </div>
                 
                 <div class="intervention">
-                    <p class="intervention-header"><span class="tag independent">•</span> Use the Hierarchy of Pain Measures as a framework for pain assessment (McCaffery et al, 2011): (1) attempt to obtain the client's self-report of pain; (2) consider the client's condition and search for possible causes of pain (e.g., presence of tissue injury, pathological conditions, or exposure to procedures/interventions that are thought to result in pain); (3) observe for behaviors that may indicate pain presence (e.g., facial expressions, crying, restlessness, and changes in activity); (4) evaluate physiological indicators, with the understanding that these are the least sensitive indicators of pain and may be related to conditions other than pain (e.g., shock, hypovolemia, anxiety); and (5) conduct an analgesic trial.</p>
-                    <p class="rationale"><span class="tag ebn">EBN</span>: When a client is unable to use a self-report tool (e.g., cognitively impaired, critically ill, anesthetized or sedated), the presence of pain may be assessed by observing specific client behaviors using a valid and reliable behavioral tool (e.g., Critical Care Observation Tool in critically ill or Checklist of Nonverbal Pain Indicators in cognitively impaired older adults) (Puntillo et al, 2014; McCaffery et al, 2011).</p>
-                </div>
-                
-                <div class="intervention">
-                    <p class="intervention-header"><span class="tag collaborative">!</span> Manage acute pain using a multimodal approach.</p>
-                    <p class="rationale"><span class="tag eb">EB</span>: A multimodal approach (combining two or more drugs that act by different mechanisms for providing analgesia) enhances pain relief and allows the lowest effective dose of each drug to be administered, resulting in fewer or less severe side effects, such as nausea, sedation, and respiratory depression (Pasero et al, 2011c).</p>
-                </div>
-                
-                <div class="intervention">
-                    <p class="intervention-header"><span class="tag collaborative">!</span> Administer a nonopioid analgesic for mild to moderate pain and add an opioid analgesic if indicated for moderate to severe acute pain.</p>
-                    <p class="rationale"><span class="tag eb">EB</span>: Nonopioids, such as acetaminophen and nonsteroidal anti-inflammatory drugs, are first-line analgesics for the treatment of mild and some moderate acute pain, while opioids are included for the treatment of moderate to severe acute pain (Pasero et al, 2011a; Young & Buvanendran, 2012).</p>
-                </div>
-                
-                <div class="intervention">
-                    <p class="intervention-header"><span class="tag independent">•</span> Administer analgesics around-the-clock for continuous pain (expected to be present approximately 50% of the day, such as postoperative pain) and PRN (as needed) for intermittent or breakthrough pain.</p>
-                    <p class="rationale"><span class="tag eb">CEB</span>: If pain is present most of the day, the use of PRN medications alone will lead to periods of undermedication and poor pain control and periods of excessive medication and adverse effects (Pasero, 2010).</p>
-                </div>
-                
-                <div class="intervention">
-                    <p class="intervention-header"><span class="tag independent">•</span> Support the client's use of nonpharmacological methods to supplement pharmacological analgesic approaches to help control pain, such as distraction, imagery, music therapy, simple massage, relaxation, and application of heat and cold.</p>
-                    <p class="rationale"><span class="tag ebn">EBN</span>: Although more evidence is needed to conclude effectiveness, nonpharmacological methods (which are low cost and low risk) can be used to complement pharmacological treatment of pain (Gelinas & Arbour, 2009; Ignatavicius, 2013).</p>
+                    <p class="intervention-header"><span class="tag independent">•</span> Use technological and multimedia methods of disbursing information as appropriate.</p>
+                    <p class="rationale"><span class="tag eb">EB</span>: A Cochrane review of 24 studies with 8112 participants found that the use of multimedia education (video, audio, and self-paced computer programs) as an adjunct with current programs was most effective (Ciciriello et al, 2013). <span class="tag eb">EB</span>: In a Cochrane review of 16 trials with 3478 participants, the use of computer programs and the use of mobile phone interventions helped clients with diabetes type 2 improve blood glucose control, although not all clients have access (Pal et al, 2013).</p>
                 </div>
                 
                 <h3>Pediatric</h3>
                 <div class="special-section">
                     <div class="intervention">
-                        <p class="intervention-header"><span class="tag independent">•</span> Assess for the presence of pain using a valid and reliable pain scale based on age, cognitive development, and the child's ability to provide a self-report.</p>
-                        <p class="rationale"><span class="tag ebn">EBN</span>: Scales that depict faces at various levels of pain intensity are commonly used in young children and have been shown to be reliable and valid in children as young as 3 years old (Oakes, 2011). <span class="tag eb">EB</span>: Behavioral tools such as the FLACC Scale may be used to assess pain in infants and children who cannot provide a self-report (Crellin et al, 2015).</p>
+                        <p class="intervention-header"><span class="tag independent">•</span> Use family-centered approaches when teaching children and adolescents.</p>
+                        <p class="rationale"><span class="tag ebn">EBN</span>: According to Dunn and Board (2011), relationship building and negotiation of roles among parents and staff is considered essential, especially for families learning to manage complex medical technology and treatment.</p>
                     </div>
                     
                     <div class="intervention">
-                        <p class="intervention-header"><span class="tag collaborative">!</span> Administer prescribed analgesics using a multimodal approach to treat pain in children, infants, and neonates.</p>
-                        <p class="rationale"><span class="tag eb">EB</span>: PCA may be used by children as young as 4 years of age, and intraspinal and perineural analgesic techniques may be used for major surgical procedures (Oakes, 2011).</p>
+                        <p class="intervention-header"><span class="tag independent">•</span> Guide children and adolescents to credible information about their condition.</p>
+                        <p class="rationale"><span class="tag eb">CEB</span>: According to Chilman-Blair (2010), children and adolescents need to be connected to credible sources of information that children are familiar with, including visual sources, social media, and social networking groups that are relevant for their condition.</p>
                     </div>
                     
                     <div class="intervention">
-                        <p class="intervention-header"><span class="tag independent">•</span> Use a topical local anesthetic such as eutectic mixture of local anesthetics (EMLA) cream or LMX-4 before performing venipuncture in neonates, infants, and children.</p>
-                        <p class="rationale"><span class="tag ebn">EBN</span>: The use of EMLA with prolonged application time for pediatric venipuncture in the emergency department results in improved venipuncture success and reduced pain (Baxter et al, 2013).</p>
+                        <p class="intervention-header"><span class="tag independent">•</span> Use teaching strategies to enhance learning that are uniquely tailored for the information needs of children and/or adolescents.</p>
+                        <p class="rationale"><span class="tag eb">CEB</span>: In a study of young children at a diabetes camp, it was found that the children responded well to use of puppets, playthings, and games in teaching sessions because it gives them a sense of control (Pélicand et al, 2006). <span class="tag ebn">EBN</span>: In a qualitative study of focus groups of adolescents who have undergone kidney transplant, adolescents voiced that they valued on-line discussion boards, mentoring, and sharing of personal experiences, but they were clear that they did not want to relinquish face to face time with health care providers (Korus et al, 2011).</p>
                     </div>
                 </div>
                 
                 <h3>Geriatric</h3>
                 <div class="special-section">
-                    <p>Refer to the Nursing Interventions and Rationales in the care plan for Chronic Pain.</p>
+                    <div class="intervention">
+                        <p class="intervention-header"><span class="tag independent">•</span> Educate all older clients on safety issues, including fall prevention and medication management.</p>
+                        <p class="rationale"><span class="tag">QSEN</span>: In a meta-analysis of 19 studies, in client and post-discharge clients receiving targeted fall prevention education face to face or through multimedia had decreased falls than those either receiving no formal education or written education (Lee et al, 2014). <span class="tag">QSEN</span>: In a study of 162 medical records of older adults with heart failure, 48.1% received incomplete discharge medication instructions, leading investigators to recommend that due to complex medication changes, clear and consistent medication information during transition at discharge needs to be improved (Foust et al, 2012).</p>
+                    </div>
+                    
+                    <div class="intervention">
+                        <p class="intervention-header"><span class="tag independent">•</span> Consider using teaching methods and materials appropriate for older adults, especially those with cognitive challenges.</p>
+                        <p class="rationale"><span class="tag ebn">EBN</span>: Findings in an integrated literature review suggest that the use of simple pictograms (stick figures) vs. written instructions or photographs can be used as a universal language for those with low literacy or language needs in an older adult population (Choi, 2011). <span class="tag eb">CEB</span>: The use of Gerogogy or story telling can be used when educating older clients to link new information with familiar concepts from past experiences (Cangelosi & Sorrell, 2008).</p>
+                    </div>
+                </div>
+                
+                <h3>Multicultural</h3>
+                <div class="special-section">
+                    <div class="intervention">
+                        <p class="intervention-header"><span class="tag independent">•</span> Use educational interventions that are culturally tailored to the health literacy needs of the client.</p>
+                        <p class="rationale"><span class="tag eb">EB</span>: A Cochrane review of 33 randomized controlled trials focusing on diabetes type 2 found that culturally appropriate health education improved blood sugar control among participants, compared with those receiving "usual" care, at 3, 6, 12, and 24 months after the intervention (Attridge et al, 2014). <span class="tag eb">CEB</span>: Educational programs that focus on the cultural context and not disease symptoms alone are more effective than generic education programs (Bailey et al, 2009).</p>
+                    </div>
+                    
+                    <div class="intervention">
+                        <p class="intervention-header"><span class="tag independent">•</span> Assess for cultural/ethnic self-care practices.</p>
+                        <p class="rationale"><span class="tag eb">CEB</span>: Folk and home remedies may interact with medications and treatment (Seeleman et al, 2009).</p>
+                    </div>
                 </div>
                 
                 <h3>Home Care</h3>
                 <div class="special-section">
                     <div class="intervention">
-                        <p class="intervention-header"><span class="tag collaborative">!</span> Develop the treatment plan with the client and caregivers.</p>
-                        <p class="rationale"><span class="tag eb">EB</span>: Client education and motivation play important roles in self-management of clients with pain. Self-management is influenced by client-provider communication (Dorflinger et al, 2013).</p>
+                        <p class="intervention-header"><span class="tag independent">•</span> All of the previously mentioned interventions are applicable to the home setting.</p>
                     </div>
                     
                     <div class="intervention">
-                        <p class="intervention-header"><span class="tag collaborative">!</span> Assess the client's full medication profile, including medications prescribed by all health care providers and all over-the-counter medications for drug interactions, and instruct the client to refrain from mixing medications without health care provider approval.</p>
-                        <p class="rationale"><span class="tag eb">EB</span>: Pain medications may significantly affect or be affected by other medications and may cause severe side effects; in a study of diabetic pregabalin and duloxetine users, potential duloxetine drug-drug interactions and drug-condition interactions were associated with significant increases in mean health care costs (Johnston et al, 2013).</p>
+                        <p class="intervention-header"><span class="tag independent">•</span> Use telehealth and technology-enhanced practices as appropriate.</p>
+                        <p class="rationale"><span class="tag ebn">EBN</span>: Findings from a literature review of 48 papers support previous findings that technology is desired by consumers and can be effective, but the appropriateness for use should take into consideration the abilities of the clients, as well as the credibility of software applications and the accessibility of the type of technology, including computers and mobile devices (Fitzner & Moss, 2013).</p>
                     </div>
                 </div>
             </div>
@@ -687,42 +685,18 @@
             <!-- Client/Family Teaching -->
             <div class="section">
                 <h2>Client/Family Teaching and Discharge Planning</h2>
-                <p><strong>NOTE:</strong> To avoid the negative connotations associated with the words "drugs" and "narcotics," use the term "pain medicine" when teaching clients.</p>
                 
-                <div class="intervention">
-                    <p class="intervention-header"><span class="tag independent">•</span> Discuss the various discomforts encompassed by the word "pain" and ask the client to give examples of previously experienced pain. Explain the pain assessment process and the purpose of the pain rating scale.</p>
-                    <p class="rationale"><span class="tag eb">CEB</span>: It is often difficult for clients to understand the concept of pain and describe their pain experience. Using alternative words and providing a complete description of the assessment process, including the use of scales, ensures that an accurate treatment plan is developed (McCaffery et al, 2011).</p>
-                </div>
-                
-                <div class="intervention">
-                    <p class="intervention-header"><span class="tag independent">•</span> Teach the client to use the self-report pain tool to rate the intensity of past or current pain. Ask the client to set a comfort-function goal by selecting a pain level on the self-report tool that will allow performance of desired or necessary activities of recovery with relative ease (e.g., turn, cough, deep breathe, ambulate, participate in physical therapy).</p>
-                    <p class="rationale"><span class="tag eb">CEB</span>: The use of comfort-function goals provides the basis for the direction and modification of the treatment plan (McCaffery et al, 2011).</p>
-                </div>
-                
-                <div class="intervention">
-                    <p class="intervention-header"><span class="tag independent">•</span> Provide written educational materials on various aspects of pain control to improve client understanding of pain and pain-related interventions.</p>
-                    <p class="rationale"><span class="tag eb">EB</span>: Written materials and other educational tools assist in improving clients' knowledge related to pain management. In knee replacement clients, the use of an educational pamphlet and a compact disc was associated with decreased postoperative pain and increased participation in physical rehabilitation (Chen et al, 2014).</p>
-                </div>
-                
-                <div class="intervention">
-                    <p class="intervention-header"><span class="tag collaborative">!</span> Reinforce the importance of taking pain medications to maintain the comfort-function goal.</p>
-                    <p class="rationale"><span class="tag eb">CEB</span>: Teaching clients to stay on top of their pain and prevent it from getting out of control will improve the ability to accomplish the goals of recovery (McCaffery et al, 2011).</p>
-                </div>
-                
-                <div class="intervention">
-                    <p class="intervention-header"><span class="tag collaborative">!</span> Reinforce that taking opioids for pain relief is not addiction and that addiction is very unlikely to occur.</p>
-                    <p class="rationale"><span class="tag eb">CEB</span>: The development of addiction when opioids are taken for pain relief is rare (Pasero et al, 2011c).</p>
-                </div>
+                <p>Specific teaching and discharge planning interventions are incorporated throughout the Nursing Interventions and Rationales section above.</p>
             </div>
             
             <div class="footnote">
                 <p>References have been abbreviated for this template. For full references, please refer to the original source material.</p>
-                <p>Template created: March 8, 2025</p>
+                <p>Template created: March 13, 2025</p>
             </div>
         </main>
     </div>
 
-    <!-- 引入JavaScript檔案 -->
+    <!-- JavaScript file -->
     <script src="diagnosis.js"></script>
 </body>
 </html>

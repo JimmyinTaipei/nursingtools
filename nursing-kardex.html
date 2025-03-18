@@ -63,7 +63,7 @@
             color: #4B5563;
         }
         input, textarea, select {
-            width: 100%;
+            width: 90%;
             padding: 4px 6px;
             border: 1px solid #D1D5DB;
             border-radius: 4px;
@@ -209,34 +209,60 @@
                     </div>
                 </div>
 
-                <div class="card span-col-5">
+                <!-- 先修改生命徵象部分，移除血糖 -->
+                <div class="card span-col-4">
                     <div class="card-header card-header-color-5">生命徵象</div>
-                    <div class="grid-container-3">
-                        <div>
-                            <label for="temperature">體溫</label>
-                            <input type="text" id="temperature" name="temperature" placeholder="°C">
-                        </div>
-                        <div>
-                            <label for="pulse">脈搏</label>
-                            <input type="text" id="pulse" name="pulse" placeholder="次/分">
-                        </div>
-                        <div>
-                            <label for="respiration">呼吸</label>
-                            <input type="text" id="respiration" name="respiration" placeholder="次/分">
-                        </div>
-                        <div>
-                            <label for="bloodPressure">血壓</label>
-                            <input type="text" id="bloodPressure" name="bloodPressure" placeholder="mmHg">
-                        </div>
-                        <div>
-                            <label for="spo2">血氧飽和度</label>
-                            <input type="text" id="spo2" name="spo2" placeholder="%">
-                        </div>
-                        <div>
-                            <label for="bloodGlucose">血糖值</label>
-                            <input type="text" id="bloodGlucose" name="bloodGlucose" placeholder="mg/dL">
+                    <div id="vitalsContainer">
+                        <div class="vitals-entry">
+                            <div class="flex justify-between items-center mb-2">
+                                <span class="text-xs font-medium">測量時間</span>
+                                <input type="datetime-local" class="measurementTime w-3/5" name="measurementTime[]">
+                            </div>
+                            <div class="grid-container-3">
+                                <div>
+                                    <label for="temperature">體溫</label>
+                                    <input type="text" class="temperature" name="temperature[]" placeholder="°C">
+                                </div>
+                                <div>
+                                    <label for="pulse">脈搏</label>
+                                    <input type="text" class="pulse" name="pulse[]" placeholder="次/分">
+                                </div>
+                                <div>
+                                    <label for="respiration">呼吸</label>
+                                    <input type="text" class="respiration" name="respiration[]" placeholder="次/分">
+                                </div>
+                                <div>
+                                    <label for="bloodPressure">血壓</label>
+                                    <input type="text" class="bloodPressure" name="bloodPressure[]" placeholder="mmHg">
+                                </div>
+                                <div>
+                                    <label for="spo2">血氧飽和度</label>
+                                    <input type="text" class="spo2" name="spo2[]" placeholder="%">
+                                </div>
+                            </div>
+                            <hr class="my-2 border-gray-200">
                         </div>
                     </div>
+                    <button type="button" id="addVitalsBtn" class="mt-2 bg-blue-500 text-white px-2 py-1 rounded text-xs">+ 新增測量</button>
+                </div>
+
+                <!-- 新增獨立的血糖測量區塊 -->
+                <div class="card span-col-2">
+                    <div class="card-header card-header-color-5">血糖測量</div>
+                    <div id="glucoseContainer">
+                        <div class="glucose-entry">
+                            <div class="flex justify-between items-center mb-2">
+                                <span class="text-xs font-medium">測量時間</span>
+                                <input type="datetime-local" class="glucoseTime w-3/5" name="glucoseTime[]">
+                            </div>
+                            <div>
+                                <label for="bloodGlucose">血糖值</label>
+                                <input type="text" class="bloodGlucose" name="bloodGlucose[]" placeholder="mg/dL">
+                            </div>
+                            <hr class="my-2 border-gray-200">
+                        </div>
+                    </div>
+                    <button type="button" id="addGlucoseBtn" class="mt-2 bg-blue-500 text-white px-2 py-1 rounded text-xs">+ 新增測量</button>
                 </div>
 
                 <!-- 第二行：管路與傷口、進出量 -->
@@ -245,7 +271,13 @@
                     <div class="grid-container">
                         <div>
                             <label for="tubes">管路</label>
-                            <textarea id="tubes" name="tubes" rows="2" placeholder="IV, NG, Foley, 中心導管等"></textarea>
+                            <div id="tubesContainer">
+                                <div class="tube-item flex items-center mb-2">
+                                    <input type="text" class="tube-input" name="tubes[]" placeholder="輸入管路資訊">
+                                    <button type="button" class="delete-tube ml-2 bg-red-500 text-white px-2 py-1 rounded text-xs" style="display:none;">刪除</button>
+                                </div>
+                            </div>
+                            <button type="button" id="addTubeBtn" class="mt-1 bg-blue-500 text-white px-2 py-1 rounded text-xs">+ 新增管路</button>
                         </div>
                         <div>
                             <label for="wounds">傷口</label>
@@ -301,28 +333,47 @@
                     </div>
                 </div>
 
+                <!-- 飲食部分 -->
+                <div class="card span-col-3">
+                    <div class="card-header card-header-color-7">飲食</div>
+                    <div>
+                        <label for="diet">飲食狀態</label>
+                        <select id="diet" name="diet">
+                            <option value="">選擇飲食狀態</option>
+                            <option value="NPO">NPO (禁食)</option>
+                            <option value="半流質">半流質</option>
+                            <option value="流質">流質</option>
+                            <option value="軟質">軟質</option>
+                            <option value="普通飲食">普通飲食</option>
+                            <option value="特殊飲食">特殊飲食</option>
+                        </select>
+                        <div id="specialDietContainer" style="display: none;">
+                            <input type="text" id="specialDiet" placeholder="請說明特殊飲食">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 藥物部分 -->
+                <div class="card span-col-3">
+                    <div class="card-header card-header-color-7">用藥</div>
+                    <div>
+                        <label for="medications">藥物</label>
+                        <textarea id="medications" name="medications" rows="3" placeholder="定時用藥, PRN用藥等"></textarea>
+                    </div>
+                </div>
+
+                <!-- 新增現有醫囑和前一班修改醫囑區塊 -->
                 <div class="card span-col-6">
-                    <div class="card-header card-header-color-7">飲食與用藥</div>
-                    <div class="grid-container">
-                        <div>
-                            <label for="diet">飲食狀態</label>
-                            <select id="diet" name="diet">
-                                <option value="">選擇飲食狀態</option>
-                                <option value="NPO">NPO (禁食)</option>
-                                <option value="半流質">半流質</option>
-                                <option value="流質">流質</option>
-                                <option value="軟質">軟質</option>
-                                <option value="普通飲食">普通飲食</option>
-                                <option value="特殊飲食">特殊飲食</option>
-                            </select>
-                            <div id="specialDietContainer" style="display: none;">
-                                <input type="text" id="specialDiet" placeholder="請說明特殊飲食">
-                            </div>
-                        </div>
-                        <div>
-                            <label for="medications">藥物</label>
-                            <textarea id="medications" name="medications" rows="2" placeholder="定時用藥, PRN用藥等"></textarea>
-                        </div>
+                    <div class="card-header card-header-color-8">現有醫囑</div>
+                    <div>
+                        <textarea id="currentOrders" name="currentOrders" rows="3" placeholder="請輸入現有醫囑"></textarea>
+                    </div>
+                </div>
+
+                <div class="card span-col-6">
+                    <div class="card-header card-header-color-8">前一班修改醫囑</div>
+                    <div>
+                        <textarea id="previousShiftOrders" name="previousShiftOrders" rows="3" placeholder="請輸入前一班修改的醫囑"></textarea>
                     </div>
                 </div>
 
@@ -394,6 +445,232 @@
                 specialDietContainer.style.display = 'none';
             });
 
+            // 生命徵象新增按鈕
+            document.getElementById('addVitalsBtn').addEventListener('click', function() {
+                const vitalsContainer = document.getElementById('vitalsContainer');
+                const vitalsEntry = document.querySelector('.vitals-entry').cloneNode(true);
+                
+                // 清空所有輸入值
+                const inputs = vitalsEntry.querySelectorAll('input');
+                inputs.forEach(input => {
+                    input.value = '';
+                });
+                
+                // 添加刪除按鈕（僅在第二個及以後的測量中顯示）
+                if (vitalsContainer.querySelectorAll('.vitals-entry').length >= 1) {
+                    const deleteBtn = document.createElement('button');
+                    deleteBtn.className = 'ml-2 bg-red-500 text-white px-2 py-1 rounded text-xs';
+                    deleteBtn.textContent = '刪除';
+                    deleteBtn.onclick = function() {
+                        this.closest('.vitals-entry').remove();
+                    };
+                    
+                    const titleBar = vitalsEntry.querySelector('.flex.justify-between');
+                    titleBar.appendChild(deleteBtn);
+                }
+                
+                vitalsContainer.appendChild(vitalsEntry);
+            });
+
+            // 設置當前時間的函數
+            function setCurrentDateTime(inputElement) {
+                const now = new Date();
+                const year = now.getFullYear();
+                const month = String(now.getMonth() + 1).padStart(2, '0');
+                const day = String(now.getDate()).padStart(2, '0');
+                const hours = String(now.getHours()).padStart(2, '0');
+                const minutes = String(now.getMinutes()).padStart(2, '0');
+                
+                const dateTimeValue = `${year}-${month}-${day}T${hours}:${minutes}`;
+                inputElement.value = dateTimeValue;
+            }
+
+            // 頁面加載時設置初始時間
+            document.addEventListener('DOMContentLoaded', function() {
+                // 設置第一個測量時間為當前時間
+                const firstTimeInput = document.querySelector('.measurementTime');
+                if (firstTimeInput) {
+                    setCurrentDateTime(firstTimeInput);
+                }
+                
+                // 修改新增生命徵象按鈕的事件處理器，使新增的測量也帶入當前時間
+                document.getElementById('addVitalsBtn').addEventListener('click', function() {
+                    const vitalsContainer = document.getElementById('vitalsContainer');
+                    const vitalsEntry = document.querySelector('.vitals-entry').cloneNode(true);
+                    
+                    // 清空所有輸入值，但設置時間為當前時間
+                    const inputs = vitalsEntry.querySelectorAll('input');
+                    inputs.forEach(input => {
+                        input.value = '';
+                    });
+                    
+                    // 設置新時間輸入框的值為當前時間
+                    const timeInput = vitalsEntry.querySelector('.measurementTime');
+                    setCurrentDateTime(timeInput);
+                    
+                    // 添加刪除按鈕部分保持不變...
+                    if (vitalsContainer.querySelectorAll('.vitals-entry').length >= 1) {
+                        const deleteBtn = document.createElement('button');
+                        deleteBtn.className = 'ml-2 bg-red-500 text-white px-2 py-1 rounded text-xs';
+                        deleteBtn.textContent = '刪除';
+                        deleteBtn.onclick = function() {
+                            this.closest('.vitals-entry').remove();
+                        };
+                        
+                        const titleBar = vitalsEntry.querySelector('.flex.justify-between');
+                        titleBar.appendChild(deleteBtn);
+                    }
+                    
+                    vitalsContainer.appendChild(vitalsEntry);
+                });
+            });
+
+            // 管路新增和刪除功能
+            document.getElementById('addTubeBtn').addEventListener('click', function() {
+                const tubesContainer = document.getElementById('tubesContainer');
+                const tubeItemClone = document.querySelector('.tube-item').cloneNode(true);
+                
+                // 清空輸入值
+                tubeItemClone.querySelector('.tube-input').value = '';
+                
+                // 顯示刪除按鈕
+                const deleteBtn = tubeItemClone.querySelector('.delete-tube');
+                deleteBtn.style.display = 'block';
+                
+                // 設置刪除按鈕事件
+                deleteBtn.addEventListener('click', function() {
+                    this.closest('.tube-item').remove();
+                });
+                
+                tubesContainer.appendChild(tubeItemClone);
+            });
+
+            // 設置第一個刪除按鈕的事件監聽器
+            document.addEventListener('DOMContentLoaded', function() {
+                const firstDeleteBtn = document.querySelector('.delete-tube');
+                if (firstDeleteBtn) {
+                    firstDeleteBtn.addEventListener('click', function() {
+                        this.closest('.tube-item').remove();
+                    });
+                }
+            });
+            document.addEventListener('DOMContentLoaded', function() {
+                // 設置當前時間的函數
+                function setCurrentDateTime(inputElement) {
+                    const now = new Date();
+                    const year = now.getFullYear();
+                    const month = String(now.getMonth() + 1).padStart(2, '0');
+                    const day = String(now.getDate()).padStart(2, '0');
+                    const hours = String(now.getHours()).padStart(2, '0');
+                    const minutes = String(now.getMinutes()).padStart(2, '0');
+                    
+                    const dateTimeValue = `${year}-${month}-${day}T${hours}:${minutes}`;
+                    inputElement.value = dateTimeValue;
+                }
+                
+                // 設置初始時間
+                const firstTimeInput = document.querySelector('.measurementTime');
+                if (firstTimeInput) {
+                    setCurrentDateTime(firstTimeInput);
+                }
+                
+                // 設置初始血糖測量時間
+                const firstGlucoseTimeInput = document.querySelector('.glucoseTime');
+                if (firstGlucoseTimeInput) {
+                    setCurrentDateTime(firstGlucoseTimeInput);
+                }
+                
+                // 生命徵象新增按鈕
+                document.getElementById('addVitalsBtn').addEventListener('click', function() {
+                    const vitalsContainer = document.getElementById('vitalsContainer');
+                    const vitalsEntry = document.querySelector('.vitals-entry').cloneNode(true);
+                    
+                    // 清空所有輸入值，但設置時間為當前時間
+                    const inputs = vitalsEntry.querySelectorAll('input');
+                    inputs.forEach(input => {
+                        if (input.classList.contains('measurementTime')) {
+                            setCurrentDateTime(input);
+                        } else {
+                            input.value = '';
+                        }
+                    });
+                    
+                    // 添加刪除按鈕
+                    if (vitalsContainer.querySelectorAll('.vitals-entry').length >= 1) {
+                        const deleteBtn = document.createElement('button');
+                        deleteBtn.className = 'ml-2 bg-red-500 text-white px-2 py-1 rounded text-xs';
+                        deleteBtn.textContent = '刪除';
+                        deleteBtn.onclick = function() {
+                            this.closest('.vitals-entry').remove();
+                        };
+                        
+                        const titleBar = vitalsEntry.querySelector('.flex.justify-between');
+                        titleBar.appendChild(deleteBtn);
+                    }
+                    
+                    vitalsContainer.appendChild(vitalsEntry);
+                });
+                
+                // 血糖測量新增按鈕
+                document.getElementById('addGlucoseBtn').addEventListener('click', function() {
+                    const glucoseContainer = document.getElementById('glucoseContainer');
+                    const glucoseEntry = document.querySelector('.glucose-entry').cloneNode(true);
+                    
+                    // 清空所有輸入值，但設置時間為當前時間
+                    const inputs = glucoseEntry.querySelectorAll('input');
+                    inputs.forEach(input => {
+                        if (input.classList.contains('glucoseTime')) {
+                            setCurrentDateTime(input);
+                        } else {
+                            input.value = '';
+                        }
+                    });
+                    
+                    // 添加刪除按鈕
+                    if (glucoseContainer.querySelectorAll('.glucose-entry').length >= 1) {
+                        const deleteBtn = document.createElement('button');
+                        deleteBtn.className = 'ml-2 bg-red-500 text-white px-2 py-1 rounded text-xs';
+                        deleteBtn.textContent = '刪除';
+                        deleteBtn.onclick = function() {
+                            this.closest('.glucose-entry').remove();
+                        };
+                        
+                        const titleBar = glucoseEntry.querySelector('.flex.justify-between');
+                        titleBar.appendChild(deleteBtn);
+                    }
+                    
+                    glucoseContainer.appendChild(glucoseEntry);
+                });
+                
+                // 管路新增和刪除功能
+                document.getElementById('addTubeBtn').addEventListener('click', function() {
+                    const tubesContainer = document.getElementById('tubesContainer');
+                    const tubeItemClone = document.querySelector('.tube-item').cloneNode(true);
+                    
+                    // 清空輸入值
+                    tubeItemClone.querySelector('.tube-input').value = '';
+                    
+                    // 顯示刪除按鈕
+                    const deleteBtn = tubeItemClone.querySelector('.delete-tube');
+                    deleteBtn.style.display = 'block';
+                    
+                    // 設置刪除按鈕事件
+                    deleteBtn.addEventListener('click', function() {
+                        this.closest('.tube-item').remove();
+                    });
+                    
+                    tubesContainer.appendChild(tubeItemClone);
+                });
+                
+                // 設置第一個刪除按鈕的事件監聽器
+                const firstDeleteBtn = document.querySelector('.delete-tube');
+                if (firstDeleteBtn) {
+                    firstDeleteBtn.addEventListener('click', function() {
+                        this.closest('.tube-item').remove();
+                    });
+                }
+            });
+            
             // 表單提交處理
             document.getElementById('handoverForm').addEventListener('submit', function(e) {
                 e.preventDefault();

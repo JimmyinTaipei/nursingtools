@@ -122,7 +122,7 @@ td.bed-number {
 /* 任務樣式 - 更新，使任務可以堆疊顯示，半小時垂直虛線樣式 */
 .time-cell {
     position: relative;
-    height: 80px; /* 增加高度，容納多個任務 */
+    height: 100px; /* 增加高度，容納多個任務 */
     vertical-align: top;
     padding: 0 !important; /* 移除內部間距 */
 }
@@ -399,7 +399,7 @@ td.bed-number {
 
 .templates-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
     gap: 10px;
 }
 

@@ -237,7 +237,7 @@
             <div class="alarm-list">
                 <div class="section-title">
                     <h2>已設定的鬧鐘</h2>
-                    <button type="button" id="clear-all-btn" class="clear-all-btn">清除所有鬧鐘</button>
+                    <button type="button" id="clear-all-btn" class="clear-all-btn" style="width: 49%;">清除所有鬧鐘</button>
                 </div>
                 <div id="alarms-container">
                     <p>尚未設定任何鬧鐘</p>
@@ -262,6 +262,19 @@
                     <div class="confirmation-buttons">
                         <button type="button" id="confirm-cardiac-btn" class="confirm-btn">確認設定</button>
                         <button type="button" id="cancel-cardiac-btn" class="cancel-btn">取消</button>
+                    </div>
+                </div>
+            </div>
+            <div class="confirmation-modal" id="blood-confirmation">
+                <div class="confirmation-content">
+                    <h2>輸血監測排程</h2>
+                    <div class="alarm-schedule">
+                        <p>將設置以下鬧鐘：</p>
+                        <ul id="blood-schedule-list"></ul>
+                    </div>
+                    <div class="confirmation-buttons">
+                        <button type="button" id="confirm-blood-btn" class="confirm-btn">確認設定</button>
+                        <button type="button" id="cancel-blood-btn" class="cancel-btn">取消</button>
                     </div>
                 </div>
             </div>

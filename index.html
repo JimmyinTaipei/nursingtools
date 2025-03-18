@@ -73,16 +73,28 @@
                 <span class="template-name">Vital Sign (TID)</span>
                 <span class="template-desc">每日三次生命徵象</span>
             </button>
+            <button class="template-btn" data-template="vital-qid">
+                <span class="template-name">Vital Sign (QID)</span>
+                <span class="template-desc">每日四次生命徵象</span>
+            </button>
+            <button class="template-btn" data-template="glucose-bidac">
+                <span class="template-name">Blood Glucose (BIDAC)</span>
+                <span class="template-desc">每日兩次飯前血糖檢測</span>
+            </button>
+            <button class="template-btn" data-template="glucose-tidac">
+                <span class="template-name">Blood Glucose (TIDAC)</span>
+                <span class="template-desc">每日三次飯前血糖檢測</span>
+            </button>
             <button class="template-btn" data-template="glucose-qidac">
                 <span class="template-name">Blood Glucose (QIDAC)</span>
-                <span class="template-desc">飯前血糖檢測</span>
+                <span class="template-desc">每日四次飯前血糖檢測</span>
             </button>
             <button class="template-btn" data-template="iv-drip">
-                <span class="template-name">IV Drip (Q8H)</span>
-                <span class="template-desc">每8小時靜脈注射</span>
+                <span class="template-name">點滴、藥物 (Q8H)</span>
+                <span class="template-desc">每8小時給予點滴/藥物</span>
             </button>
             <button class="template-btn" data-template="medication-qid">
-                <span class="template-name">Medication (QID)</span>
+                <span class="template-name">藥物 (QID)</span>
                 <span class="template-desc">一日四次給藥</span>
             </button>
         </div>
@@ -184,21 +196,50 @@
                     type: 'exam',
                     description: '測量生命徵象',
                     timings: {
-                        day: ['09:00-09:30', '13:00-13:30'], // 白班 9點和13點
-                        evening: ['17:00-17:30', '21:00-21:30'], // 小夜 17點和21點
-                        night: ['05:00-05:30'] // 大夜 5點
+                        day: ['08:00-09:00', '12:30-13:30'], // 白班 9點和13點
+                        evening: ['15:30-16:30'], // 小夜 17點和21點
+                    }
+                },
+                // QID 生命徵象模板
+                'vital-qid': {
+                    name: 'Vital Sign (QID)',
+                    type: 'exam',
+                    description: '測量生命徵象',
+                    timings: {
+                        day: ['08:00-09:00', '12:30-13:30'], // 白班 9點和13點
+                        evening: ['15:30-16:30', '21:00-22:00'], // 小夜 17點和21點
                     }
                 },
                 
+                // BIDAC 飯前血糖檢測
+                'glucose-bidac': {
+                    name: 'Blood Glucose (BIDAC)',
+                    type: 'exam', 
+                    description: '飯前血糖檢測',
+                    timings: {
+                        day: ['15:30-16:00'], //晚餐前
+                        night: ['06:30-07:30'] //早餐前
+                    }
+                },
+                // TIDAC 飯前血糖檢測
+                'glucose-tidac': {
+                    name: 'Blood Glucose (TIDAC)',
+                    type: 'exam', 
+                    description: '飯前血糖檢測',
+                    timings: {
+                        day: ['10:30-11:00', '15:30-16:00'], 
+                        night: ['06:30-07:30'] 
+                    }
+                },
                 // QIDAC 飯前血糖檢測
                 'glucose-qidac': {
                     name: 'Blood Glucose (QIDAC)',
                     type: 'exam', 
                     description: '飯前血糖檢測',
                     timings: {
-                        day: ['07:30-07:45', '11:30-11:45'], // 早餐前、午餐前
-                        evening: ['17:30-17:45'], // 晚餐前
-                        night: ['21:30-21:45'] // 睡前點心前
+                        day: ['10:30-11:00', '15:30-16:00'], // 早餐前、午餐前
+                        evening: ['20:30-21:00'], // 晚餐前
+                        night: ['06:30-07:30'] // 睡前點心前
                     }
                 },
                 
@@ -220,9 +261,8 @@
                     type: 'medication',
                     description: '口服藥物給藥',
                     timings: {
-                        day: ['08:00-08:15', '12:00-12:15'],
-                        evening: ['18:00-18:15', '22:00-22:15'],
-                        night: ['08:00-08:15'] // 早班交接班前給早上的第一劑
+                        day: ['09:00-10:00', '12:30-13:00'],
+                        evening: ['17:00-18:00', '21:00-22:00'],
                     }
                 }
             };

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nursing Diagnosis - Acute Pain</title>
+    <title>Nursing Diagnosis - Anxiety</title>
     <link rel="stylesheet" href="diagnosis.css">
 </head>
 <body>
@@ -29,19 +29,19 @@
                     <option value="domain6">Domain 6: Self-Perception</option>
                     <option value="domain7">Domain 7: Role Relationship</option>
                     <option value="domain8">Domain 8: Sexuality</option>
-                    <option value="domain9">Domain 9: Coping/Stress Tolerance</option>
+                    <option value="domain9" selected>Domain 9: Coping/Stress Tolerance</option>
                     <option value="domain10">Domain 10: Life Principles</option>
                     <option value="domain11">Domain 11: Safety/Protection</option>
-                    <option value="domain12" selected>Domain 12: Comfort</option>
+                    <option value="domain12">Domain 12: Comfort</option>
                     <option value="domain13">Domain 13: Growth/Development</option>
                 </select>
                 
-                <!-- Class filter dropdown (will be populated based on domain selection) -->
+                <!-- Class filter dropdown -->
                 <select id="class-filter" class="taxonomy-filter">
                     <option value="all">All Classes</option>
-                    <option value="class1" selected>Class 1: Physical Comfort</option>
-                    <option value="class2">Class 2: Environmental Comfort</option>
-                    <option value="class3">Class 3: Social Comfort</option>
+                    <option value="class1">Class 1: Post-Trauma Responses</option>
+                    <option value="class2" selected>Class 2: Coping Responses</option>
+                    <option value="class3">Class 3: Neurobehavioral Stress</option>
                 </select>
             </div>
             
@@ -457,7 +457,7 @@
                     <div class="class-group" id="domain12-class1">
                         <h4 class="class-title">Physical Comfort</h4>
                         <ul class="diagnosis-nav">
-                            <li class="active" data-domain="domain12" data-class="class1">Acute Pain</li>
+                            <li href="Acute-pain.html" data-domain="domain12" data-class="class1">Acute Pain</li>
                             <li href="Chronic-pain.html" data-domain="domain12" data-class="class1">Chronic Pain</li>
                             <li href="Chronic-pain-syndrome.html" data-domain="domain12" data-class="class1">Chronic Pain Syndrome</li>
                             <li href="Nausea.html" data-domain="domain12" data-class="class1">Nausea</li>
@@ -520,24 +520,41 @@
         </aside>
         
         <main class="main-content">
-            <h1>Acute Pain</h1>
+            <h1>Anxiety</h1>
             
             <!-- NANDA-I Definition -->
             <div class="section">
                 <h2>NANDA-I Definition</h2>
-                <p>An unpleasant sensory and emotional experience associated with actual or potential tissue damage, or described in terms of such damage (International Association for the Study of Pain, 1979); sudden or slow onset of any intensity from mild to severe with an anticipated or predictable end</p>
+                <p>Vague, uneasy feeling of discomfort or dread accompanied by an autonomic response (the source often nonspecific or unknown to the individual); a feeling of apprehension caused by anticipation of danger. It is an alerting sign that warns of impending danger and enables the individual to take measures to deal with threat</p>
             </div>
             
             <!-- Defining Characteristics -->
             <div class="section">
                 <h2>Defining Characteristics</h2>
-                <p>Appetite change; change in physiological parameter (e.g., blood pressure, heart rate, respiratory rate, oxygen saturation, and end-tidal CO<sub>2</sub>); diaphoresis; distraction behavior; evidence of pain using standardized pain behavior checklist for those unable to communicate verbally (e.g., Neonatal Infant Pain Scale, Pain Assessment Checklist for Seniors with Limited Ability to Communicate); expressive behavior (e.g., restlessness, crying, vigilance); facial expression of pain (e.g., eyes lack luster, beaten look, fixed or scattered movement, grimace); guarding behavior; hopelessness; narrowed focus (e.g., time, perception, thought processes, interaction with people and environment); positioning to ease pain; protective behavior; proxy report of pain behavior/activity changes (e.g., family member, caregiver); pupil dilation; self-focused; self-report of intensity using standardized pain scale (e.g., Wong-Baker FACES scale, visual analog scale, numerical rating scale); self-report of pain characteristics using standardized pain instrument (e.g., McGill Pain Questionnaire, Brief Pain Inventory)</p>
+                
+                <h3>Behavioral</h3>
+                <p>Decrease in productivity; extraneous movement; fidgeting; glancing about; hypervigilance; insomnia; poor eye contact; restlessness; scanning behavior; worry about change in life event</p>
+                
+                <h3>Affective</h3>
+                <p>Anguish; apprehensiveness; distress; fear; feelings of inadequacy; helplessness; increase in wariness; irritability; jitteriness; overexcitement; rattled; regretful; self-focused; uncertain; worried</p>
+                
+                <h3>Physiological</h3>
+                <p>Facial tension; hand tremors; increased perspiration; increased tension; shakiness; trembling; voice quivering</p>
+                
+                <h3>Sympathetic</h3>
+                <p>Alteration in respiratory pattern; anorexia; brisk reflexes; cardiovascular excitation; diarrhea; dry mouth; facial flushing; heart palpitations; increase in blood pressure; increase in heart rate; increase in respiratory rate; pupil dilation; superficial vasoconstriction; twitching; weakness</p>
+                
+                <h3>Parasympathetic</h3>
+                <p>Abdominal pain; alteration in sleep pattern; decrease in heart rate; decreased blood pressure; diarrhea; faintness; fatigue; nausea; tingling in extremities; urinary frequency; urinary hesitancy; urinary urgency</p>
+                
+                <h3>Cognitive</h3>
+                <p>Alteration in attention; alteration in concentration; awareness of physiological symptoms; blocking of thoughts; confusion; decrease in perceptual field; diminished ability to learn; diminished ability to problem solve; fear; forgetfulness; preoccupation; rumination; tendency to blame others</p>
             </div>
             
             <!-- Related Factors -->
             <div class="section">
                 <h2>Related Factors (r/t)</h2>
-                <p>Biological injury agent (e.g., infection, ischemia, neoplasm); chemical injury agent (e.g., burn, capsaicin, methylene chloride, mustard agent); physical injury agent (e.g., abscess, amputation, burn, cut, heavy lifting, operative procedure, trauma, overtraining)</p>
+                <p>Conflict about life goals; exposure to toxin; family history of anxiety; heredity; interpersonal contagion; interpersonal transmission; major change (e.g., economic status, environment, health status, role function, role status); maturational crisis; situational crisis; stressors; substance abuse; threat of death; threat to current status; unmet needs; value conflict</p>
             </div>
             
             <!-- NOC Outcomes -->
@@ -545,52 +562,44 @@
                 <h2>NOC (Nursing Outcomes Classification)</h2>
                 <h3>Suggested NOC Outcomes</h3>
                 <ul>
-                    <li>Pain Control</li>
-                    <li>Pain Level</li>
-                    <li>Pain: Adverse Psychological Response</li>
+                    <li>Aggression Self-Restraint</li>
+                    <li>Anxiety Level</li>
+                    <li>Anxiety Self-Control</li>
+                    <li>Coping</li>
+                    <li>Impulse Self-Control</li>
                 </ul>
                 
-                <h3>Example NOC Outcome</h3>
-                <p><strong>Pain Level</strong> as evidenced by severity of observed or reported pain.</p>
-                <p>NOTE: Pain Level is the NOC Outcome label; this text recommends use of the self-report numerical pain rating scale in place of the NOC indicator scales because of the amount of research supporting its use.</p>
+                <h3>Example NOC Outcome with Indicators</h3>
+                <p><strong>Anxiety Self-Control</strong> as evidenced by the following indicators: Eliminates precursors of anxiety/Monitors physical manifestations of anxiety/Controls anxiety response (Rate the outcome and indicators of Anxiety Self-Control: 1 = never demonstrated, 2 = rarely demonstrated, 3 = sometimes demonstrated, 4 = often demonstrated, 5 = consistently demonstrated)</p>
             </div>
             
             <!-- Client Outcomes -->
             <div class="section">
                 <h2>Client Outcomes</h2>
                 <p>Client Will (Specify Time Frame)</p>
-                <h3>For the client who is able to provide a self-report</h3>
                 <ul>
-                    <li>Use a self-report pain tool to identify current pain intensity level and establish a comfort-function goal</li>
-                    <li>Report that pain management regimen achieves comfort-function goal without side effects</li>
-                    <li>Describe nonpharmacological methods that can be used to help achieve comfort-function goal</li>
-                    <li>Perform activities of recovery or activities of daily living (ADLs) easily</li>
-                    <li>Describe how unrelieved pain will be managed</li>
-                    <li>State ability to obtain sufficient amounts of rest and sleep</li>
-                    <li>Notify member of the health care team promptly for pain intensity level that is consistently greater than the comfort-function goal, or occurrence of side effects</li>
-                </ul>
-
-                <h3>For the client who is unable to provide a self-report</h3>
-                <ul>
-                    <li>Decrease in pain-related behaviors</li>
-                    <li>Perform activities of recovery or ADLs easily as determined by client condition</li>
-                    <li>Demonstrate the absence of side effects of analgesics</li>
-                    <li>No pain-related behaviors will be evident in the client who is completely unresponsive; a reasonable outcome is to demonstrate the absence of side effects related to the prescribed pain treatment plan</li>
+                    <li>Identify and verbalize symptoms of anxiety</li>
+                    <li>Identify, verbalize, and demonstrate techniques to control anxiety</li>
+                    <li>Verbalize absence of or decrease in subjective distress</li>
+                    <li>Have vital signs that reflect baseline or decreased sympathetic stimulation</li>
+                    <li>Have posture, facial expressions, gestures, and activity levels that reflect decreased distress</li>
+                    <li>Demonstrate improved concentration and accuracy of thoughts</li>
+                    <li>Demonstrate return of basic problem-solving skills</li>
+                    <li>Demonstrate increased external focus</li>
+                    <li>Demonstrate some ability to reassure self</li>
                 </ul>
             </div>
             
             <!-- NIC Interventions -->
             <div class="section">
                 <h2>NIC (Nursing Interventions Classification)</h2>
-                <h3>Suggested NIC Interventions</h3>
+                <h3>Suggested NIC Intervention</h3>
                 <ul>
-                    <li>Analgesic Administration</li>
-                    <li>Pain Management</li>
-                    <li>Patient-Controlled Analgesia (PCA) Assistance</li>
+                    <li>Anxiety Reduction</li>
                 </ul>
                 
-                <h3>Example NIC Activities—Pain Management</h3>
-                <p>Ensure client attentive analgesic care; Perform a comprehensive assessment of pain to include location, characteristics, onset/duration, frequency, quality, intensity or severity of pain, and precipitating factors</p>
+                <h3>Example NIC Activities—Anxiety Reduction</h3>
+                <p>Use calm, reassuring approach; Explain all procedures, including sensations likely to be experienced during the procedure</p>
             </div>
             
             <!-- Nursing Interventions and Rationales -->
@@ -598,88 +607,57 @@
                 <h2>Nursing Interventions and Rationales</h2>
                 
                 <div class="intervention">
-                    <p class="intervention-header"><span class="tag independent">•</span> During the initial assessment and interview, if the client is experiencing pain, conduct and document a comprehensive pain assessment, using appropriate pain assessment tools.</p>
-                    <p class="rationale"><span class="tag eb">CEB</span>: Determining location, temporal aspects, pain intensity, characteristics, and the impact of pain on function and quality of life are critical to determine the underlying cause of pain and effectiveness of treatment (McCaffery, 1968; McCaffery et al, 2011). The initial assessment includes all pain information that the client can provide for the development of the individualized pain management plan (McCaffery et al, 2011).</p>
+                    <p class="intervention-header"><span class="tag independent">•</span> Assess the client's level of anxiety and physical reactions to anxiety (e.g., tachycardia, tachypnea, nonverbal expressions of anxiety). Consider using the Hamilton Anxiety Scale, which grades 14 symptoms on a scale of 0 (not present) to 4 (very severe). Symptoms evaluated are mood, tension, fear, insomnia, concentration, worry, depressed mood, somatic complaints, and cardiovascular, respiratory, gastrointestinal, genitourinary, autonomic, and behavioral symptoms.</p>
+                    <p class="rationale"><span class="tag ebn">EBN</span>: Generalized anxiety disorder (GAD) is the most common anxiety with a 12-month prevalence of 3.1% in population-based survey and between 5.3% and 7.6% among patients who visit primary care offices. The highest rate of GAD (7.7%) occurs in persons 45 to 49 years of age, and the lowest rate (3.6%) occurs in persons 60 years and older. Women are almost twice as likely as men to be diagnosed with GAD over their lifetime (Kavan et al, 2009).</p>
                 </div>
 
                 <div class="intervention">
-                    <p class="intervention-header"><span class="tag independent">•</span> Assess if the client is able to provide a self-report of pain intensity, and if so, assess pain intensity level using a valid and reliable self-report pain tool, such as the 0-10 numerical pain rating scale.</p>
-                    <p class="rationale"><span class="tag eb">CEB</span>: Self-report is considered the single most reliable indicator of pain presence and intensity and single-dimension pain ratings are valid and reliable as measures of pain intensity level (McCaffery et al, 2011). <span class="tag eb">EB</span>: Regularly and routinely assess the client for pain presence during activity and rest and with interventions or procedures likely to cause pain. <span class="tag eb">CEB</span>: Acute pain should be reliably assessed both at rest (important for comfort) and during movement (important for function and decreased client risk for cardiopulmonary and thromboembolic events) (McCaffery et al, 2011).</p>
+                    <p class="intervention-header"><span class="tag independent">•</span> Rule out withdrawal from alcohol, sedatives, or smoking as the cause of anxiety.</p>
+                    <p class="rationale"><span class="tag eb">EB</span>: Military personnel sent to war zones have higher levels of depression that are often exacerbated by alcohol and sedative use (Gale et al, 2010). When withdrawing from either sedatives or alcohol, participants in this study demonstrated elevated levels of anxiety and nervousness (McCabe et al, 2011).</p>
                 </div>
                 
                 <div class="intervention">
-                    <p class="intervention-header"><span class="tag independent">•</span> Ask the client to describe prior experiences with pain, effectiveness of pain management interventions, responses to analgesic medications including occurrence of side effects, and concerns about pain and its treatment (e.g., fear about addiction, worries, or anxiety) and informational needs.</p>
-                    <p class="rationale"><span class="tag ebn">EBN</span>: Obtaining an individualized pain history helps identify potential factors that may influence the client's willingness to report pain, as well as factors that may influence pain intensity, the client's response to pain, anxiety, and pharmacokinetics of analgesics (Pasero 2009a; Pasero & Portenoy, 2011).</p>
+                    <p class="intervention-header"><span class="tag independent">•</span> Use empathy to encourage the client to interpret the anxiety symptoms as normal.</p>
+                    <p class="rationale"><span class="tag ebn">EBN</span>: The way a nurse interacts with a client influences his/her quality of life. Providing psychological and social support can reduce the symptoms and problems associated with anxiety (Wagner & Bear, 2009). In another study, patients undergoing couples therapy felt significantly more trust and responded with more success to those therapists who provided empathetic and compassionate responses and suggestions (Benson et al, 2012).</p>
                 </div>
                 
                 <div class="intervention">
-                    <p class="intervention-header"><span class="tag independent">•</span> Using a self-report pain tool, ask the client to identify a comfort-function goal that will allow the client to perform necessary or desired activities easily.</p>
-                    <p class="rationale"><span class="tag ebn">EBN</span>: The comfort-function goal provides the basis for individualized pain management plans and assists in determining effectiveness of pain management interventions (McCaffery et al, 2011).</p>
-                </div>
-                
-                <div class="intervention">
-                    <p class="intervention-header"><span class="tag collaborative">!</span> Describe the adverse effects of unrelieved pain.</p>
-                    <p class="rationale"><span class="tag ebn">CEB/EBN</span>: Unrelieved acute pain can have physiological and psychological consequences that facilitate negative client outcomes. Ineffective management of acute pain has the potential for neurohumoral changes, neuronal remodeling, an impact on immune function, and long-lasting physiological, psychological, and emotional distress, and it may lead to persistent pain syndromes (Pasero, 2011; Pasero & Portenoy, 2011).</p>
-                </div>
-                
-                <div class="intervention">
-                    <p class="intervention-header"><span class="tag independent">•</span> Use the Hierarchy of Pain Measures as a framework for pain assessment (McCaffery et al, 2011): (1) attempt to obtain the client's self-report of pain; (2) consider the client's condition and search for possible causes of pain (e.g., presence of tissue injury, pathological conditions, or exposure to procedures/interventions that are thought to result in pain); (3) observe for behaviors that may indicate pain presence (e.g., facial expressions, crying, restlessness, and changes in activity); (4) evaluate physiological indicators, with the understanding that these are the least sensitive indicators of pain and may be related to conditions other than pain (e.g., shock, hypovolemia, anxiety); and (5) conduct an analgesic trial.</p>
-                    <p class="rationale"><span class="tag ebn">EBN</span>: When a client is unable to use a self-report tool (e.g., cognitively impaired, critically ill, anesthetized or sedated), the presence of pain may be assessed by observing specific client behaviors using a valid and reliable behavioral tool (e.g., Critical Care Observation Tool in critically ill or Checklist of Nonverbal Pain Indicators in cognitively impaired older adults) (Puntillo et al, 2014; McCaffery et al, 2011).</p>
-                </div>
-                
-                <div class="intervention">
-                    <p class="intervention-header"><span class="tag collaborative">!</span> Manage acute pain using a multimodal approach.</p>
-                    <p class="rationale"><span class="tag eb">EB</span>: A multimodal approach (combining two or more drugs that act by different mechanisms for providing analgesia) enhances pain relief and allows the lowest effective dose of each drug to be administered, resulting in fewer or less severe side effects, such as nausea, sedation, and respiratory depression (Pasero et al, 2011c).</p>
-                </div>
-                
-                <div class="intervention">
-                    <p class="intervention-header"><span class="tag collaborative">!</span> Administer a nonopioid analgesic for mild to moderate pain and add an opioid analgesic if indicated for moderate to severe acute pain.</p>
-                    <p class="rationale"><span class="tag eb">EB</span>: Nonopioids, such as acetaminophen and nonsteroidal anti-inflammatory drugs, are first-line analgesics for the treatment of mild and some moderate acute pain, while opioids are included for the treatment of moderate to severe acute pain (Pasero et al, 2011a; Young & Buvanendran, 2012).</p>
-                </div>
-                
-                <div class="intervention">
-                    <p class="intervention-header"><span class="tag independent">•</span> Administer analgesics around-the-clock for continuous pain (expected to be present approximately 50% of the day, such as postoperative pain) and PRN (as needed) for intermittent or breakthrough pain.</p>
-                    <p class="rationale"><span class="tag eb">CEB</span>: If pain is present most of the day, the use of PRN medications alone will lead to periods of undermedication and poor pain control and periods of excessive medication and adverse effects (Pasero, 2010).</p>
-                </div>
-                
-                <div class="intervention">
-                    <p class="intervention-header"><span class="tag independent">•</span> Support the client's use of nonpharmacological methods to supplement pharmacological analgesic approaches to help control pain, such as distraction, imagery, music therapy, simple massage, relaxation, and application of heat and cold.</p>
-                    <p class="rationale"><span class="tag ebn">EBN</span>: Although more evidence is needed to conclude effectiveness, nonpharmacological methods (which are low cost and low risk) can be used to complement pharmacological treatment of pain (Gelinas & Arbour, 2009; Ignatavicius, 2013).</p>
+                    <p class="intervention-header"><span class="tag independent">•</span> If irrational thoughts or fears are present, offer the client accurate information and encourage him or her to talk about the meaning of the events contributing to the anxiety.</p>
+                    <p class="rationale"><span class="tag ebn">EBN</span>: In one study providing cancer patients with accurate information about their disease, prognosis and outcomes significantly reduced their anxiety and increased empowerment (Lauzier et al, 2014).</p>
                 </div>
                 
                 <h3>Pediatric</h3>
                 <div class="special-section">
                     <div class="intervention">
-                        <p class="intervention-header"><span class="tag independent">•</span> Assess for the presence of pain using a valid and reliable pain scale based on age, cognitive development, and the child's ability to provide a self-report.</p>
-                        <p class="rationale"><span class="tag ebn">EBN</span>: Scales that depict faces at various levels of pain intensity are commonly used in young children and have been shown to be reliable and valid in children as young as 3 years old (Oakes, 2011). <span class="tag eb">EB</span>: Behavioral tools such as the FLACC Scale may be used to assess pain in infants and children who cannot provide a self-report (Crellin et al, 2015).</p>
-                    </div>
-                    
-                    <div class="intervention">
-                        <p class="intervention-header"><span class="tag collaborative">!</span> Administer prescribed analgesics using a multimodal approach to treat pain in children, infants, and neonates.</p>
-                        <p class="rationale"><span class="tag eb">EB</span>: PCA may be used by children as young as 4 years of age, and intraspinal and perineural analgesic techniques may be used for major surgical procedures (Oakes, 2011).</p>
-                    </div>
-                    
-                    <div class="intervention">
-                        <p class="intervention-header"><span class="tag independent">•</span> Use a topical local anesthetic such as eutectic mixture of local anesthetics (EMLA) cream or LMX-4 before performing venipuncture in neonates, infants, and children.</p>
-                        <p class="rationale"><span class="tag ebn">EBN</span>: The use of EMLA with prolonged application time for pediatric venipuncture in the emergency department results in improved venipuncture success and reduced pain (Baxter et al, 2013).</p>
+                        <p class="intervention-header"><span class="tag independent">•</span> The above interventions may be adapted for the pediatric client.</p>
                     </div>
                 </div>
                 
                 <h3>Geriatric</h3>
                 <div class="special-section">
-                    <p>Refer to the Nursing Interventions and Rationales in the care plan for Chronic Pain.</p>
+                    <div class="intervention">
+                        <p class="intervention-header"><span class="tag collaborative">!</span> Monitor the client for depression. Use appropriate interventions and referrals.</p>
+                        <p class="rationale"><span class="tag eb">EB</span>: GAD is a common and disabling disorder in later life that is highly comorbid with mood, anxiety, and personality disorders; psychiatric comorbidity is associated with an increased risk for medical conditions in this population. Considering that late-life GAD is associated with impaired quality of life but low levels of professional help-seeking, increased effort is needed to help individuals with this disorder to access effective treatments (Mackenzie et al, 2011).</p>
+                    </div>
+                </div>
+                
+                <h3>Multicultural</h3>
+                <div class="special-section">
+                    <div class="intervention">
+                        <p class="intervention-header"><span class="tag independent">•</span> Assess for the presence of culture-bound anxiety states.</p>
+                        <p class="rationale"><span class="tag ebn">EBN</span>: Prevalence and expression of social anxiety/seasonal affective disorder (SAD) depends on the particular culture. Asian cultures typically show the lowest rates, whereas Russian and United States samples show the highest rates, of SAD (Hoffman et al, 2010).</p>
+                    </div>
                 </div>
                 
                 <h3>Home Care</h3>
                 <div class="special-section">
                     <div class="intervention">
-                        <p class="intervention-header"><span class="tag collaborative">!</span> Develop the treatment plan with the client and caregivers.</p>
-                        <p class="rationale"><span class="tag eb">EB</span>: Client education and motivation play important roles in self-management of clients with pain. Self-management is influenced by client-provider communication (Dorflinger et al, 2013).</p>
+                        <p class="intervention-header"><span class="tag independent">•</span> The above interventions may be adapted for home care use.</p>
                     </div>
                     
                     <div class="intervention">
-                        <p class="intervention-header"><span class="tag collaborative">!</span> Assess the client's full medication profile, including medications prescribed by all health care providers and all over-the-counter medications for drug interactions, and instruct the client to refrain from mixing medications without health care provider approval.</p>
-                        <p class="rationale"><span class="tag eb">EB</span>: Pain medications may significantly affect or be affected by other medications and may cause severe side effects; in a study of diabetic pregabalin and duloxetine users, potential duloxetine drug-drug interactions and drug-condition interactions were associated with significant increases in mean health care costs (Johnston et al, 2013).</p>
+                        <p class="intervention-header"><span class="tag collaborative">!</span> Assess for suicidal ideation. Implement emergency plan as indicated.</p>
+                        <p class="rationale"><span class="tag ebn">EBN</span>: Suicidal ideation may occur in response to co-occurring depression or a sense of hopelessness over severe anxiety symptoms or once antidepressant medications have been started (Mitchell et al, 2009). See care plan for Risk for Suicide.</p>
                     </div>
                 </div>
             </div>
@@ -687,42 +665,31 @@
             <!-- Client/Family Teaching -->
             <div class="section">
                 <h2>Client/Family Teaching and Discharge Planning</h2>
-                <p><strong>NOTE:</strong> To avoid the negative connotations associated with the words "drugs" and "narcotics," use the term "pain medicine" when teaching clients.</p>
                 
                 <div class="intervention">
-                    <p class="intervention-header"><span class="tag independent">•</span> Discuss the various discomforts encompassed by the word "pain" and ask the client to give examples of previously experienced pain. Explain the pain assessment process and the purpose of the pain rating scale.</p>
-                    <p class="rationale"><span class="tag eb">CEB</span>: It is often difficult for clients to understand the concept of pain and describe their pain experience. Using alternative words and providing a complete description of the assessment process, including the use of scales, ensures that an accurate treatment plan is developed (McCaffery et al, 2011).</p>
+                    <p class="intervention-header"><span class="tag collaborative">!</span> Teach use of appropriate community resources in emergency situations (e.g., suicidal thoughts), such as hotlines, emergency departments, law enforcement, and judicial systems.</p>
+                    <p class="rationale"><span class="tag eb">EB</span>: Identification and sharing of best practices associated with emergency and community services would provide an opportunity for improvement in care for families dealing with anxiety and depression (Weiss et al, 2012).</p>
                 </div>
                 
                 <div class="intervention">
-                    <p class="intervention-header"><span class="tag independent">•</span> Teach the client to use the self-report pain tool to rate the intensity of past or current pain. Ask the client to set a comfort-function goal by selecting a pain level on the self-report tool that will allow performance of desired or necessary activities of recovery with relative ease (e.g., turn, cough, deep breathe, ambulate, participate in physical therapy).</p>
-                    <p class="rationale"><span class="tag eb">CEB</span>: The use of comfort-function goals provides the basis for the direction and modification of the treatment plan (McCaffery et al, 2011).</p>
+                    <p class="intervention-header"><span class="tag independent">•</span> Teach the client/family the symptoms of anxiety.</p>
+                    <p class="rationale"><span class="tag ebn">EBN</span>: Teach families to have a general understanding of what is happening to the patient with anxiety and help them to accept assistance to overcome their anxiety (Smith et al, 2011).</p>
                 </div>
                 
                 <div class="intervention">
-                    <p class="intervention-header"><span class="tag independent">•</span> Provide written educational materials on various aspects of pain control to improve client understanding of pain and pain-related interventions.</p>
-                    <p class="rationale"><span class="tag eb">EB</span>: Written materials and other educational tools assist in improving clients' knowledge related to pain management. In knee replacement clients, the use of an educational pamphlet and a compact disc was associated with decreased postoperative pain and increased participation in physical rehabilitation (Chen et al, 2014).</p>
-                </div>
-                
-                <div class="intervention">
-                    <p class="intervention-header"><span class="tag collaborative">!</span> Reinforce the importance of taking pain medications to maintain the comfort-function goal.</p>
-                    <p class="rationale"><span class="tag eb">CEB</span>: Teaching clients to stay on top of their pain and prevent it from getting out of control will improve the ability to accomplish the goals of recovery (McCaffery et al, 2011).</p>
-                </div>
-                
-                <div class="intervention">
-                    <p class="intervention-header"><span class="tag collaborative">!</span> Reinforce that taking opioids for pain relief is not addiction and that addiction is very unlikely to occur.</p>
-                    <p class="rationale"><span class="tag eb">CEB</span>: The development of addiction when opioids are taken for pain relief is rare (Pasero et al, 2011c).</p>
+                    <p class="intervention-header"><span class="tag independent">•</span> Teach the client techniques to self-manage anxiety.</p>
+                    <p class="rationale"><span class="tag ebn">EBN</span>: Computerized self-help treatments have been shown to be a less-intensive, cost-effective way to deliver empirically validated treatments for a variety of psychological problems (Newman et al, 2011).</p>
                 </div>
             </div>
             
             <div class="footnote">
                 <p>References have been abbreviated for this template. For full references, please refer to the original source material.</p>
-                <p>Template created: March 8, 2025</p>
+                <p>Template created: March 13, 2025</p>
             </div>
         </main>
     </div>
 
-    <!-- 引入JavaScript檔案 -->
+    <!-- JavaScript file -->
     <script src="diagnosis.js"></script>
 </body>
 </html>

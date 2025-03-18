@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nursing Diagnosis - Acute Pain</title>
+    <title>Nursing Diagnosis - Constipation</title>
     <link rel="stylesheet" href="diagnosis.css">
 </head>
 <body>
@@ -23,7 +23,7 @@
                     <option value="all">All Domains</option>
                     <option value="domain1">Domain 1: Health Promotion</option>
                     <option value="domain2">Domain 2: Nutrition</option>
-                    <option value="domain3">Domain 3: Elimination and Exchange</option>
+                    <option value="domain3" selected>Domain 3: Elimination and Exchange</option>
                     <option value="domain4">Domain 4: Activity/Rest</option>
                     <option value="domain5">Domain 5: Perception/Cognition</option>
                     <option value="domain6">Domain 6: Self-Perception</option>
@@ -32,16 +32,17 @@
                     <option value="domain9">Domain 9: Coping/Stress Tolerance</option>
                     <option value="domain10">Domain 10: Life Principles</option>
                     <option value="domain11">Domain 11: Safety/Protection</option>
-                    <option value="domain12" selected>Domain 12: Comfort</option>
+                    <option value="domain12">Domain 12: Comfort</option>
                     <option value="domain13">Domain 13: Growth/Development</option>
                 </select>
                 
-                <!-- Class filter dropdown (will be populated based on domain selection) -->
+                <!-- Class filter dropdown -->
                 <select id="class-filter" class="taxonomy-filter">
                     <option value="all">All Classes</option>
-                    <option value="class1" selected>Class 1: Physical Comfort</option>
-                    <option value="class2">Class 2: Environmental Comfort</option>
-                    <option value="class3">Class 3: Social Comfort</option>
+                    <option value="class1">Class 1: Urinary Function</option>
+                    <option value="class2" selected>Class 2: Gastrointestinal Function</option>
+                    <option value="class3">Class 3: Integumentary Function</option>
+                    <option value="class4">Class 4: Respiratory Function</option>
                 </select>
             </div>
             
@@ -457,7 +458,7 @@
                     <div class="class-group" id="domain12-class1">
                         <h4 class="class-title">Physical Comfort</h4>
                         <ul class="diagnosis-nav">
-                            <li class="active" data-domain="domain12" data-class="class1">Acute Pain</li>
+                            <li href="Acute-pain.html" data-domain="domain12" data-class="class1">Acute Pain</li>
                             <li href="Chronic-pain.html" data-domain="domain12" data-class="class1">Chronic Pain</li>
                             <li href="Chronic-pain-syndrome.html" data-domain="domain12" data-class="class1">Chronic Pain Syndrome</li>
                             <li href="Nausea.html" data-domain="domain12" data-class="class1">Nausea</li>
@@ -520,24 +521,38 @@
         </aside>
         
         <main class="main-content">
-            <h1>Acute Pain</h1>
+            <h1>Constipation</h1>
             
             <!-- NANDA-I Definition -->
             <div class="section">
                 <h2>NANDA-I Definition</h2>
-                <p>An unpleasant sensory and emotional experience associated with actual or potential tissue damage, or described in terms of such damage (International Association for the Study of Pain, 1979); sudden or slow onset of any intensity from mild to severe with an anticipated or predictable end</p>
+                <p>Decrease in normal frequency of defecation accompanied by difficult or incomplete passage of stool and/or passage of excessively hard, dry stool</p>
             </div>
             
             <!-- Defining Characteristics -->
             <div class="section">
                 <h2>Defining Characteristics</h2>
-                <p>Appetite change; change in physiological parameter (e.g., blood pressure, heart rate, respiratory rate, oxygen saturation, and end-tidal CO<sub>2</sub>); diaphoresis; distraction behavior; evidence of pain using standardized pain behavior checklist for those unable to communicate verbally (e.g., Neonatal Infant Pain Scale, Pain Assessment Checklist for Seniors with Limited Ability to Communicate); expressive behavior (e.g., restlessness, crying, vigilance); facial expression of pain (e.g., eyes lack luster, beaten look, fixed or scattered movement, grimace); guarding behavior; hopelessness; narrowed focus (e.g., time, perception, thought processes, interaction with people and environment); positioning to ease pain; protective behavior; proxy report of pain behavior/activity changes (e.g., family member, caregiver); pupil dilation; self-focused; self-report of intensity using standardized pain scale (e.g., Wong-Baker FACES scale, visual analog scale, numerical rating scale); self-report of pain characteristics using standardized pain instrument (e.g., McGill Pain Questionnaire, Brief Pain Inventory)</p>
+                <p>Abdominal pain; abdominal tenderness with palpable muscle resistance; abdominal tenderness without palpable muscle resistance; anorexia; atypical presentations in older adults (e.g., change in mental status, urinary incontinence, unexplained falls, elevated body temperature); borborygmi; bright red blood with stool; change in bowel pattern; decrease in stool frequency; decrease in stool volume; distended abdomen; fatigue; hard, formed stool; headache; hyperactive bowel sounds; hypoactive bowl sounds; inability to defecate; increase in intra-abdominal pressure; indigestion; liquid stool; pain with defecation; palpable abdominal mass; palpable rectal mass; percussed abdominal dullness; rectal fullness; rectal pressure; severe flatus; soft, paste-like stool in rectum; straining with defecation; vomiting</p>
             </div>
             
             <!-- Related Factors -->
             <div class="section">
-                <h2>Related Factors (r/t)</h2>
-                <p>Biological injury agent (e.g., infection, ischemia, neoplasm); chemical injury agent (e.g., burn, capsaicin, methylene chloride, mustard agent); physical injury agent (e.g., abscess, amputation, burn, cut, heavy lifting, operative procedure, trauma, overtraining)</p>
+                <h2>Related Factors</h2>
+                
+                <h3>Functional</h3>
+                <p>Abdominal muscle weakness; average daily physical activity is less than recommended for gender and age; habitually ignores urge to defecate; inadequate toileting habits; irregular defecation habits; recent environmental change</p>
+                
+                <h3>Mechanical</h3>
+                <p>Electrolyte imbalance; hemorrhoids; Hirschsprung's disease; neurological impairment (e.g., positive electroencephalogram, head trauma, seizure disorders); obesity; postsurgical bowel obstruction; pregnancy; prostate enlargement; rectal abscess; rectal anal fissures; rectal anal stricture; rectal prolapsed; rectal ulcer; rectocele; tumors</p>
+                
+                <h3>Pharmacological</h3>
+                <p>Laxative abuse; pharmaceutical agent</p>
+                
+                <h3>Physiological</h3>
+                <p>Decrease in gastrointestinal motility; dehydration; eating habit change (e.g., foods, eating times); inadequate dentition; inadequate oral hygiene; insufficient dietary habits; insufficient fiber intake; insufficient fluid intake</p>
+                
+                <h3>Psychological</h3>
+                <p>Confusion; depression; emotional disturbance</p>
             </div>
             
             <!-- NOC Outcomes -->
@@ -545,52 +560,36 @@
                 <h2>NOC (Nursing Outcomes Classification)</h2>
                 <h3>Suggested NOC Outcomes</h3>
                 <ul>
-                    <li>Pain Control</li>
-                    <li>Pain Level</li>
-                    <li>Pain: Adverse Psychological Response</li>
+                    <li>Bowel Elimination</li>
+                    <li>Hydration</li>
                 </ul>
                 
                 <h3>Example NOC Outcome</h3>
-                <p><strong>Pain Level</strong> as evidenced by severity of observed or reported pain.</p>
-                <p>NOTE: Pain Level is the NOC Outcome label; this text recommends use of the self-report numerical pain rating scale in place of the NOC indicator scales because of the amount of research supporting its use.</p>
+                <p><strong>Bowel Elimination</strong> as evidenced by the following indicators: Elimination pattern/Stool soft and formed/Passage of stool without aids/Ease of stool passage.</p>
+                <p>NOTE: Rate each indicator of Bowel Elimination: 1 = severely compromised, 2 = substantially compromised, 3 = moderately compromised, 4 = mildly compromised, 5 = not compromised</p>
             </div>
             
             <!-- Client Outcomes -->
             <div class="section">
                 <h2>Client Outcomes</h2>
                 <p>Client Will (Specify Time Frame)</p>
-                <h3>For the client who is able to provide a self-report</h3>
                 <ul>
-                    <li>Use a self-report pain tool to identify current pain intensity level and establish a comfort-function goal</li>
-                    <li>Report that pain management regimen achieves comfort-function goal without side effects</li>
-                    <li>Describe nonpharmacological methods that can be used to help achieve comfort-function goal</li>
-                    <li>Perform activities of recovery or activities of daily living (ADLs) easily</li>
-                    <li>Describe how unrelieved pain will be managed</li>
-                    <li>State ability to obtain sufficient amounts of rest and sleep</li>
-                    <li>Notify member of the health care team promptly for pain intensity level that is consistently greater than the comfort-function goal, or occurrence of side effects</li>
-                </ul>
-
-                <h3>For the client who is unable to provide a self-report</h3>
-                <ul>
-                    <li>Decrease in pain-related behaviors</li>
-                    <li>Perform activities of recovery or ADLs easily as determined by client condition</li>
-                    <li>Demonstrate the absence of side effects of analgesics</li>
-                    <li>No pain-related behaviors will be evident in the client who is completely unresponsive; a reasonable outcome is to demonstrate the absence of side effects related to the prescribed pain treatment plan</li>
+                    <li>Maintain passage of soft, formed stool every 1 to 3 days without straining</li>
+                    <li>State relief from discomfort of constipation</li>
+                    <li>Identify measures that prevent or treat constipation</li>
                 </ul>
             </div>
             
             <!-- NIC Interventions -->
             <div class="section">
                 <h2>NIC (Nursing Interventions Classification)</h2>
-                <h3>Suggested NIC Interventions</h3>
+                <h3>Suggested NIC Intervention</h3>
                 <ul>
-                    <li>Analgesic Administration</li>
-                    <li>Pain Management</li>
-                    <li>Patient-Controlled Analgesia (PCA) Assistance</li>
+                    <li>Constipation/Impaction Management</li>
                 </ul>
                 
-                <h3>Example NIC Activities—Pain Management</h3>
-                <p>Ensure client attentive analgesic care; Perform a comprehensive assessment of pain to include location, characteristics, onset/duration, frequency, quality, intensity or severity of pain, and precipitating factors</p>
+                <h3>Example NIC Activities—Constipation/Impaction Management</h3>
+                <p>Identify factors (e.g., medications, bed rest, and diet) that may cause or contribute to constipation/impaction; Institute a toileting schedule, as appropriate</p>
             </div>
             
             <!-- Nursing Interventions and Rationales -->
@@ -598,88 +597,122 @@
                 <h2>Nursing Interventions and Rationales</h2>
                 
                 <div class="intervention">
-                    <p class="intervention-header"><span class="tag independent">•</span> During the initial assessment and interview, if the client is experiencing pain, conduct and document a comprehensive pain assessment, using appropriate pain assessment tools.</p>
-                    <p class="rationale"><span class="tag eb">CEB</span>: Determining location, temporal aspects, pain intensity, characteristics, and the impact of pain on function and quality of life are critical to determine the underlying cause of pain and effectiveness of treatment (McCaffery, 1968; McCaffery et al, 2011). The initial assessment includes all pain information that the client can provide for the development of the individualized pain management plan (McCaffery et al, 2011).</p>
-                </div>
-
-                <div class="intervention">
-                    <p class="intervention-header"><span class="tag independent">•</span> Assess if the client is able to provide a self-report of pain intensity, and if so, assess pain intensity level using a valid and reliable self-report pain tool, such as the 0-10 numerical pain rating scale.</p>
-                    <p class="rationale"><span class="tag eb">CEB</span>: Self-report is considered the single most reliable indicator of pain presence and intensity and single-dimension pain ratings are valid and reliable as measures of pain intensity level (McCaffery et al, 2011). <span class="tag eb">EB</span>: Regularly and routinely assess the client for pain presence during activity and rest and with interventions or procedures likely to cause pain. <span class="tag eb">CEB</span>: Acute pain should be reliably assessed both at rest (important for comfort) and during movement (important for function and decreased client risk for cardiopulmonary and thromboembolic events) (McCaffery et al, 2011).</p>
+                    <p class="intervention-header"><span class="tag independent">•</span> Assess usual pattern of defecation and establish the extent of the constipation problem.</p>
+                    <p class="rationale"><span class="tag eb">EB</span>: A detailed and accurate assessment of the patient enables the nurse to plan interventions, monitor outcomes, and evaluate care, ensuring no unnecessary treatment is rendered (Matthews, 2011).</p>
                 </div>
                 
                 <div class="intervention">
-                    <p class="intervention-header"><span class="tag independent">•</span> Ask the client to describe prior experiences with pain, effectiveness of pain management interventions, responses to analgesic medications including occurrence of side effects, and concerns about pain and its treatment (e.g., fear about addiction, worries, or anxiety) and informational needs.</p>
-                    <p class="rationale"><span class="tag ebn">EBN</span>: Obtaining an individualized pain history helps identify potential factors that may influence the client's willingness to report pain, as well as factors that may influence pain intensity, the client's response to pain, anxiety, and pharmacokinetics of analgesics (Pasero 2009a; Pasero & Portenoy, 2011).</p>
+                    <p class="intervention-header"><span class="tag independent">•</span> Consider emotional influences (e.g., depression and anxiety) on defecation.</p>
+                    <p class="rationale"><span class="tag ebn">EBN</span>: In a study, clients with functional constipation were compared to normal controls; subjects with functional constipation had significantly higher anxiety and depression scores (Zhou et al, 2010).</p>
                 </div>
                 
                 <div class="intervention">
-                    <p class="intervention-header"><span class="tag independent">•</span> Using a self-report pain tool, ask the client to identify a comfort-function goal that will allow the client to perform necessary or desired activities easily.</p>
-                    <p class="rationale"><span class="tag ebn">EBN</span>: The comfort-function goal provides the basis for individualized pain management plans and assists in determining effectiveness of pain management interventions (McCaffery et al, 2011).</p>
+                    <p class="intervention-header"><span class="tag independent">•</span> Encourage the client or family to keep a 7-day diary of bowel habits to include time of day, length of time spent on the toilet, consistency, amount and frequency of stool, and any straining (using the Bristol Stool Scale).</p>
+                    <p class="rationale"><span class="tag eb">EB</span>: Keeping a diary helps establish a patient's bowel pattern and may contribute to the patient's adherence to the proposed care plan (Andrews & Morgan, 2013).</p>
                 </div>
                 
                 <div class="intervention">
-                    <p class="intervention-header"><span class="tag collaborative">!</span> Describe the adverse effects of unrelieved pain.</p>
-                    <p class="rationale"><span class="tag ebn">CEB/EBN</span>: Unrelieved acute pain can have physiological and psychological consequences that facilitate negative client outcomes. Ineffective management of acute pain has the potential for neurohumoral changes, neuronal remodeling, an impact on immune function, and long-lasting physiological, psychological, and emotional distress, and it may lead to persistent pain syndromes (Pasero, 2011; Pasero & Portenoy, 2011).</p>
+                    <p class="intervention-header"><span class="tag independent">•</span> Use the Bristol Stool Scale to assess stool consistency.</p>
+                    <p class="rationale"><span class="tag eb">CEB</span>: The Bristol Stool Scale is widely used as a more objective measure to describe stool consistency (Tack et al, 2011).</p>
                 </div>
                 
                 <div class="intervention">
-                    <p class="intervention-header"><span class="tag independent">•</span> Use the Hierarchy of Pain Measures as a framework for pain assessment (McCaffery et al, 2011): (1) attempt to obtain the client's self-report of pain; (2) consider the client's condition and search for possible causes of pain (e.g., presence of tissue injury, pathological conditions, or exposure to procedures/interventions that are thought to result in pain); (3) observe for behaviors that may indicate pain presence (e.g., facial expressions, crying, restlessness, and changes in activity); (4) evaluate physiological indicators, with the understanding that these are the least sensitive indicators of pain and may be related to conditions other than pain (e.g., shock, hypovolemia, anxiety); and (5) conduct an analgesic trial.</p>
-                    <p class="rationale"><span class="tag ebn">EBN</span>: When a client is unable to use a self-report tool (e.g., cognitively impaired, critically ill, anesthetized or sedated), the presence of pain may be assessed by observing specific client behaviors using a valid and reliable behavioral tool (e.g., Critical Care Observation Tool in critically ill or Checklist of Nonverbal Pain Indicators in cognitively impaired older adults) (Puntillo et al, 2014; McCaffery et al, 2011).</p>
+                    <p class="intervention-header"><span class="tag collaborative">!</span> Review the client's current medications.</p>
+                    <p class="rationale"><span class="tag eb">EB</span>: Many medications are associated with chronic constipation including opioids, anticholinergics, antidepressants, antihypertensives (e.g., clonidine, calcium channel blockers), antispasmodics, diuretics, anticonvulsants, and psychotropics (Eoff & Lembo, 2008; Spinzi et al, 2009).</p>
                 </div>
                 
                 <div class="intervention">
-                    <p class="intervention-header"><span class="tag collaborative">!</span> Manage acute pain using a multimodal approach.</p>
-                    <p class="rationale"><span class="tag eb">EB</span>: A multimodal approach (combining two or more drugs that act by different mechanisms for providing analgesia) enhances pain relief and allows the lowest effective dose of each drug to be administered, resulting in fewer or less severe side effects, such as nausea, sedation, and respiratory depression (Pasero et al, 2011c).</p>
+                    <p class="intervention-header"><span class="tag collaborative">!</span> Recognize that opioids cause constipation. If the client is receiving temporary opioids (e.g., for acute postoperative pain), request an order for routine stool softeners from the primary care provider, monitor bowel movements, and request a laxative for the client if constipation develops.</p>
+                    <p class="rationale"><span class="tag eb">EB</span>: In a study of clients with hip fracture who received opioids following surgery, clients who received prophylactic laxatives were less likely to develop constipation than those who did not (Davies et al, 2008).</p>
                 </div>
                 
                 <div class="intervention">
-                    <p class="intervention-header"><span class="tag collaborative">!</span> Administer a nonopioid analgesic for mild to moderate pain and add an opioid analgesic if indicated for moderate to severe acute pain.</p>
-                    <p class="rationale"><span class="tag eb">EB</span>: Nonopioids, such as acetaminophen and nonsteroidal anti-inflammatory drugs, are first-line analgesics for the treatment of mild and some moderate acute pain, while opioids are included for the treatment of moderate to severe acute pain (Pasero et al, 2011a; Young & Buvanendran, 2012).</p>
+                    <p class="intervention-header"><span class="tag collaborative">!</span> Advise a fiber intake of 18 to 25 g daily and suggest foodstuffs high in fiber (e.g., prune juice, leafy green vegetables, whole meal bread and pasta).</p>
+                    <p class="rationale"><span class="tag eb">CEB</span>: The Nurses' Health Study found that women with a median fiber intake of 20 g/day were less likely to experience constipation than those with a median intake of 7 g/day (Dukas et al, 2003).</p>
                 </div>
                 
                 <div class="intervention">
-                    <p class="intervention-header"><span class="tag independent">•</span> Administer analgesics around-the-clock for continuous pain (expected to be present approximately 50% of the day, such as postoperative pain) and PRN (as needed) for intermittent or breakthrough pain.</p>
-                    <p class="rationale"><span class="tag eb">CEB</span>: If pain is present most of the day, the use of PRN medications alone will lead to periods of undermedication and poor pain control and periods of excessive medication and adverse effects (Pasero, 2010).</p>
+                    <p class="intervention-header"><span class="tag independent">•</span> Add fiber gradually to the diet to decrease bloating and flatus.</p>
+                    <p class="rationale"><span class="tag eb">CEB</span>: Fiber fermentation by bacteria in the colon produces gas. The effectiveness of water-insoluble fibers (e.g., wheat bran) on bowel function is well supported by research, and there is growing evidence that water-soluble fibers (e.g., psyllium) also promote laxation (Vuksan et al, 2008).</p>
                 </div>
                 
                 <div class="intervention">
-                    <p class="intervention-header"><span class="tag independent">•</span> Support the client's use of nonpharmacological methods to supplement pharmacological analgesic approaches to help control pain, such as distraction, imagery, music therapy, simple massage, relaxation, and application of heat and cold.</p>
-                    <p class="rationale"><span class="tag ebn">EBN</span>: Although more evidence is needed to conclude effectiveness, nonpharmacological methods (which are low cost and low risk) can be used to complement pharmacological treatment of pain (Gelinas & Arbour, 2009; Ignatavicius, 2013).</p>
+                    <p class="intervention-header"><span class="tag independent">•</span> Provide prune or prune juice daily.</p>
+                    <p class="rationale"><span class="tag eb">CEB</span>: Each 100 g of prunes contains about 6 g of fiber, 15 g of sorbitol, and 184 mg of polyphenol; all have laxative effects (Attaluri et al, 2011).</p>
                 </div>
                 
-                <h3>Pediatric</h3>
-                <div class="special-section">
-                    <div class="intervention">
-                        <p class="intervention-header"><span class="tag independent">•</span> Assess for the presence of pain using a valid and reliable pain scale based on age, cognitive development, and the child's ability to provide a self-report.</p>
-                        <p class="rationale"><span class="tag ebn">EBN</span>: Scales that depict faces at various levels of pain intensity are commonly used in young children and have been shown to be reliable and valid in children as young as 3 years old (Oakes, 2011). <span class="tag eb">EB</span>: Behavioral tools such as the FLACC Scale may be used to assess pain in infants and children who cannot provide a self-report (Crellin et al, 2015).</p>
-                    </div>
-                    
-                    <div class="intervention">
-                        <p class="intervention-header"><span class="tag collaborative">!</span> Administer prescribed analgesics using a multimodal approach to treat pain in children, infants, and neonates.</p>
-                        <p class="rationale"><span class="tag eb">EB</span>: PCA may be used by children as young as 4 years of age, and intraspinal and perineural analgesic techniques may be used for major surgical procedures (Oakes, 2011).</p>
-                    </div>
-                    
-                    <div class="intervention">
-                        <p class="intervention-header"><span class="tag independent">•</span> Use a topical local anesthetic such as eutectic mixture of local anesthetics (EMLA) cream or LMX-4 before performing venipuncture in neonates, infants, and children.</p>
-                        <p class="rationale"><span class="tag ebn">EBN</span>: The use of EMLA with prolonged application time for pediatric venipuncture in the emergency department results in improved venipuncture success and reduced pain (Baxter et al, 2013).</p>
-                    </div>
+                <div class="intervention">
+                    <p class="intervention-header"><span class="tag independent">•</span> Advise a fluid intake of 1.5 to 2 L of fluid per day (ideally, 6 to 8 glasses of water), unless contraindicated by comorbidities, such as kidney or heart disease.</p>
+                    <p class="rationale">Water passes into the gut to promote the formation of a softer fecal mass and provides lubrication to prevent a blockage of the gut (Boyle, 2013).</p>
+                </div>
+                
+                <div class="intervention">
+                    <p class="intervention-header"><span class="tag independent">•</span> Encourage physical activity within the client's current ability to mobilize.</p>
+                    <p class="rationale">Physical activity can help stimulate peristaltic waves in the colon and encourage the transit of feces to the rectum (Rogers, 2013; Andersen et al, 2006).</p>
+                </div>
+                
+                <div class="intervention">
+                    <p class="intervention-header"><span class="tag independent">•</span> Recommend clients establish a regular elimination routine. If required assist clients to the bathroom at the same time every day, being mindful of the need for privacy (closing of bathroom doors).</p>
+                    <p class="rationale">Establishing a routine allows for the use of the gastrocolic reflex, especially in the morning, which aids defecation (Rogers, 2013).</p>
+                </div>
+                
+                <div class="intervention">
+                    <p class="intervention-header"><span class="tag independent">•</span> Provide privacy for defecation. If not contraindicated, help the client to the bathroom and close the door.</p>
+                    <p class="rationale">Bowel elimination is a private act in Western cultures, and a lack of privacy can hinder the defecation urge, thus contributing to constipation (Kyle, 2011a).</p>
+                </div>
+                
+                <div class="intervention">
+                    <p class="intervention-header"><span class="tag independent">•</span> Help clients onto a bedside commode or toilet so they can either squat or lean forward while sitting.</p>
+                    <p class="rationale"><span class="tag eb">CEB</span>: A study of men found that flexing the hip to 90 degrees or more straightens the angle between the anus and the rectum and pulls the anal canal open, decreasing the resistance to the movement of feces from the rectum and the amount of pressure needed to empty the rectum (Tagart, 1966).</p>
+                </div>
+                
+                <div class="intervention">
+                    <p class="intervention-header"><span class="tag independent">•</span> Teach clients of the importance of responding promptly to the urge to defecate.</p>
+                    <p class="rationale"><span class="tag eb">EB</span>: The body's natural "call to stool" should be heeded in that it is a response to the stimulation of nerve endings in the rectum when a stool is present. Ignoring this urge will result in the rectum becoming desensitized to a stool in situ (Coggrave et al, 2014).</p>
+                </div>
+                
+                <div class="intervention">
+                    <p class="intervention-header"><span class="tag independent">•</span> Discourage the use of long-term laxatives and enemas and advise clients to gradually reduce their use if taken regularly.</p>
+                    <p class="rationale">Long-term use or overuse of laxatives can cause health problems (e.g., electrolyte imbalance) or hide symptoms that may be from a serious medical condition, such as cardiac arrhythmias (Aschenbrenner, 2014).</p>
                 </div>
                 
                 <h3>Geriatric</h3>
                 <div class="special-section">
-                    <p>Refer to the Nursing Interventions and Rationales in the care plan for Chronic Pain.</p>
+                    <div class="intervention">
+                        <p class="intervention-header"><span class="tag independent">•</span> Assess older adults for the presence of factors that contribute to constipation, including dietary fiber and fluid intake (less than 1.5 L/day), physical activity, use of constipating medications, and diseases that are associated with constipation.</p>
+                    </div>
+                    
+                    <div class="intervention">
+                        <p class="intervention-header"><span class="tag independent">•</span> Explain the importance of adequate fiber intake, fluid intake, activity, and established toileting routines to ensure soft, formed stool.</p>
+                        <p class="rationale"><span class="tag eb">EB</span>: Strong evidence exists for the efficacy of adequate hydration and dietary fiber in the prevention of constipation in older adults; moderate evidence exists for the effectiveness of increased activity for those restricted to bed rest (Joanna Briggs Institute, 2008).</p>
+                    </div>
+                    
+                    <div class="intervention">
+                        <p class="intervention-header"><span class="tag independent">•</span> Offer food, fluids, activity, and toileting opportunities to older clients who are cognitively impaired.</p>
+                        <p class="rationale"><span class="tag eb">EB</span>: Even cognitively impaired individuals who are unable to initiate a request for food, fluids, and so forth may respond when opportunities are offered (Gallagher et al, 2008).</p>
+                    </div>
+                    
+                    <div class="intervention">
+                        <p class="intervention-header"><span class="tag independent">•</span> Avoid regular use of enemas in older adults.</p>
+                        <p class="rationale">Enemas can cause fluid and electrolyte imbalances (Gallagher et al, 2008) and damage to the colonic mucosa (Schmelzer et al, 2004).</p>
+                    </div>
                 </div>
                 
                 <h3>Home Care</h3>
                 <div class="special-section">
                     <div class="intervention">
-                        <p class="intervention-header"><span class="tag collaborative">!</span> Develop the treatment plan with the client and caregivers.</p>
-                        <p class="rationale"><span class="tag eb">EB</span>: Client education and motivation play important roles in self-management of clients with pain. Self-management is influenced by client-provider communication (Dorflinger et al, 2013).</p>
+                        <p class="intervention-header"><span class="tag independent">•</span> Take complaints seriously and evaluate claims of constipation in a matter-of-fact manner.</p>
+                        <p class="rationale">Continued constipation can lead to bowel obstruction, a medical emergency. Use of a matter-of-fact manner will limit positive reinforcement of the behavior if actual constipation does not exist.</p>
                     </div>
                     
                     <div class="intervention">
-                        <p class="intervention-header"><span class="tag collaborative">!</span> Assess the client's full medication profile, including medications prescribed by all health care providers and all over-the-counter medications for drug interactions, and instruct the client to refrain from mixing medications without health care provider approval.</p>
-                        <p class="rationale"><span class="tag eb">EB</span>: Pain medications may significantly affect or be affected by other medications and may cause severe side effects; in a study of diabetic pregabalin and duloxetine users, potential duloxetine drug-drug interactions and drug-condition interactions were associated with significant increases in mean health care costs (Johnston et al, 2013).</p>
+                        <p class="intervention-header"><span class="tag independent">•</span> Assess the self-care management activities the client is already using.</p>
+                        <p class="rationale"><span class="tag eb">CEB</span>: Many older adults seek solutions to constipation, with laxative use a frequent remedy that creates its own problems (Annells & Koch, 2002).</p>
+                    </div>
+                    
+                    <div class="intervention">
+                        <p class="intervention-header"><span class="tag independent">•</span> In older clients, routinely advise consumption of fluids, fruits, and vegetables as part of the diet, and ambulation if the client is able.</p>
+                        <p class="rationale">Constipation is a major problem for terminally ill or hospice clients, who may need very high doses of opioids for pain management (Sykes, 2006).</p>
                     </div>
                 </div>
             </div>
@@ -687,42 +720,44 @@
             <!-- Client/Family Teaching -->
             <div class="section">
                 <h2>Client/Family Teaching and Discharge Planning</h2>
-                <p><strong>NOTE:</strong> To avoid the negative connotations associated with the words "drugs" and "narcotics," use the term "pain medicine" when teaching clients.</p>
                 
                 <div class="intervention">
-                    <p class="intervention-header"><span class="tag independent">•</span> Discuss the various discomforts encompassed by the word "pain" and ask the client to give examples of previously experienced pain. Explain the pain assessment process and the purpose of the pain rating scale.</p>
-                    <p class="rationale"><span class="tag eb">CEB</span>: It is often difficult for clients to understand the concept of pain and describe their pain experience. Using alternative words and providing a complete description of the assessment process, including the use of scales, ensures that an accurate treatment plan is developed (McCaffery et al, 2011).</p>
+                    <p class="intervention-header"><span class="tag independent">•</span> Instruct the client on normal bowel function and the need for adequate fluid and fiber intake, activity, and a defined toileting pattern in a bowel program.</p>
                 </div>
                 
                 <div class="intervention">
-                    <p class="intervention-header"><span class="tag independent">•</span> Teach the client to use the self-report pain tool to rate the intensity of past or current pain. Ask the client to set a comfort-function goal by selecting a pain level on the self-report tool that will allow performance of desired or necessary activities of recovery with relative ease (e.g., turn, cough, deep breathe, ambulate, participate in physical therapy).</p>
-                    <p class="rationale"><span class="tag eb">CEB</span>: The use of comfort-function goals provides the basis for the direction and modification of the treatment plan (McCaffery et al, 2011).</p>
+                    <p class="intervention-header"><span class="tag independent">•</span> Encourage the client to heed defecation warning signs and develop a regular schedule of defecation by using a stimulus such as a warm drink or prune juice.</p>
+                    <p class="rationale">Most cases of constipation are mechanical and result from habitual neglect of impulses that signal the appropriate time for defecation.</p>
                 </div>
                 
                 <div class="intervention">
-                    <p class="intervention-header"><span class="tag independent">•</span> Provide written educational materials on various aspects of pain control to improve client understanding of pain and pain-related interventions.</p>
-                    <p class="rationale"><span class="tag eb">EB</span>: Written materials and other educational tools assist in improving clients' knowledge related to pain management. In knee replacement clients, the use of an educational pamphlet and a compact disc was associated with decreased postoperative pain and increased participation in physical rehabilitation (Chen et al, 2014).</p>
+                    <p class="intervention-header"><span class="tag independent">•</span> Encourage the client to avoid long-term use of laxatives and enemas and to gradually withdraw from their use if they are used regularly.</p>
+                    <p class="rationale">Use of stimulant laxatives should be avoided; long-term use can result in dependence on laxative for defecation (Roerig et al, 2010).</p>
                 </div>
                 
                 <div class="intervention">
-                    <p class="intervention-header"><span class="tag collaborative">!</span> Reinforce the importance of taking pain medications to maintain the comfort-function goal.</p>
-                    <p class="rationale"><span class="tag eb">CEB</span>: Teaching clients to stay on top of their pain and prevent it from getting out of control will improve the ability to accomplish the goals of recovery (McCaffery et al, 2011).</p>
+                    <p class="intervention-header"><span class="tag independent">•</span> If not contraindicated, teach the client how to do bent-leg sit-ups to increase abdominal tone; also encourage the client to contract the abdominal muscles frequently throughout the day.</p>
                 </div>
                 
                 <div class="intervention">
-                    <p class="intervention-header"><span class="tag collaborative">!</span> Reinforce that taking opioids for pain relief is not addiction and that addiction is very unlikely to occur.</p>
-                    <p class="rationale"><span class="tag eb">CEB</span>: The development of addiction when opioids are taken for pain relief is rare (Pasero et al, 2011c).</p>
+                    <p class="intervention-header"><span class="tag independent">•</span> Provide client with comprehensive written information about constipation and its management.</p>
+                    <p class="rationale"><span class="tag eb">EB</span>: Providing patients with well-written, evidence-based information about their condition and treatment can have a beneficial effect on the outcomes of treatment. In addition, patients are more likely to retain important information that will assist them in making informed decisions about their care (Coulter, 2011).</p>
+                </div>
+                
+                <div class="intervention">
+                    <p class="intervention-header"><span class="tag collaborative">!</span> Formalize all advice by providing a bowel management program reiterating the mechanism of normal bowel function and the need for adequate fluid and fiber intake, physical activity, and a defined toileting pattern in an agreed bowel program.</p>
+                    <p class="rationale"><span class="tag eb">EB</span>: The implementation of an organized bowel management program is effective and significantly reduces hospital admissions in patients with severe idiopathic constipation (Russell et al, 2013).</p>
                 </div>
             </div>
             
             <div class="footnote">
                 <p>References have been abbreviated for this template. For full references, please refer to the original source material.</p>
-                <p>Template created: March 8, 2025</p>
+                <p>Template created: March 13, 2025</p>
             </div>
         </main>
     </div>
 
-    <!-- 引入JavaScript檔案 -->
+    <!-- JavaScript file reference -->
     <script src="diagnosis.js"></script>
 </body>
 </html>

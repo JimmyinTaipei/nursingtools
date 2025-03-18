@@ -106,8 +106,6 @@
                 ]},
                 { category: 'Care與換藥', items: [
                     '晨間護理',
-                    'NG Care',
-                    'Foley Care',
                     '傷口換藥'
                 ]},
                 { category: '護理紀錄', items: [
@@ -242,6 +240,14 @@
                 { task: '24小時加總I/O', category: '護理紀錄' },
                 { task: '輸液幫浦檢查', category: '需檢查' },
                 { task: '水分攝取評估', category: '需檢查' }
+            ],
+
+            '門診轉入': [
+                { task: '出院護理摘要', category: '每日必填' }
+            ],
+
+            '出院': [
+                { task: '出院護理摘要', category: '每日必填' }
             ]
         };
 
@@ -678,11 +684,12 @@
             formGroup.innerHTML = `
                 <label>快速添加護理模板：</label>
                 <div class="template-buttons">
-                    <button type="button" class="template-btn" data-template="NG">NG管</button>
-                    <button type="button" class="template-btn" data-template="Foley">導尿管</button>
+                    <button type="button" class="template-btn" data-template="NG">NG</button>
+                    <button type="button" class="template-btn" data-template="Foley">Foley</button>
                     <button type="button" class="template-btn" data-template="傷口">傷口</button>
                     <button type="button" class="template-btn" data-template="血糖">血糖</button>
                     <button type="button" class="template-btn" data-template="I/O">I/O</button>
+                    <button type="button" class="template-btn" data-template="門診轉入">門診轉入</button>
                 </div>
                 <div class="selected-templates" id="selected-templates">
                     已選擇: <span id="template-list"></span>
@@ -745,11 +752,12 @@
             templateContainer.className = 'patient-templates';
             templateContainer.innerHTML = `
                 <div class="template-buttons">
-                    <button type="button" class="template-btn small" data-template="NG" onclick="addTemplateToExistingPatient('${patientId}', 'NG')">+NG管</button>
-                    <button type="button" class="template-btn small" data-template="Foley" onclick="addTemplateToExistingPatient('${patientId}', 'Foley')">+導尿管</button>
+                    <button type="button" class="template-btn small" data-template="NG" onclick="addTemplateToExistingPatient('${patientId}', 'NG')">+NG</button>
+                    <button type="button" class="template-btn small" data-template="Foley" onclick="addTemplateToExistingPatient('${patientId}', 'Foley')">+Foley</button>
                     <button type="button" class="template-btn small" data-template="傷口" onclick="addTemplateToExistingPatient('${patientId}', '傷口')">+傷口</button>
                     <button type="button" class="template-btn small" data-template="血糖" onclick="addTemplateToExistingPatient('${patientId}', '血糖')">+血糖</button>
                     <button type="button" class="template-btn small" data-template="I/O" onclick="addTemplateToExistingPatient('${patientId}', 'I/O')">+I/O</button>
+                    <button type="button" class="template-btn small" data-template="門診轉入" onclick="addTemplateToExistingPatient('${patientId}', '門診轉入')">+門診轉入</button>
                 </div>
             `;
             

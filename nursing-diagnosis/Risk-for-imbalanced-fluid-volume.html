@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nursing Diagnosis - Acute Pain</title>
+    <title>Nursing Diagnosis - Risk for Imbalanced Fluid Volume</title>
     <link rel="stylesheet" href="diagnosis.css">
 </head>
 <body>
@@ -22,7 +22,7 @@
                 <select id="domain-filter" class="taxonomy-filter">
                     <option value="all">All Domains</option>
                     <option value="domain1">Domain 1: Health Promotion</option>
-                    <option value="domain2">Domain 2: Nutrition</option>
+                    <option value="domain2" selected>Domain 2: Nutrition</option>
                     <option value="domain3">Domain 3: Elimination and Exchange</option>
                     <option value="domain4">Domain 4: Activity/Rest</option>
                     <option value="domain5">Domain 5: Perception/Cognition</option>
@@ -32,16 +32,18 @@
                     <option value="domain9">Domain 9: Coping/Stress Tolerance</option>
                     <option value="domain10">Domain 10: Life Principles</option>
                     <option value="domain11">Domain 11: Safety/Protection</option>
-                    <option value="domain12" selected>Domain 12: Comfort</option>
+                    <option value="domain12">Domain 12: Comfort</option>
                     <option value="domain13">Domain 13: Growth/Development</option>
                 </select>
                 
-                <!-- Class filter dropdown (will be populated based on domain selection) -->
+                <!-- Class filter dropdown -->
                 <select id="class-filter" class="taxonomy-filter">
                     <option value="all">All Classes</option>
-                    <option value="class1" selected>Class 1: Physical Comfort</option>
-                    <option value="class2">Class 2: Environmental Comfort</option>
-                    <option value="class3">Class 3: Social Comfort</option>
+                    <option value="class1">Class 1: Ingestion</option>
+                    <option value="class2">Class 2: Digestion</option>
+                    <option value="class3">Class 3: Absorption</option>
+                    <option value="class4">Class 4: Metabolism</option>
+                    <option value="class5" selected>Class 5: Hydration</option>
                 </select>
             </div>
             
@@ -457,7 +459,7 @@
                     <div class="class-group" id="domain12-class1">
                         <h4 class="class-title">Physical Comfort</h4>
                         <ul class="diagnosis-nav">
-                            <li class="active" data-domain="domain12" data-class="class1">Acute Pain</li>
+                            <li href="Acute-pain.html" data-domain="domain12" data-class="class1">Acute Pain</li>
                             <li href="Chronic-pain.html" data-domain="domain12" data-class="class1">Chronic Pain</li>
                             <li href="Chronic-pain-syndrome.html" data-domain="domain12" data-class="class1">Chronic Pain Syndrome</li>
                             <li href="Nausea.html" data-domain="domain12" data-class="class1">Nausea</li>
@@ -520,24 +522,18 @@
         </aside>
         
         <main class="main-content">
-            <h1>Acute Pain</h1>
+            <h1>Risk for Imbalanced Fluid Volume</h1>
             
             <!-- NANDA-I Definition -->
             <div class="section">
                 <h2>NANDA-I Definition</h2>
-                <p>An unpleasant sensory and emotional experience associated with actual or potential tissue damage, or described in terms of such damage (International Association for the Study of Pain, 1979); sudden or slow onset of any intensity from mild to severe with an anticipated or predictable end</p>
+                <p>Vulnerable to a decrease, increase, or rapid shift from one to the other of intravascular, interstitial, and/or intracellular fluid, which may compromise health; this refers to body fluid loss, gain, or both</p>
             </div>
             
-            <!-- Defining Characteristics -->
+            <!-- Risk Factors -->
             <div class="section">
-                <h2>Defining Characteristics</h2>
-                <p>Appetite change; change in physiological parameter (e.g., blood pressure, heart rate, respiratory rate, oxygen saturation, and end-tidal CO<sub>2</sub>); diaphoresis; distraction behavior; evidence of pain using standardized pain behavior checklist for those unable to communicate verbally (e.g., Neonatal Infant Pain Scale, Pain Assessment Checklist for Seniors with Limited Ability to Communicate); expressive behavior (e.g., restlessness, crying, vigilance); facial expression of pain (e.g., eyes lack luster, beaten look, fixed or scattered movement, grimace); guarding behavior; hopelessness; narrowed focus (e.g., time, perception, thought processes, interaction with people and environment); positioning to ease pain; protective behavior; proxy report of pain behavior/activity changes (e.g., family member, caregiver); pupil dilation; self-focused; self-report of intensity using standardized pain scale (e.g., Wong-Baker FACES scale, visual analog scale, numerical rating scale); self-report of pain characteristics using standardized pain instrument (e.g., McGill Pain Questionnaire, Brief Pain Inventory)</p>
-            </div>
-            
-            <!-- Related Factors -->
-            <div class="section">
-                <h2>Related Factors (r/t)</h2>
-                <p>Biological injury agent (e.g., infection, ischemia, neoplasm); chemical injury agent (e.g., burn, capsaicin, methylene chloride, mustard agent); physical injury agent (e.g., abscess, amputation, burn, cut, heavy lifting, operative procedure, trauma, overtraining)</p>
+                <h2>Risk Factors</h2>
+                <p>Apheresis; ascites; burns; intestinal obstruction; pancreatitis; sepsis; trauma; treatment regimen</p>
             </div>
             
             <!-- NOC Outcomes -->
@@ -545,37 +541,27 @@
                 <h2>NOC (Nursing Outcomes Classification)</h2>
                 <h3>Suggested NOC Outcomes</h3>
                 <ul>
-                    <li>Pain Control</li>
-                    <li>Pain Level</li>
-                    <li>Pain: Adverse Psychological Response</li>
+                    <li>Fluid Balance</li>
+                    <li>Electrolyte and Acid-Base Balance</li>
+                    <li>Hydration</li>
                 </ul>
                 
                 <h3>Example NOC Outcome</h3>
-                <p><strong>Pain Level</strong> as evidenced by severity of observed or reported pain.</p>
-                <p>NOTE: Pain Level is the NOC Outcome label; this text recommends use of the self-report numerical pain rating scale in place of the NOC indicator scales because of the amount of research supporting its use.</p>
+                <p><strong>Fluid Balance</strong> as evidenced by the following indicators: BP/Peripheral pulses palpable/Skin turgor/Moist mucous membranes/Serum electrolytes/Hematocrit/Body weight stable/24-hour intake and output balanced/Urine specific gravity.</p>
+                <p>NOTE: Rate each indicator of Fluid Balance: 1 = severely compromised, 2 = substantially compromised, 3 = moderately compromised, 4 = mildly compromised, 5 = not compromised</p>
             </div>
             
             <!-- Client Outcomes -->
             <div class="section">
                 <h2>Client Outcomes</h2>
                 <p>Client Will (Specify Time Frame)</p>
-                <h3>For the client who is able to provide a self-report</h3>
                 <ul>
-                    <li>Use a self-report pain tool to identify current pain intensity level and establish a comfort-function goal</li>
-                    <li>Report that pain management regimen achieves comfort-function goal without side effects</li>
-                    <li>Describe nonpharmacological methods that can be used to help achieve comfort-function goal</li>
-                    <li>Perform activities of recovery or activities of daily living (ADLs) easily</li>
-                    <li>Describe how unrelieved pain will be managed</li>
-                    <li>State ability to obtain sufficient amounts of rest and sleep</li>
-                    <li>Notify member of the health care team promptly for pain intensity level that is consistently greater than the comfort-function goal, or occurrence of side effects</li>
-                </ul>
-
-                <h3>For the client who is unable to provide a self-report</h3>
-                <ul>
-                    <li>Decrease in pain-related behaviors</li>
-                    <li>Perform activities of recovery or ADLs easily as determined by client condition</li>
-                    <li>Demonstrate the absence of side effects of analgesics</li>
-                    <li>No pain-related behaviors will be evident in the client who is completely unresponsive; a reasonable outcome is to demonstrate the absence of side effects related to the prescribed pain treatment plan</li>
+                    <li>Maintain lung sounds clear, respiratory rate 12 to 20 and free of dyspnea</li>
+                    <li>Maintain urine output greater than 0.5 mL/kg/hr</li>
+                    <li>Maintain blood pressure, pulse rate, temperature, and oxygen saturation within expected range</li>
+                    <li>Maintain laboratory values within expected range (normal serum sodium, hematocrit, and osmolarity)</li>
+                    <li>Maintain extremities and dependent areas free of edema</li>
+                    <li>Maintain mental orientation appropriate based on previous condition</li>
                 </ul>
             </div>
             
@@ -584,102 +570,106 @@
                 <h2>NIC (Nursing Interventions Classification)</h2>
                 <h3>Suggested NIC Interventions</h3>
                 <ul>
-                    <li>Analgesic Administration</li>
-                    <li>Pain Management</li>
-                    <li>Patient-Controlled Analgesia (PCA) Assistance</li>
+                    <li>Autotransfusion</li>
+                    <li>Bleeding Precautions</li>
+                    <li>Bleeding Reduction: Wound</li>
+                    <li>Electrolyte Management</li>
+                    <li>Fluid Management</li>
+                    <li>Fluid Monitoring</li>
+                    <li>Hemodynamic Regulation</li>
+                    <li>Hypervolemia Management</li>
+                    <li>Hypovolemia Management</li>
+                    <li>Intravenous Therapy</li>
+                    <li>Invasive Hemodynamic Monitoring</li>
+                    <li>Shock Management: Volume</li>
+                    <li>Vital Signs Monitoring</li>
                 </ul>
                 
-                <h3>Example NIC Activities—Pain Management</h3>
-                <p>Ensure client attentive analgesic care; Perform a comprehensive assessment of pain to include location, characteristics, onset/duration, frequency, quality, intensity or severity of pain, and precipitating factors</p>
+                <h3>Example NIC Activities—Fluid Management</h3>
+                <p>Maintain accurate intake and output record; Monitor vital signs</p>
             </div>
             
             <!-- Nursing Interventions and Rationales -->
             <div class="section">
                 <h2>Nursing Interventions and Rationales</h2>
                 
+                <h3>Surgical Clients</h3>
                 <div class="intervention">
-                    <p class="intervention-header"><span class="tag independent">•</span> During the initial assessment and interview, if the client is experiencing pain, conduct and document a comprehensive pain assessment, using appropriate pain assessment tools.</p>
-                    <p class="rationale"><span class="tag eb">CEB</span>: Determining location, temporal aspects, pain intensity, characteristics, and the impact of pain on function and quality of life are critical to determine the underlying cause of pain and effectiveness of treatment (McCaffery, 1968; McCaffery et al, 2011). The initial assessment includes all pain information that the client can provide for the development of the individualized pain management plan (McCaffery et al, 2011).</p>
+                    <p class="intervention-header"><span class="tag independent">•</span> Monitor the fluid balance. If there are symptoms of hypovolemia, refer to the interventions in the care plan for Deficient Fluid volume. If there are symptoms of hypervolemia, refer to the interventions in the care plan for Excess Fluid volume.</p>
                 </div>
-
+                
+                <h3>Preoperative</h3>
                 <div class="intervention">
-                    <p class="intervention-header"><span class="tag independent">•</span> Assess if the client is able to provide a self-report of pain intensity, and if so, assess pain intensity level using a valid and reliable self-report pain tool, such as the 0-10 numerical pain rating scale.</p>
-                    <p class="rationale"><span class="tag eb">CEB</span>: Self-report is considered the single most reliable indicator of pain presence and intensity and single-dimension pain ratings are valid and reliable as measures of pain intensity level (McCaffery et al, 2011). <span class="tag eb">EB</span>: Regularly and routinely assess the client for pain presence during activity and rest and with interventions or procedures likely to cause pain. <span class="tag eb">CEB</span>: Acute pain should be reliably assessed both at rest (important for comfort) and during movement (important for function and decreased client risk for cardiopulmonary and thromboembolic events) (McCaffery et al, 2011).</p>
+                    <p class="intervention-header"><span class="tag independent">•</span> Collect a thorough history and perform a preoperative assessment to identify clients with increased risk for hemorrhage or hypovolemia, that is, clients with recent traumatic injury, abnormal bleeding or altered clotting times, complicated kidney or liver disease, diabetes, cardiovascular disease, major organ transplant, history of aspirin and/or NSAID use, anticoagulant therapy, or history of hemophilia, von Willebrand's disease, or disseminated intravascular coagulation.</p>
+                    <p class="rationale"><span class="tag eb">CEB</span>: Assessment of the client's use of herbal products is important as some herbs act as anticoagulants and could cause increased blood loss, and some herbs have diuretic or laxative effects (Young et al, 2009; Flanagan, 2001).</p>
                 </div>
                 
                 <div class="intervention">
-                    <p class="intervention-header"><span class="tag independent">•</span> Ask the client to describe prior experiences with pain, effectiveness of pain management interventions, responses to analgesic medications including occurrence of side effects, and concerns about pain and its treatment (e.g., fear about addiction, worries, or anxiety) and informational needs.</p>
-                    <p class="rationale"><span class="tag ebn">EBN</span>: Obtaining an individualized pain history helps identify potential factors that may influence the client's willingness to report pain, as well as factors that may influence pain intensity, the client's response to pain, anxiety, and pharmacokinetics of analgesics (Pasero 2009a; Pasero & Portenoy, 2011).</p>
+                    <p class="intervention-header"><span class="tag independent">•</span> Recognize that NPO at midnight may or may not be appropriate for each surgical client. Guidelines from the American Society of Anesthesiologists (ASA) in 2011 recommend that healthy clients having elective surgery should be allowed to have clear liquids up to 2 hours before surgery.</p>
+                    <p class="rationale"><span class="tag eb">CEB</span>: Many clients are unnecessarily dehydrated from lack of fluid for an extended period, which can complicate postoperative recovery. It is important to provide clear communication to the client that only clear liquids can be safely consumed up to 2 hours before surgery (Allison & George, 2014).</p>
                 </div>
                 
                 <div class="intervention">
-                    <p class="intervention-header"><span class="tag independent">•</span> Using a self-report pain tool, ask the client to identify a comfort-function goal that will allow the client to perform necessary or desired activities easily.</p>
-                    <p class="rationale"><span class="tag ebn">EBN</span>: The comfort-function goal provides the basis for individualized pain management plans and assists in determining effectiveness of pain management interventions (McCaffery et al, 2011).</p>
+                    <p class="intervention-header"><span class="tag independent">•</span> Recognize that there is conflicting evidence regarding liberal intraoperative fluid management versus restrictive fluid management. Fluid administration during surgery is more restrictive to prevent pulmonary complications associated with excessive fluid administration.</p>
+                    <p class="rationale"><span class="tag ebn">CEB</span>: Using a restrictive approach to intraoperative fluid management resulted in less postoperative pulmonary complications, fewer wound healing complications, and decreased length of time for bowel function to resume, than the use of a more liberal fluid regimen (Young et al, 2009).</p>
                 </div>
                 
                 <div class="intervention">
-                    <p class="intervention-header"><span class="tag collaborative">!</span> Describe the adverse effects of unrelieved pain.</p>
-                    <p class="rationale"><span class="tag ebn">CEB/EBN</span>: Unrelieved acute pain can have physiological and psychological consequences that facilitate negative client outcomes. Ineffective management of acute pain has the potential for neurohumoral changes, neuronal remodeling, an impact on immune function, and long-lasting physiological, psychological, and emotional distress, and it may lead to persistent pain syndromes (Pasero, 2011; Pasero & Portenoy, 2011).</p>
+                    <p class="intervention-header"><span class="tag collaborative">!</span> Recognize that an individualized fluid management plan would be developed incorporating client specific assessment parameters (e.g., existing comorbid diseases, age) and type of surgical procedure.</p>
+                    <p class="rationale"><span class="tag eb">EB</span>: Perioperative hemodynamic and fluid management that is goal directed improved both short- and long-term outcomes and can easily be achieved (Cannesson, 2011; Cecconi et al, 2015).</p>
                 </div>
                 
                 <div class="intervention">
-                    <p class="intervention-header"><span class="tag independent">•</span> Use the Hierarchy of Pain Measures as a framework for pain assessment (McCaffery et al, 2011): (1) attempt to obtain the client's self-report of pain; (2) consider the client's condition and search for possible causes of pain (e.g., presence of tissue injury, pathological conditions, or exposure to procedures/interventions that are thought to result in pain); (3) observe for behaviors that may indicate pain presence (e.g., facial expressions, crying, restlessness, and changes in activity); (4) evaluate physiological indicators, with the understanding that these are the least sensitive indicators of pain and may be related to conditions other than pain (e.g., shock, hypovolemia, anxiety); and (5) conduct an analgesic trial.</p>
-                    <p class="rationale"><span class="tag ebn">EBN</span>: When a client is unable to use a self-report tool (e.g., cognitively impaired, critically ill, anesthetized or sedated), the presence of pain may be assessed by observing specific client behaviors using a valid and reliable behavioral tool (e.g., Critical Care Observation Tool in critically ill or Checklist of Nonverbal Pain Indicators in cognitively impaired older adults) (Puntillo et al, 2014; McCaffery et al, 2011).</p>
+                    <p class="intervention-header"><span class="tag independent">•</span> Monitor for signs of intraoperative hypovolemia: dry skin, dry mucous membranes, tachycardia, decreased urinary output, decreased central venous pressure, hypotension, increased pulse, and/or deep rapid respirations.</p>
                 </div>
                 
                 <div class="intervention">
-                    <p class="intervention-header"><span class="tag collaborative">!</span> Manage acute pain using a multimodal approach.</p>
-                    <p class="rationale"><span class="tag eb">EB</span>: A multimodal approach (combining two or more drugs that act by different mechanisms for providing analgesia) enhances pain relief and allows the lowest effective dose of each drug to be administered, resulting in fewer or less severe side effects, such as nausea, sedation, and respiratory depression (Pasero et al, 2011c).</p>
+                    <p class="intervention-header"><span class="tag independent">•</span> Monitor for signs of intraoperative hypervolemia: dyspnea, coarse crackles, increased pulse and respirations, decreased oxygenation, and decreased urinary output, all of which could progress to pulmonary edema.</p>
+                </div>
+                
+                <h3>Postoperative</h3>
+                <div class="intervention">
+                    <p class="intervention-header"><span class="tag collaborative">!</span> Continue to support restrictive fluid management postoperatively.</p>
+                    <p class="rationale"><span class="tag eb">CEB</span>: Using restrictive fluid management postoperatively has been found to result in earlier gastric emptying and shorter length of time before passage of flatus and the first postoperative bowel movement than in those receiving standard fluid management (Bamboat & Bordeianou, 2009; Young et al, 2009).</p>
                 </div>
                 
                 <div class="intervention">
-                    <p class="intervention-header"><span class="tag collaborative">!</span> Administer a nonopioid analgesic for mild to moderate pain and add an opioid analgesic if indicated for moderate to severe acute pain.</p>
-                    <p class="rationale"><span class="tag eb">EB</span>: Nonopioids, such as acetaminophen and nonsteroidal anti-inflammatory drugs, are first-line analgesics for the treatment of mild and some moderate acute pain, while opioids are included for the treatment of moderate to severe acute pain (Pasero et al, 2011a; Young & Buvanendran, 2012).</p>
+                    <p class="intervention-header"><span class="tag independent">•</span> Assess the client for development of tissue edema.</p>
+                    <p class="rationale"><span class="tag eb">CEB</span>: Clients developing tissue edema have been shown to develop poor wound healing, compromised pulmonary function, and delay in return of bowel function (Bamboat & Bordeianou, 2009; Young et al, 2009).</p>
                 </div>
                 
-                <div class="intervention">
-                    <p class="intervention-header"><span class="tag independent">•</span> Administer analgesics around-the-clock for continuous pain (expected to be present approximately 50% of the day, such as postoperative pain) and PRN (as needed) for intermittent or breakthrough pain.</p>
-                    <p class="rationale"><span class="tag eb">CEB</span>: If pain is present most of the day, the use of PRN medications alone will lead to periods of undermedication and poor pain control and periods of excessive medication and adverse effects (Pasero, 2010).</p>
-                </div>
-                
-                <div class="intervention">
-                    <p class="intervention-header"><span class="tag independent">•</span> Support the client's use of nonpharmacological methods to supplement pharmacological analgesic approaches to help control pain, such as distraction, imagery, music therapy, simple massage, relaxation, and application of heat and cold.</p>
-                    <p class="rationale"><span class="tag ebn">EBN</span>: Although more evidence is needed to conclude effectiveness, nonpharmacological methods (which are low cost and low risk) can be used to complement pharmacological treatment of pain (Gelinas & Arbour, 2009; Ignatavicius, 2013).</p>
+                <h3>Geriatric</h3>
+                <div class="special-section">
+                    <div class="intervention">
+                        <p class="intervention-header"><span class="tag independent">•</span> Check skin turgor of older client on the forehead, subclavian area, or inner thigh; also look for the presence of longitudinal furrows on the tongue and dry mucous membranes.</p>
+                        <p class="rationale"><span class="tag eb">CEB</span>: Older people commonly have decreased skin turgor from normal age-related loss of elasticity; checking skin turgor on the arm is not reflective of fluid volume (El-Sharkawy et al, 2014).</p>
+                    </div>
+                    
+                    <div class="intervention">
+                        <p class="intervention-header"><span class="tag independent">•</span> Closely monitor urine output, concentration of urine, and serum BUN/creatinine results.</p>
+                        <p class="rationale"><span class="tag eb">EB</span>: Reduced renal perfusion and altered renal function as a normal or abnormal change in physiologic aging can compromise the client's fluid volume status (El-Sharkawy et al, 2014).</p>
+                    </div>
+                    
+                    <div class="intervention">
+                        <p class="intervention-header"><span class="tag independent">•</span> Assess the older client's cognitive status.</p>
+                        <p class="rationale"><span class="tag eb">EB</span>: Cognitive impairment is a risk factor associated with dehydration, especially in the older adult (El-Sharkawy et al, 2014).</p>
+                    </div>
                 </div>
                 
                 <h3>Pediatric</h3>
                 <div class="special-section">
                     <div class="intervention">
-                        <p class="intervention-header"><span class="tag independent">•</span> Assess for the presence of pain using a valid and reliable pain scale based on age, cognitive development, and the child's ability to provide a self-report.</p>
-                        <p class="rationale"><span class="tag ebn">EBN</span>: Scales that depict faces at various levels of pain intensity are commonly used in young children and have been shown to be reliable and valid in children as young as 3 years old (Oakes, 2011). <span class="tag eb">EB</span>: Behavioral tools such as the FLACC Scale may be used to assess pain in infants and children who cannot provide a self-report (Crellin et al, 2015).</p>
+                        <p class="intervention-header"><span class="tag independent">•</span> Assess the pediatric client's weight, length of NPO status, underlying illness, and the surgical procedure to be performed.</p>
                     </div>
                     
                     <div class="intervention">
-                        <p class="intervention-header"><span class="tag collaborative">!</span> Administer prescribed analgesics using a multimodal approach to treat pain in children, infants, and neonates.</p>
-                        <p class="rationale"><span class="tag eb">EB</span>: PCA may be used by children as young as 4 years of age, and intraspinal and perineural analgesic techniques may be used for major surgical procedures (Oakes, 2011).</p>
+                        <p class="intervention-header"><span class="tag independent">•</span> Monitor pediatric surgical clients closely for signs of fluid loss.</p>
                     </div>
                     
                     <div class="intervention">
-                        <p class="intervention-header"><span class="tag independent">•</span> Use a topical local anesthetic such as eutectic mixture of local anesthetics (EMLA) cream or LMX-4 before performing venipuncture in neonates, infants, and children.</p>
-                        <p class="rationale"><span class="tag ebn">EBN</span>: The use of EMLA with prolonged application time for pediatric venipuncture in the emergency department results in improved venipuncture success and reduced pain (Baxter et al, 2013).</p>
-                    </div>
-                </div>
-                
-                <h3>Geriatric</h3>
-                <div class="special-section">
-                    <p>Refer to the Nursing Interventions and Rationales in the care plan for Chronic Pain.</p>
-                </div>
-                
-                <h3>Home Care</h3>
-                <div class="special-section">
-                    <div class="intervention">
-                        <p class="intervention-header"><span class="tag collaborative">!</span> Develop the treatment plan with the client and caregivers.</p>
-                        <p class="rationale"><span class="tag eb">EB</span>: Client education and motivation play important roles in self-management of clients with pain. Self-management is influenced by client-provider communication (Dorflinger et al, 2013).</p>
-                    </div>
-                    
-                    <div class="intervention">
-                        <p class="intervention-header"><span class="tag collaborative">!</span> Assess the client's full medication profile, including medications prescribed by all health care providers and all over-the-counter medications for drug interactions, and instruct the client to refrain from mixing medications without health care provider approval.</p>
-                        <p class="rationale"><span class="tag eb">EB</span>: Pain medications may significantly affect or be affected by other medications and may cause severe side effects; in a study of diabetic pregabalin and duloxetine users, potential duloxetine drug-drug interactions and drug-condition interactions were associated with significant increases in mean health care costs (Johnston et al, 2013).</p>
+                        <p class="intervention-header"><span class="tag collaborative">!</span> Perform an assessment for signs of fluid responsiveness in the pediatric client.</p>
+                        <p class="rationale"><span class="tag eb">EB</span>: A systematic review found that respiratory variation was the only assessment parameter to most reliably predict a pediatric client's responsiveness for fluid administration (Gan et al, 2013).</p>
+                        <p class="rationale"><span class="tag eb">CEB</span>: Oral rehydration therapy, when possible, is the treatment of choice for children with mild to moderate dehydration (Barclay, 2009).</p>
                     </div>
                 </div>
             </div>
@@ -687,42 +677,36 @@
             <!-- Client/Family Teaching -->
             <div class="section">
                 <h2>Client/Family Teaching and Discharge Planning</h2>
-                <p><strong>NOTE:</strong> To avoid the negative connotations associated with the words "drugs" and "narcotics," use the term "pain medicine" when teaching clients.</p>
                 
                 <div class="intervention">
-                    <p class="intervention-header"><span class="tag independent">•</span> Discuss the various discomforts encompassed by the word "pain" and ask the client to give examples of previously experienced pain. Explain the pain assessment process and the purpose of the pain rating scale.</p>
-                    <p class="rationale"><span class="tag eb">CEB</span>: It is often difficult for clients to understand the concept of pain and describe their pain experience. Using alternative words and providing a complete description of the assessment process, including the use of scales, ensures that an accurate treatment plan is developed (McCaffery et al, 2011).</p>
+                    <p class="intervention-header"><span class="tag independent">•</span> Educate clients about signs and symptoms of fluid imbalance to report: decreased urination, dark-colored urine, excessive thirst, dizziness, or shortness of breath.</p>
                 </div>
                 
                 <div class="intervention">
-                    <p class="intervention-header"><span class="tag independent">•</span> Teach the client to use the self-report pain tool to rate the intensity of past or current pain. Ask the client to set a comfort-function goal by selecting a pain level on the self-report tool that will allow performance of desired or necessary activities of recovery with relative ease (e.g., turn, cough, deep breathe, ambulate, participate in physical therapy).</p>
-                    <p class="rationale"><span class="tag eb">CEB</span>: The use of comfort-function goals provides the basis for the direction and modification of the treatment plan (McCaffery et al, 2011).</p>
+                    <p class="intervention-header"><span class="tag independent">•</span> Teach clients about proper fluid intake guidelines based on their specific condition and requirements.</p>
                 </div>
                 
                 <div class="intervention">
-                    <p class="intervention-header"><span class="tag independent">•</span> Provide written educational materials on various aspects of pain control to improve client understanding of pain and pain-related interventions.</p>
-                    <p class="rationale"><span class="tag eb">EB</span>: Written materials and other educational tools assist in improving clients' knowledge related to pain management. In knee replacement clients, the use of an educational pamphlet and a compact disc was associated with decreased postoperative pain and increased participation in physical rehabilitation (Chen et al, 2014).</p>
+                    <p class="intervention-header"><span class="tag collaborative">!</span> Provide written instructions on medication management, especially for diuretics, and how medications may affect fluid balance.</p>
                 </div>
                 
                 <div class="intervention">
-                    <p class="intervention-header"><span class="tag collaborative">!</span> Reinforce the importance of taking pain medications to maintain the comfort-function goal.</p>
-                    <p class="rationale"><span class="tag eb">CEB</span>: Teaching clients to stay on top of their pain and prevent it from getting out of control will improve the ability to accomplish the goals of recovery (McCaffery et al, 2011).</p>
+                    <p class="intervention-header"><span class="tag independent">•</span> Instruct clients on how to maintain an accurate fluid intake and output record if necessary for ongoing monitoring.</p>
                 </div>
                 
                 <div class="intervention">
-                    <p class="intervention-header"><span class="tag collaborative">!</span> Reinforce that taking opioids for pain relief is not addiction and that addiction is very unlikely to occur.</p>
-                    <p class="rationale"><span class="tag eb">CEB</span>: The development of addiction when opioids are taken for pain relief is rare (Pasero et al, 2011c).</p>
+                    <p class="intervention-header"><span class="tag collaborative">!</span> For clients with conditions that require fluid restrictions, provide clear guidelines and strategies for managing thirst.</p>
                 </div>
             </div>
             
             <div class="footnote">
                 <p>References have been abbreviated for this template. For full references, please refer to the original source material.</p>
-                <p>Template created: March 8, 2025</p>
+                <p>Template created: March 13, 2025</p>
             </div>
         </main>
     </div>
 
-    <!-- 引入JavaScript檔案 -->
+    <!-- JavaScript file reference -->
     <script src="diagnosis.js"></script>
 </body>
 </html>

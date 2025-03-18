@@ -12,7 +12,7 @@
             background-color: #f9f9f9;
         }
         .container {
-            max-width: 800px;
+            max-width: 900px;
             margin: 0 auto;
             background-color: white;
             padding: 20px;
@@ -161,7 +161,6 @@
             border: 1px solid #ddd;
             border-bottom: none;
             min-width: 120px;
-            margin-bottom: 5px;
         }
         .tab.active {
             background-color: #3498db;
@@ -1031,83 +1030,91 @@
                 <table class="abbrev-table">
                     <thead>
                         <tr>
-                            <th style="min-width: 20px;">採血順序</th>
+                            <th style="width: 0%">採血順序</th>
                             <th style="min-width: 100px;">種類</th>
-                            <th style="min-width: 140px;">頭蓋顏色</th>
+                            <th style="min-width: 120px;">頭蓋顏色</th>
                             <th style="min-width: 140px;">添加劑成分</th>
+                            <th style="min-width: 100px;">檢驗項目</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
-                            <td rowspan="2">1.</td>
+                            <td rowspan="2" style="width: 0%">1.</td>
                             <td>血液培養：厭氧</td>
-                            <td style="background-color: #800060; color: white;">蝴蝶針：先好氧再厭氧</td>
+                            <td style="background-color: #800060; color: white;">厭氧</td>
                             <td><img src="images/IMG_2857.JPG" alt="厭氧" width="270" height="110"></td>
+                            <td>培養厭氧菌<br>使用蝴蝶針與IC時：先嗜氧再厭氧</td>
                         </tr>
                         <tr>
-                            <td>血液培養：好氧</td>
-                            <td style="background-color: #0000b3; color: white;">好氧</td>
+                            <td >血液培養：嗜氧</td>
+                            <td style="background-color: #0000b3; color: white;">嗜氧</td>
                             <td><img src="images/IMG_2858.JPG" alt="好氧" width="270" height="110"></td>
+                            <td>培養嗜氧菌</td>
                         </tr>
                         <tr>
-                            <td rowspan="2">2.</td>
+                            <td rowspan="2" style="width: 0%">2.</td>
                             <td>凝血功能</td>
                             <td style="background-color: #4682B4;">淺藍色</td>
                             <td><img src="images/IMG_2849.jpg" alt="藍頭管" width="270" height="110"></td>
+                            <td>1. PT/APTT <br> 2. D-dimer/Fibrinogen <br> 重要：請將血加到黑色箭頭處，不可多也不可少</td>
                         </tr>
                         <tr>
                             <td>紅血球沉降速率<br>ESR</td>
                             <td style="background-color: #000000; color: white;">黑色</td>
                             <td><img src="images/IMG_2854.JPG" alt="藍頭管" width="270" height="110"></td>
+                            <td>ESR <br>要抽到兩條白線中間</td>
                         </tr>
                         <tr>
-                            <td rowspan="3">4.</td>
+                            <td rowspan="3" style="width: 0%">3.</td>
                             <td>生化血清</td>
                             <td style="background-color: #ff0000; color: white;">紅色</td>
                             <td><img src="images/IMG_2852.jpg" alt="紅頭管" width="270" height="110"></td>
+                            <td>生化、血清</td>
                         </tr>
                         <tr>
                             <td>血清/血庫</td>
                             <td style="background-color: #daa520;">黃色</td>
                             <td>Clot activator and gel</td>
+                            <td></td>
                         </tr>
                         <tr>
                             <td>微量元素</td>
                             <td style="background-color: #191970; color: white;">深藍色紅標</td>
                             <td>Silicone Coated</td>
+                            <td>血中Zn, Cd, Hg, As, Pb</td>
                         </tr>
-                        <tr>
-                            <td rowspan="2">5.</td>
+                        <tr >
+                            <td rowspan="1" style="width: 0%">4.</td>
                             <td>生化血漿&特殊</td>
                             <td style="background-color: #008000; color: white;">綠色</td>
                             <td><img src="images/IMG_2850.jpg" alt="綠頭管" width="270" height="110"></td>
+                            <td>急生化<br>Ammonia, </td>
                         </tr>
                         <tr>
-                            <td>血氣<br>Gas</td>
-                            <td style="background-color: #90ee90;">淺綠色</td>
-                            <td>Heparin and gel</td>
-                        </tr>
-                        <tr>
-                            <td rowspan="3">6.</td>
+                            <td rowspan="3" style="width: 0%">5.</td>
                             <td>血液學及血庫</td>
                             <td style="background-color: #9400D3;">紫色</td>
                             <td><img src="images/IMG_2851.jpg" alt="紫頭管" width="270" height="110"></td>
+                            <td>1. 血液學 <br> 2. CBC</td>
                         </tr>
                         <tr>
-                            <td>微量元素</td>
+                            <td >微量元素</td>
                             <td style="background-color: #191970; color: white;">深藍色紫標</td>
                             <td>K₂EDTA</td>
+                            <td></td>
                         </tr>
                         <tr>
                             <td>分生(血漿)</td>
                             <td style="background-color: #ffffff;">白色</td>
                             <td>K₂EDTA and gel</td>
+                            <td></td>
                         </tr>
                         <tr>
-                            <td rowspan="1">7.</td>
+                            <td rowspan="1" style="width: 0%">6.</td>
                             <td>血糖</td>
                             <td style="background-color: #808080; color: white;">灰色</td>
                             <td><img src="images/IMG_2853.jpg" alt="灰頭管" width="270" height="110"></td>
+                            <td>生化、血糖<br>Lactate需冰浴送檢</td>
                         </tr>
                     </tbody>
                 </table>
@@ -1692,76 +1699,6 @@
                                 <li>溫度變化隨病情進展加重</li>
                             </ul>
                         </td>
-                    </tr>
-                </tbody>
-            </table>
-            
-            <!-- Common Clinical Scenarios -->
-            <h2 style="margin-top: 30px;">臨床相關疾病 <br> Associated Clinical Conditions</h2>
-            <table class="edema-table">
-                <thead>
-                    <tr>
-                        <th>疾病/狀況</th>
-                        <th>常見6P表現</th>
-                        <th>臨床注意事項</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>急性動脈閉塞</td>
-                        <td>
-                            <ul>
-                                <li>突發性劇烈疼痛</li>
-                                <li>肢體蒼白</li>
-                                <li>脈搏消失</li>
-                                <li>麻木感</li>
-                                <li>肢體活動受限</li>
-                                <li>肢體冰冷</li>
-                            </ul>
-                        </td>
-                        <td>緊急醫療狀況，需立即報告醫師並評估介入治療</td>
-                    </tr>
-                    <tr>
-                        <td>深靜脈血栓</td>
-                        <td>
-                            <ul>
-                                <li>肢體疼痛</li>
-                                <li>可能出現紫脹</li>
-                                <li>脈搏大多保留</li>
-                                <li>輕微麻木感</li>
-                                <li>輕度活動受限</li>
-                                <li>溫度通常正常或輕微升高</li>
-                            </ul>
-                        </td>
-                        <td>需記錄肢體周徑，評估血栓風險，預防肺栓塞</td>
-                    </tr>
-                    <tr>
-                        <td>腔室症候群</td>
-                        <td>
-                            <ul>
-                                <li>嚴重疼痛（與創傷或施加的壓力不成比例）</li>
-                                <li>肢體可能蒼白或紫脹</li>
-                                <li>末梢脈搏可能正常</li>
-                                <li>肢體感覺異常明顯</li>
-                                <li>進行性肌肉無力和癱瘓</li>
-                                <li>肢體可能冰冷</li>
-                            </ul>
-                        </td>
-                        <td>外傷後需密切監測，緊急處理可能需要筋膜切開術</td>
-                    </tr>
-                    <tr>
-                        <td>周邊神經損傷</td>
-                        <td>
-                            <ul>
-                                <li>疼痛沿神經傳導路徑</li>
-                                <li>皮膚顏色正常</li>
-                                <li>脈搏正常</li>
-                                <li>明顯感覺異常</li>
-                                <li>特定肌群活動受限</li>
-                                <li>溫度可能正常</li>
-                            </ul>
-                        </td>
-                        <td>評估肌力和感覺分布，了解神經解剖路徑，評估恢復情況</td>
                     </tr>
                 </tbody>
             </table>

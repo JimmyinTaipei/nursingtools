@@ -4,12 +4,13 @@
 let currentTimeDisplay, alarmTimeInput, alarmLabelInput, setAlarmButton,
     testAlarmButton, alarmsContainer, alarmModal, alarmMessage,
     stopAlarmButton, cardiacCathButton, cardiacConfirmation, 
-    cardiacScheduleList, confirmCardiacButton, cancelCardiacButton, clearAllButton;
+    cardiacScheduleList, confirmCardiacButton, cancelCardiacButton, bloodTransfusionButton, bloodConfirmation, bloodScheduleList, confirmBloodButton, cancelBloodButton, clearAllButton;
 
 // 鬧鐘數據
 let alarms = [];
 let activeAlarm = null;
 let cardiacAlarms = [];
+let bloodAlarms = [];
 let alarmAudio = new Audio('bell.mp3');
 
 document.addEventListener('DOMContentLoaded', function() {
@@ -45,6 +46,11 @@ function initDOMReferences() {
     cardiacScheduleList = document.getElementById('cardiac-schedule-list');
     confirmCardiacButton = document.getElementById('confirm-cardiac-btn');
     cancelCardiacButton = document.getElementById('cancel-cardiac-btn');
+    bloodTransfusionButton = document.getElementById('blood-transfusion-btn');
+    bloodConfirmation = document.getElementById('blood-confirmation');
+    bloodScheduleList = document.getElementById('blood-schedule-list');
+    confirmBloodButton = document.getElementById('confirm-blood-btn');
+    cancelBloodButton = document.getElementById('cancel-blood-btn');
     clearAllButton = document.getElementById('clear-all-btn');
 }
 
@@ -56,6 +62,9 @@ function initEventListeners() {
     if (cardiacCathButton) cardiacCathButton.addEventListener('click', generateCardiacCathSchedule);
     if (confirmCardiacButton) confirmCardiacButton.addEventListener('click', confirmCardiacAlarms);
     if (cancelCardiacButton) cancelCardiacButton.addEventListener('click', cancelCardiacAlarms);
+    if (bloodTransfusionButton) bloodTransfusionButton.addEventListener('click', generateBloodTransfusionSchedule);
+    if (confirmBloodButton) confirmBloodButton.addEventListener('click', confirmBloodAlarms);
+    if (cancelBloodButton) cancelBloodButton.addEventListener('click', cancelBloodAlarms);
     if (clearAllButton) clearAllButton.addEventListener('click', clearAllAlarms);
     
     // 為文檔添加點擊事件以確保能捕獲所有點擊
@@ -216,6 +225,62 @@ function confirmCardiacAlarms() {
 function cancelCardiacAlarms() {
     if (cardiacConfirmation) cardiacConfirmation.style.display = 'none';
     cardiacAlarms = [];
+}
+
+// 生成輸血監測時間表
+function generateBloodTransfusionSchedule() {
+    if (!bloodConfirmation || !bloodScheduleList) return;
+    
+    bloodAlarms = [];
+    const now = new Date();
+    
+    let scheduleHTML = '';
+    
+    // 第1小時：每15分鐘檢查一次
+    for (let i = 1; i < 2; i++) {
+        const checkTime = new Date(now.getTime() + i * 15 * 60000);
+        const alarmObj = {
+            id: Date.now() + i,
+            time: formatTime(checkTime),
+            label: '輸血 - 前15分鐘',
+            active: true,
+            ringing: false
+        };
+        bloodAlarms.push(alarmObj);
+        scheduleHTML += `<li>${formatTime(checkTime)} - 輸血前15分鐘</li>`;
+    }
+    
+    // 第4-5小時：每小時檢查一次
+    for (let i = 0; i < 3; i++) {
+        const checkTime = new Date(now.getTime() + 1 * 60 * 60000 + i * 60 * 60000);
+        const hourLabel = i + 1;
+        const alarmObj = {
+            id: Date.now() + 200 + i,
+            time: formatTime(checkTime),
+            label: `輸血 - 第 ${hourLabel} 小時`,
+            active: true,
+            ringing: false
+        };
+        bloodAlarms.push(alarmObj);
+        scheduleHTML += `<li>${formatTime(checkTime)} - 輸血第${hourLabel}小時</li>`;
+    }
+    
+    bloodScheduleList.innerHTML = scheduleHTML;
+    bloodConfirmation.style.display = 'block';
+}
+
+// 確認添加輸血監測鬧鐘
+function confirmBloodAlarms() {
+    alarms = [...alarms, ...bloodAlarms];
+    saveAlarms();
+    updateAlarmsList();
+    if (bloodConfirmation) bloodConfirmation.style.display = 'none';
+}
+
+// 取消添加輸血監測鬧鐘
+function cancelBloodAlarms() {
+    if (bloodConfirmation) bloodConfirmation.style.display = 'none';
+    bloodAlarms = [];
 }
 
 // 清除所有鬧鐘
