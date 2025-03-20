@@ -95,10 +95,10 @@
         // 定義護理檢查項目
         const nursingTasksByShift = {
             'D': [ // 白班特定項目
-                { category: '每日必填', items: [
-                    '早上Vital Sign',
+                { category: '必填紀錄', items: [
+                    '9點Vital Sign',
+                    '13點Vital Sign',
                     '每日評估',
-                    '病患交班',
                     '跌倒評估',
                     '護理計劃'
                 ]},
@@ -131,14 +131,16 @@
                     '9點口服藥',
                     '11點口服藥'
                 ]},
+                { category: '出入院護理', items: [
+                ]},
                 { category: '其他', items: [
                     '計價',
                     '白班交班單'
                 ]}
             ],
             'N': [ // 小夜特定項目
-                { category: '每日必填', items: [
-                    '下午Vital Sign',
+                { category: '必填紀錄', items: [
+                    '17點Vital Sign',
                     '病患交班',
                     '管路評估',
                     '護理紀錄撰寫'
@@ -170,6 +172,8 @@
                     '晚間點滴',
                     '17點口服藥',
                     '21點口服藥'
+                ]},
+                { category: '出入院護理', items: [
                 ]},
                 { category: '其他', items: [
                     '計價',
@@ -206,8 +210,8 @@
                 { category: '藥物提醒', items: [
                     '夜間藥物',
                     '夜間點滴',
-                    '睡前口服藥',
-                    '緊急藥物準備'
+                ]},
+                { category: '出入院護理', items: [
                 ]},
                 { category: '其他', items: [
                     '計價',
@@ -229,6 +233,9 @@
                 { task: '尿液外觀評估', category: '需檢查' },
                 { task: '每班I/O紀錄', category: '需檢查' }
             ],
+            'CVC': [
+                { task: 'CVC Care', category: 'Care與換藥' },
+            ],
             '傷口': [
                 { task: '傷口換藥', category: 'Care與換藥' },
                 { task: '傷口滲液評估', category: '需檢查' },
@@ -248,13 +255,30 @@
                 { task: '輸液幫浦檢查', category: '需檢查' },
                 { task: '水分攝取評估', category: '需檢查' }
             ],
-
-            '門診轉入': [
-                { task: '出院護理摘要', category: '每日必填' }
+            '輸血': [
+                { task: '每班I/O紀錄', category: '需檢查' },
+                { task: '24小時加總I/O', category: '護理紀錄' },
             ],
-
+            '門診轉入': [
+                { task: '入院護理摘要', category: '出入院護理' }
+            ],
+            '急診轉入': [
+                { task: '入院護理摘要', category: '出入院護理' }
+            ],
+            '加護病房': [
+                { task: '入院護理摘要', category: '出入院護理' }
+            ],
+            '普通病房': [
+                { task: '入院護理摘要', category: '出入院護理' }
+            ],
             '出院': [
-                { task: '出院護理摘要', category: '每日必填' }
+                { task: '出院護理摘要', category: '出入院護理' }
+            ],
+            '轉出': [
+                { task: '出院護理摘要', category: '出入院護理' }
+            ],
+            '死亡': [
+                { task: '出院病歷摘要', category: '出入院護理' }
             ]
         };
 
@@ -427,14 +451,6 @@
         
         // 渲染檢查清單
         function renderChecklist(container, checklist, patientId, shift) {
-            // 確保此病患的展開狀態存在
-            if (!expandedCategories[patientId]) {
-                expandedCategories[patientId] = {};
-            }
-            if (!expandedCategories[patientId][shift]) {
-                expandedCategories[patientId][shift] = {};
-            }
-            
             // 按類別分組
             const categories = {};
             checklist.forEach(item => {
@@ -455,7 +471,7 @@
                 container.appendChild(categoryContainer);
                 
                 // 確定此類別是否應該展開
-                const isExpanded = expandedCategories[patientId][shift][category] === true;
+                const isExpanded = expandedCategories[patientId]?.[shift]?.[category] === true;
                 
                 // 創建類別標題（可點擊）
                 const categoryHeader = document.createElement('div');
@@ -481,6 +497,8 @@
                     const isNowExpanded = !this.classList.contains('collapsed');
                     
                     // 儲存展開狀態
+                    if (!expandedCategories[patientId]) expandedCategories[patientId] = {};
+                    if (!expandedCategories[patientId][shift]) expandedCategories[patientId][shift] = {};
                     expandedCategories[patientId][shift][category] = isNowExpanded;
                     
                     // 更新 UI
@@ -547,21 +565,19 @@
                     time.className = 'time';
                     time.textContent = item.time || '';
                     
-                    // 項目刪除按鈕
-                    if (item.isCustom) {
-                        const deleteTaskBtn = document.createElement('button');
-                        deleteTaskBtn.textContent = '✕';
-                        deleteTaskBtn.className = 'delete-task-btn';
-                        deleteTaskBtn.style.fontSize = '12px';
-                        deleteTaskBtn.style.padding = '3px 6px';
-                        deleteTaskBtn.style.marginLeft = '5px';
-                        deleteTaskBtn.style.backgroundColor = '#D3D3D3';
-                        deleteTaskBtn.onclick = function(e) {
-                            e.stopPropagation();
-                            deleteCustomTask(patientId, shift, item.task);
-                        };
-                        time.appendChild(deleteTaskBtn);
-                    }
+                    // 為所有項目添加刪除按鈕（無論是否為自定義項目）
+                    const deleteTaskBtn = document.createElement('button');
+                    deleteTaskBtn.textContent = '✕';
+                    deleteTaskBtn.className = 'delete-task-btn';
+                    deleteTaskBtn.style.fontSize = '12px';
+                    deleteTaskBtn.style.padding = '3px 6px';
+                    deleteTaskBtn.style.marginLeft = '5px';
+                    deleteTaskBtn.style.backgroundColor = '#D3D3D3';
+                    deleteTaskBtn.onclick = function(e) {
+                        e.stopPropagation();
+                        deleteTask(patientId, shift, item.task, item.isCustom);
+                    };
+                    time.appendChild(deleteTaskBtn);
                     
                     itemElement.appendChild(checkbox);
                     itemElement.appendChild(label);
@@ -770,13 +786,30 @@
             formGroup.className = 'form-group template-selectors';
             formGroup.innerHTML = `
                 <label>快速添加護理模板：</label>
-                <div class="template-buttons">
-                    <button type="button" class="template-btn" data-template="NG">NG</button>
-                    <button type="button" class="template-btn" data-template="Foley">Foley</button>
-                    <button type="button" class="template-btn" data-template="傷口">傷口</button>
-                    <button type="button" class="template-btn" data-template="血糖">血糖</button>
-                    <button type="button" class="template-btn" data-template="I/O">I/O</button>
-                    <button type="button" class="template-btn" data-template="門診轉入">門診轉入</button>
+                <div class="template-buttons" style ="flex-direction: column">
+                    <div class="selected-templates">
+                        常見常規
+                        <button type="button" class="template-btn" data-template="傷口">傷口</button>
+                        <button type="button" class="template-btn" data-template="血糖">血糖</button>
+                        <button type="button" class="template-btn" data-template="I/O">I/O</button>
+                        <button type="button" class="template-btn" data-template="輸血">輸血</button>
+                    </div>
+                    <div class="selected-templates">
+                        管路
+                        <button type="button" class="template-btn" data-template="NG">NG</button>
+                        <button type="button" class="template-btn" data-template="Foley">Foley</button>
+                        <button type="button" class="template-btn" data-template="CVC">CVC</button>
+                    </div>
+                    <div class="selected-templates">
+                        出入院護理
+                        <button type="button" class="template-btn" data-template="門診轉入">門診轉入</button>
+                        <button type="button" class="template-btn" data-template="急診轉入">急診轉入</button>
+                        <button type="button" class="template-btn" data-template="加護病房">加護病房</button>
+                        <button type="button" class="template-btn" data-template="普通病房">普通病房</button>
+                        <button type="button" class="template-btn" data-template="出院">出院</button>
+                        <button type="button" class="template-btn" data-template="轉出">轉出</button>
+                        <button type="button" class="template-btn" data-template="死亡">死亡</button>
+                    </div>
                 </div>
                 <div class="selected-templates" id="selected-templates">
                     已選擇: <span id="template-list"></span>
@@ -841,10 +874,11 @@
                 <div class="template-buttons">
                     <button type="button" class="template-btn small" data-template="NG" onclick="addTemplateToExistingPatient('${patientId}', 'NG')">+NG</button>
                     <button type="button" class="template-btn small" data-template="Foley" onclick="addTemplateToExistingPatient('${patientId}', 'Foley')">+Foley</button>
+                    <button type="button" class="template-btn small" data-template="CVC" onclick="addTemplateToExistingPatient('${patientId}', 'CVC')">+CVC</button>
                     <button type="button" class="template-btn small" data-template="傷口" onclick="addTemplateToExistingPatient('${patientId}', '傷口')">+傷口</button>
                     <button type="button" class="template-btn small" data-template="血糖" onclick="addTemplateToExistingPatient('${patientId}', '血糖')">+血糖</button>
                     <button type="button" class="template-btn small" data-template="I/O" onclick="addTemplateToExistingPatient('${patientId}', 'I/O')">+I/O</button>
-                    <button type="button" class="template-btn small" data-template="門診轉入" onclick="addTemplateToExistingPatient('${patientId}', '門診轉入')">+門診轉入</button>
+                    <button type="button" class="template-btn small" data-template="輸血" onclick="addTemplateToExistingPatient('${patientId}', '輸血')">+輸血</button>
                 </div>
             `;
             
@@ -1185,9 +1219,9 @@
         }
         
         // 添加輔助函數來查找包含特定文本的元素
-Element.prototype.contains = function(text) {
-    return this.textContent.includes(text);
-};
+        Element.prototype.contains = function(text) {
+            return this.textContent.includes(text);
+        };
 
         // 添加收合功能相關的CSS樣式
         function addCollapsibleStyles() {
@@ -1416,6 +1450,35 @@ Element.prototype.contains = function(text) {
                     <span>完成: ${completedCount}/${totalCount}</span>
                     <span>${progressPercentage}%</span>
                 `;
+            }
+        }
+
+        function deleteTask(patientId, shift, taskName, isCustom) {
+            // 不同的確認消息，區分預設和自定義任務
+            const confirmMessage = isCustom 
+                ? '確定要刪除此任務嗎？'
+                : '確定要刪除預設任務嗎？這可能會影響工作流程。';
+            
+            if (confirm(confirmMessage)) {
+                const patients = JSON.parse(localStorage.getItem('patients') || '[]');
+                const patientIndex = patients.findIndex(p => p.id === patientId);
+                
+                if (patientIndex !== -1) {
+                    const patient = patients[patientIndex];
+                    
+                    // 找出任務所屬的類別
+                    const taskItem = patient.checklists[shift].find(item => item.task === taskName);
+                    const category = taskItem ? taskItem.category : null;
+                    
+                    // 刪除任務
+                    patient.checklists[shift] = patient.checklists[shift].filter(item => item.task !== taskName);
+                    
+                    // 更新本地存儲
+                    localStorage.setItem('patients', JSON.stringify(patients));
+                    
+                    // 更新UI
+                    updatePatientCard(patient, shift);
+                }
             }
         }
     </script>
