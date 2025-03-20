@@ -420,3 +420,167 @@ button:hover {
         grid-template-columns: 1fr;
     }
 }
+
+.navigation-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    background-color: #3498db;
+}
+
+.navigation {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 15px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.nav-links {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+.nav-toggle {
+    display: none;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 30px;
+    height: 21px;
+    cursor: pointer;
+}
+
+.nav-toggle span {
+    height: 3px;
+    width: 100%;
+    background-color: white;
+    border-radius: 3px;
+    transition: all 0.3s ease;
+}
+
+/* 移動端導航樣式 */
+@media (max-width: 768px) {
+    .nav-toggle {
+        display: flex;
+    }
+
+    .nav-links {
+        position: absolute;
+        top: 60px;
+        left: 0;
+        right: 0;
+        flex-direction: column;
+        background-color: #3498db;
+        padding: 0;
+        gap: 0;
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.3s ease-out;
+    }
+
+    .nav-links.active {
+        max-height: 500px;
+        box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .nav-links a {
+        padding: 15px 20px;
+        border-top: 1px solid rgba(255, 255, 255, 0.2);
+        width: 100%;
+        box-sizing: border-box;
+        text-align: left;
+    }
+    
+    .header {
+        margin-top: 80px !important;
+    }
+
+    /* 修正頁面頂部適應導航高度 */
+    body {
+        padding-top: 60px;
+    }
+}
+
+/* 優化移動端檢查清單樣式 */
+@media (max-width: 768px) {
+    /* 優化病患卡片 */
+    .patient-card {
+        padding: 12px;
+    }
+
+    /* 增大點擊區域 */
+    .checklist-item {
+        padding: 12px 0;
+        min-height: 44px; /* 蘋果建議的最小點擊區域高度 */
+    }
+
+    .checklist-item input[type="checkbox"] {
+        width: 24px;
+        height: 24px;
+        margin-right: 5px;
+    }
+
+    /* 增大類別頭部點擊區域 */
+    .checklist-category {
+        padding: 12px 10px;
+        min-height: 44px;
+    }
+
+    /* 優化按鈕尺寸 */
+    .delete-btn, .add-task-btn, .delete-task-btn {
+        min-width: 36px;
+        min-height: 36px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    /* 保持模板按鈕水平排列 */
+    .template-buttons {
+        display: flex;
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        gap: 6px;
+        padding: 5px 0;
+        -webkit-overflow-scrolling: touch; /* 提供iOS上更流暢的滾動 */
+        scrollbar-width: none; /* 隱藏Firefox滾動條 */
+    }
+    
+    .template-buttons::-webkit-scrollbar {
+        display: none; /* 隱藏Chrome/Safari滾動條 */
+    }
+
+    .template-btn.small {
+        padding: 8px 12px;
+        flex: 0 0 auto;
+        white-space: nowrap;
+        font-size: 14px;
+    }
+    
+    /* 改進表單佈局 */
+    .add-patient-form {
+        padding: 15px;
+    }
+    
+    .form-group input {
+        padding: 12px 8px;
+        font-size: 16px; /* 防止iPhone自動縮放 */
+    }
+    
+    /* 優化班別選擇器 */
+    .shift-selector {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+    }
+    
+    .shift-btn {
+        flex: 1;
+        padding: 12px 15px;
+        font-size: 16px;
+    }
+}
