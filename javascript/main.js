@@ -1,3 +1,11 @@
+
+
+
+const patient = "No stool for 3 days";
+
+
+
+
 // 主要功能和通用功能
 
 // 顯示時間功能

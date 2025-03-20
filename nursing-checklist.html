@@ -74,6 +74,10 @@
             
             // 設置班別按鈕
             setupShiftButtons();
+
+            addCollapsibleStyles();
+
+            expandedCategories = {};
             
             // 班別切換事件
             document.querySelectorAll('.shift-btn').forEach(btn => {
@@ -84,6 +88,9 @@
                 });
             });
         });
+
+        //全局變量來存儲各病患各類別的展開狀態
+        let expandedCategories = {};
         
         // 定義護理檢查項目
         const nursingTasksByShift = {
@@ -420,6 +427,14 @@
         
         // 渲染檢查清單
         function renderChecklist(container, checklist, patientId, shift) {
+            // 確保此病患的展開狀態存在
+            if (!expandedCategories[patientId]) {
+                expandedCategories[patientId] = {};
+            }
+            if (!expandedCategories[patientId][shift]) {
+                expandedCategories[patientId][shift] = {};
+            }
+            
             // 按類別分組
             const categories = {};
             checklist.forEach(item => {
@@ -434,13 +449,53 @@
             
             // 為每個類別渲染項目
             Object.keys(categories).forEach(category => {
+                // 創建類別容器
+                const categoryContainer = document.createElement('div');
+                categoryContainer.className = 'checklist-category-container';
+                container.appendChild(categoryContainer);
+                
+                // 確定此類別是否應該展開
+                const isExpanded = expandedCategories[patientId][shift][category] === true;
+                
+                // 創建類別標題（可點擊）
                 const categoryHeader = document.createElement('div');
-                categoryHeader.className = 'checklist-category';
+                categoryHeader.className = 'checklist-category' + (isExpanded ? '' : ' collapsed');
                 categoryHeader.innerHTML = `
-                    ${category}
+                    <span class="category-toggle-icon">${isExpanded ? '▼' : '▶'}</span>
+                    <span class="category-title">${category}</span>
+                    <span class="category-count">${categories[category].filter(item => item.completed).length}/${categories[category].length}</span>
                     <button class="add-task-btn" onclick="showAddTaskInput('${patientId}', '${shift}', '${category}')">+</button>
                 `;
-                container.appendChild(categoryHeader);
+                categoryContainer.appendChild(categoryHeader);
+                
+                // 添加類別標題點擊事件
+                categoryHeader.addEventListener('click', function(e) {
+                    // 如果點擊的是添加按鈕，不切換展開/收合狀態
+                    if (e.target.className === 'add-task-btn') {
+                        e.stopPropagation();
+                        return;
+                    }
+                    
+                    // 切換展開/收合狀態
+                    this.classList.toggle('collapsed');
+                    const isNowExpanded = !this.classList.contains('collapsed');
+                    
+                    // 儲存展開狀態
+                    expandedCategories[patientId][shift][category] = isNowExpanded;
+                    
+                    // 更新 UI
+                    const itemsContainer = this.nextElementSibling;
+                    itemsContainer.classList.toggle('hidden');
+                    
+                    // 更新箭頭圖標
+                    const toggleIcon = this.querySelector('.category-toggle-icon');
+                    toggleIcon.textContent = isNowExpanded ? '▼' : '▶';
+                });
+                
+                // 創建任務項目容器（根據展開狀態決定是否隱藏）
+                const itemsContainer = document.createElement('div');
+                itemsContainer.className = 'checklist-items-container' + (isExpanded ? '' : ' hidden');
+                categoryContainer.appendChild(itemsContainer);
                 
                 // 添加任務輸入欄位（初始為隱藏）
                 const taskInputContainer = document.createElement('div');
@@ -459,8 +514,9 @@
                     }
                 });
                 
-                container.appendChild(taskInputContainer);
+                itemsContainer.appendChild(taskInputContainer);
                 
+                // 添加任務項目
                 categories[category].forEach((item, index) => {
                     const itemElement = document.createElement('li');
                     itemElement.className = 'checklist-item' + (item.completed ? ' completed' : '');
@@ -492,7 +548,7 @@
                     time.textContent = item.time || '';
                     
                     // 項目刪除按鈕
-                    if (item.isCustom, item.task) {
+                    if (item.isCustom) {
                         const deleteTaskBtn = document.createElement('button');
                         deleteTaskBtn.textContent = '✕';
                         deleteTaskBtn.className = 'delete-task-btn';
@@ -510,24 +566,40 @@
                     itemElement.appendChild(checkbox);
                     itemElement.appendChild(label);
                     itemElement.appendChild(time);
-                    container.appendChild(itemElement);
+                    itemsContainer.appendChild(itemElement);
                 });
             });
         }
-        
         // 顯示添加任務輸入框
         function showAddTaskInput(patientId, shift, category) {
             const inputContainerId = `task-input-${patientId}-${category.replace(/\s+/g, '-')}`;
             const inputContainer = document.getElementById(inputContainerId);
             
             if (inputContainer) {
+                // 如果任務輸入框被隱藏，則先確保類別是展開的
+                if (inputContainer.classList.contains('hidden')) {
+                    const categoryHeader = inputContainer.closest('.checklist-category-container').querySelector('.checklist-category');
+                    const itemsContainer = inputContainer.closest('.checklist-items-container');
+                    
+                    if (categoryHeader.classList.contains('collapsed')) {
+                        // 手動展開類別
+                        categoryHeader.classList.remove('collapsed');
+                        itemsContainer.classList.remove('hidden');
+                        categoryHeader.querySelector('.category-toggle-icon').textContent = '▼';
+                        
+                        // 更新展開狀態
+                        if (!expandedCategories[patientId]) expandedCategories[patientId] = {};
+                        if (!expandedCategories[patientId][shift]) expandedCategories[patientId][shift] = {};
+                        expandedCategories[patientId][shift][category] = true;
+                    }
+                }
+                
                 inputContainer.classList.toggle('hidden');
                 if (!inputContainer.classList.contains('hidden')) {
                     inputContainer.querySelector('input').focus();
                 }
             }
         }
-        
         // 新增自訂任務
         function addCustomTask(patientId, shift, category) {
             const inputContainerId = `task-input-${patientId}-${category.replace(/\s+/g, '-')}`;
@@ -568,10 +640,15 @@
                 // 更新UI
                 taskInput.value = '';
                 inputContainer.classList.add('hidden');
+                
+                // 確保類別保持展開狀態
+                if (!expandedCategories[patientId]) expandedCategories[patientId] = {};
+                if (!expandedCategories[patientId][shift]) expandedCategories[patientId][shift] = {};
+                expandedCategories[patientId][shift][category] = true;
+                
                 updatePatientCard(patient, shift);
             }
         }
-        
         // 刪除自訂任務
         function deleteCustomTask(patientId, shift, taskName) {
             if (confirm('確定要刪除此任務嗎？')) {
@@ -580,6 +657,12 @@
                 
                 if (patientIndex !== -1) {
                     const patient = patients[patientIndex];
+                    
+                    // 找出任務所屬的類別
+                    const taskItem = patient.checklists[shift].find(item => item.task === taskName);
+                    const category = taskItem ? taskItem.category : null;
+                    
+                    // 刪除任務
                     patient.checklists[shift] = patient.checklists[shift].filter(item => item.task !== taskName);
                     
                     // 更新本地存儲
@@ -590,7 +673,6 @@
                 }
             }
         }
-        
         // 切換任務完成狀態
         function toggleTaskCompletion(patientId, shift, taskName, isCompleted) {
             const patients = JSON.parse(localStorage.getItem('patients') || '[]');
@@ -602,25 +684,31 @@
                 
                 const taskIndex = checklist.findIndex(item => item.task === taskName);
                 if (taskIndex !== -1) {
+                    const category = checklist[taskIndex].category;
                     checklist[taskIndex].completed = isCompleted;
                     checklist[taskIndex].time = isCompleted ? getCurrentTime() : null;
                     
                     // 更新本地存儲
                     localStorage.setItem('patients', JSON.stringify(patients));
                     
-                    // 更新 UI
-                    updatePatientCard(patient, shift);
+                    // 更新 UI：只更新該項目和統計信息，不重新渲染整個卡片
+                    updateTaskUI(patientId, taskName, isCompleted);
+                    updateCategoryStatistics(patientId, category, shift);
+                    updatePatientProgress(patient, shift);
                 }
             }
         }
-        
+
+
         // 更新病患卡片
         function updatePatientCard(patient, shift) {
+            // 如果是添加或刪除任務時調用此函數，則需要重新渲染整個清單
             const card = document.querySelector(`.patient-card[data-patient-id="${patient.id}"]`);
             if (card) {
                 const checklist = patient.checklists[shift];
                 const checklistEl = document.getElementById(`checklist-${patient.id}`);
                 
+                // 重新渲染清單
                 renderChecklist(checklistEl, checklist, patient.id, shift);
                 
                 // 更新進度條
@@ -635,7 +723,6 @@
                 `;
             }
         }
-        
         // 獲取當前時間
         function getCurrentTime() {
             const now = new Date();
@@ -1097,6 +1184,240 @@
             });
         }
         
+        // 添加輔助函數來查找包含特定文本的元素
+Element.prototype.contains = function(text) {
+    return this.textContent.includes(text);
+};
+
+        // 添加收合功能相關的CSS樣式
+        function addCollapsibleStyles() {
+            const styleElement = document.createElement('style');
+            styleElement.textContent = `
+            /* 收合功能相關樣式 */
+            .checklist-category-container {
+                margin-bottom: 10px;
+                border-radius: 4px;
+                overflow: hidden;
+            }
+
+            .checklist-category {
+                display: flex;
+                align-items: center;
+                padding: 8px 10px;
+                background-color: #f8f9fa;
+                border-radius: 4px;
+                cursor: pointer;
+                transition: background-color 0.2s;
+                position: relative;
+                border-left: 3px solid var(--primary-color, #3498db);
+            }
+
+            .checklist-category:hover {
+                background-color: #e9ecef;
+            }
+
+            .category-toggle-icon {
+                font-size: 10px;
+                margin-right: 8px;
+                color: #495057;
+                transition: transform 0.2s;
+            }
+
+            .category-title {
+                flex-grow: 1;
+                font-weight: 600;
+                color: #495057;
+            }
+
+            .category-count {
+                margin-right: 10px;
+                color: #6c757d;
+                font-size: 0.9em;
+            }
+
+            .checklist-items-container {
+                padding: 0;
+                max-height: 1000px;
+                transition: max-height 0.3s ease-in-out;
+                overflow: hidden;
+            }
+
+            .checklist-items-container.hidden {
+                max-height: 0;
+            }
+
+            /* 確保任務項目列表的樣式保持不變 */
+            .checklist-items-container .checklist-item {
+                margin-left: 10px;
+                padding: 8px 10px;
+            }
+
+            /* 添加任務按鈕樣式調整 */
+            .checklist-category .add-task-btn {
+                margin-left: 5px;
+                background-color: transparent;
+                color: #6c757d;
+                padding: 2px 6px;
+                font-size: 14px;
+                line-height: 1;
+                height: 24px;
+                width: 24px;
+                border-radius: 50%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+
+            .checklist-category .add-task-btn:hover {
+                background-color: rgba(0, 0, 0, 0.1);
+                color: #495057;
+            }
+            `;
+            document.head.appendChild(styleElement);
+        }
+
+        // 添加一個函數，用於打開特定類別
+        function updatePatientCard(patient, shift) {
+            // 如果是添加或刪除任務時調用此函數，則需要重新渲染整個清單
+            const card = document.querySelector(`.patient-card[data-patient-id="${patient.id}"]`);
+            if (card) {
+                const checklist = patient.checklists[shift];
+                const checklistEl = document.getElementById(`checklist-${patient.id}`);
+                
+                // 重新渲染清單
+                renderChecklist(checklistEl, checklist, patient.id, shift);
+                
+                // 更新進度條
+                const completedCount = checklist.filter(item => item.completed).length;
+                const totalCount = checklist.length;
+                const progressPercentage = Math.round((completedCount / totalCount) * 100);
+                
+                card.querySelector('.progress').style.width = `${progressPercentage}%`;
+                card.querySelector('.statistics').innerHTML = `
+                    <span>完成: ${completedCount}/${totalCount}</span>
+                    <span>${progressPercentage}%</span>
+                `;
+            }
+        }
+        // 添加一個函數，根據完成進度自動展開未完成任務較多的類別
+        function autoExpandCategories(patientId, shift) {
+            const patients = JSON.parse(localStorage.getItem('patients') || '[]');
+            const patient = patients.find(p => p.id === patientId);
+            
+            if (patient) {
+                const checklist = patient.checklists[shift];
+                
+                // 按類別分組
+                const categories = {};
+                checklist.forEach(item => {
+                    if (!categories[item.category]) {
+                        categories[item.category] = {
+                            total: 0,
+                            completed: 0
+                        };
+                    }
+                    categories[item.category].total++;
+                    if (item.completed) {
+                        categories[item.category].completed++;
+                    }
+                });
+                
+                // 計算每個類別的完成率
+                const categoryCompletionRates = {};
+                Object.keys(categories).forEach(category => {
+                    const { total, completed } = categories[category];
+                    categoryCompletionRates[category] = completed / total;
+                });
+                
+                // 展開完成率低於50%的類別
+                Object.keys(categoryCompletionRates).forEach(category => {
+                    if (categoryCompletionRates[category] < 0.5) {
+                        expandCategory(patientId, category);
+                    }
+                });
+            }
+        }
+
+        function updateTaskUI(patientId, taskName, isCompleted) {
+            const patientCard = document.querySelector(`.patient-card[data-patient-id="${patientId}"]`);
+            if (patientCard) {
+                // 找到該任務項
+                const taskItems = patientCard.querySelectorAll('.checklist-item');
+                for (let item of taskItems) {
+                    const label = item.querySelector('label');
+                    if (label && label.textContent === taskName) {
+                        // 更新 checkbox 狀態
+                        const checkbox = item.querySelector('input[type="checkbox"]');
+                        if (checkbox) checkbox.checked = isCompleted;
+                        
+                        // 更新 CSS 類
+                        if (isCompleted) {
+                            item.classList.add('completed');
+                        } else {
+                            item.classList.remove('completed');
+                        }
+                        
+                        // 更新時間
+                        const time = item.querySelector('.time');
+                        if (time) {
+                            time.textContent = isCompleted ? getCurrentTime() : '';
+                            
+                            // 如果有刪除按鈕，保留它
+                            const deleteBtn = time.querySelector('.delete-task-btn');
+                            if (deleteBtn) {
+                                time.appendChild(deleteBtn);
+                            }
+                        }
+                        
+                        break;
+                    }
+                }
+            }
+        }
+        // 新增函數：更新類別統計信息
+        function updateCategoryStatistics(patientId, category, shift) {
+            const patients = JSON.parse(localStorage.getItem('patients') || '[]');
+            const patient = patients.find(p => p.id === patientId);
+            
+            if (patient) {
+                const checklist = patient.checklists[shift];
+                const categoryItems = checklist.filter(item => item.category === category);
+                const completedCount = categoryItems.filter(item => item.completed).length;
+                
+                // 更新 UI
+                const patientCard = document.querySelector(`.patient-card[data-patient-id="${patientId}"]`);
+                if (patientCard) {
+                    const categoryHeaders = patientCard.querySelectorAll('.checklist-category');
+                    for (let header of categoryHeaders) {
+                        const titleEl = header.querySelector('.category-title');
+                        if (titleEl && titleEl.textContent === category) {
+                            const countEl = header.querySelector('.category-count');
+                            if (countEl) {
+                                countEl.textContent = `${completedCount}/${categoryItems.length}`;
+                            }
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+
+        // 新增函數：更新病患進度條
+        function updatePatientProgress(patient, shift) {
+            const patientCard = document.querySelector(`.patient-card[data-patient-id="${patient.id}"]`);
+            if (patientCard) {
+                const checklist = patient.checklists[shift];
+                const completedCount = checklist.filter(item => item.completed).length;
+                const totalCount = checklist.length;
+                const progressPercentage = Math.round((completedCount / totalCount) * 100);
+                
+                patientCard.querySelector('.progress').style.width = `${progressPercentage}%`;
+                patientCard.querySelector('.statistics').innerHTML = `
+                    <span>完成: ${completedCount}/${totalCount}</span>
+                    <span>${progressPercentage}%</span>
+                `;
+            }
+        }
     </script>
 </body>
 </html>

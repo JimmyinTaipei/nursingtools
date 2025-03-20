@@ -238,6 +238,91 @@ button:hover {
     display: none;
 }
 
+/* 收合功能相關樣式 */
+.checklist-category-container {
+    margin-bottom: 10px;
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.checklist-category {
+    display: flex;
+    align-items: center;
+    padding: 8px 10px;
+    background-color: #f8f9fa;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    position: relative;
+    border-left: 3px solid var(--primary-color, #3498db);
+}
+
+.checklist-category:hover {
+    background-color: #e9ecef;
+}
+
+.category-toggle-icon {
+    font-size: 10px;
+    margin-right: 8px;
+    color: #495057;
+    transition: transform 0.2s;
+}
+
+.category-title {
+    flex-grow: 1;
+    font-weight: 600;
+    color: #495057;
+}
+
+.category-count {
+    margin-right: 10px;
+    color: #6c757d;
+    font-size: 0.9em;
+}
+
+.checklist-items-container {
+    padding: 0;
+    max-height: 1000px;
+    transition: max-height 0.3s ease-in-out;
+    overflow: hidden;
+}
+
+.checklist-items-container.hidden {
+    max-height: 0;
+}
+
+/* 確保任務項目列表的樣式保持不變 */
+.checklist-items-container .checklist-item {
+    margin-left: 10px;
+    padding: 8px 10px;
+}
+
+/* 添加任務按鈕樣式調整 */
+.checklist-category .add-task-btn {
+    margin-left: 5px;
+    background-color: transparent;
+    color: #6c757d;
+    padding: 2px 6px;
+    font-size: 14px;
+    line-height: 1;
+    height: 24px;
+    width: 24px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.checklist-category .add-task-btn:hover {
+    background-color: rgba(0, 0, 0, 0.1);
+    color: #495057;
+}
+
+/* 更新進度條顏色，使其與班別主題一致 */
+.progress {
+    background-color: var(--progress-bar, #3498db);
+}
+
 @media (max-width: 768px) {
     .patients-container {
         grid-template-columns: 1fr;
