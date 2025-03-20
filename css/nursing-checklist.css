@@ -323,6 +323,98 @@ button:hover {
     background-color: var(--progress-bar, #3498db);
 }
 
+/* 班別特定模板相關樣式 */
+.current-shift-name {
+    font-weight: bold;
+    color: var(--primary-color);
+    display: inline-block;
+    background-color: rgba(var(--primary-color-rgb), 0.1);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+.template-header {
+    margin-bottom: 8px;
+    font-size: 14px;
+    color: var(--primary-color);
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+}
+
+/* 設置shift按鈕顏色變數 */
+:root {
+    --primary-color-rgb: 52, 152, 219; /* 白班藍色的RGB值 */
+}
+
+/* 根據班別更新RGB值 */
+.shift-d:root {
+    --primary-color-rgb: 52, 152, 219; /* 白班藍色 */
+}
+
+.shift-n:root {
+    --primary-color-rgb: 230, 126, 34; /* 小夜橙色 */
+}
+
+.shift-e:root {
+    --primary-color-rgb: 52, 73, 94; /* 大夜深灰色 */
+}
+
+/* 模板按鈕排列改進 */
+.template-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 5px;
+}
+
+.selected-templates {
+    margin-top: 10px;
+    font-size: 14px;
+    color: #718096;
+    padding: 5px 0;
+}
+
+/* 刪除按鈕統一樣式 */
+.delete-task-btn {
+    font-size: 12px;
+    padding: 2px 6px;
+    margin-left: 5px;
+    background-color: #DBDBDB;
+    color: #555;
+    border-radius: 3px;
+    transition: all 0.2s ease;
+}
+
+.delete-task-btn:hover {
+    background-color: #ff6b6b;
+    color: white;
+}
+
+/* 新增班別特定任務提示 */
+.shift-specific-tag {
+    font-size: 10px;
+    padding: 1px 4px;
+    border-radius: 3px;
+    margin-left: 5px;
+    font-weight: normal;
+    color: white;
+}
+
+.shift-specific-tag.shift-d {
+    background-color: #3498db;
+}
+
+.shift-specific-tag.shift-n {
+    background-color: #e67e22;
+}
+
+.shift-specific-tag.shift-e {
+    background-color: #34495e;
+}
+
+
 @media (max-width: 768px) {
     .patients-container {
         grid-template-columns: 1fr;

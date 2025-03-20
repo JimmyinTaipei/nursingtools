@@ -78,6 +78,9 @@
             addCollapsibleStyles();
 
             expandedCategories = {};
+
+            // 添加班別特定樣式
+            addShiftSpecificStyles();
             
             // 班別切換事件
             document.querySelectorAll('.shift-btn').forEach(btn => {
@@ -108,8 +111,6 @@
                     '壓傷評估(每週五)',
                     '出院準備評估(每週五)',
                     '管路管理與評估',
-                    '早上輸入輸出 I/O',
-                    '早餐前血糖值'
                 ]},
                 { category: 'Care與換藥', items: [
                     '晨間護理',
@@ -126,10 +127,9 @@
                     '檢查前禁食確認'
                 ]},
                 { category: '藥物提醒', items: [
-                    '早上藥物',
-                    '上午點滴',
-                    '9點口服藥',
-                    '11點口服藥'
+                    '9點藥物',
+                    '13點藥物',
+                    '更換點滴(視需要)'
                 ]},
                 { category: '出入院護理', items: [
                 ]},
@@ -168,10 +168,9 @@
                     '檢查結果追蹤'
                 ]},
                 { category: '藥物提醒', items: [
-                    '下午藥物',
-                    '晚間點滴',
                     '17點口服藥',
-                    '21點口服藥'
+                    '21點口服藥',
+                    '點滴更換(視需要)'
                 ]},
                 { category: '出入院護理', items: [
                 ]},
@@ -209,7 +208,7 @@
                 ]},
                 { category: '藥物提醒', items: [
                     '夜間藥物',
-                    '夜間點滴',
+                    '點滴更換(視需要)'
                 ]},
                 { category: '出入院護理', items: [
                 ]},
@@ -251,9 +250,7 @@
             
             'I/O': [
                 { task: '每班I/O紀錄', category: '需檢查' },
-                { task: '24小時加總I/O', category: '護理紀錄' },
-                { task: '輸液幫浦檢查', category: '需檢查' },
-                { task: '水分攝取評估', category: '需檢查' }
+                { task: '加總I/O', category: '護理紀錄' },
             ],
             '輸血': [
                 { task: '每班I/O紀錄', category: '需檢查' },
@@ -263,7 +260,15 @@
                 { task: '入院護理摘要', category: '出入院護理' }
             ],
             '急診轉入': [
-                { task: '入院護理摘要', category: '出入院護理' }
+                { task: '入院護理摘要', category: '出入院護理' },
+                { task: '身高體重', category: '出入院護理' },
+                { task: '聯絡當科', category: '出入院護理' },
+                { task: 'Vital Sign', category: '出入院護理' },
+                { task: '入院護理評估', category: '出入院護理' },
+                { task: '新增跌倒評估', category: '出入院護理' },
+                { task: '新增壓傷、傷口評估', category: '出入院護理' },
+                { task: '新增護理計劃', category: '出入院護理' },
+                { task: '新增衛教指導', category: '出入院護理' },
             ],
             '加護病房': [
                 { task: '入院護理摘要', category: '出入院護理' }
@@ -272,13 +277,21 @@
                 { task: '入院護理摘要', category: '出入院護理' }
             ],
             '出院': [
-                { task: '出院護理摘要', category: '出入院護理' }
+                { task: '出院護理摘要', category: '出入院護理' },
+                { task: '退藥、還自備藥', category: '出入院護理' },
+                { task: '拔手圈', category: '出入院護理' },
+                { task: '拔IC與管路(如有需要)', category: '出入院護理' },
             ],
             '轉出': [
-                { task: '出院護理摘要', category: '出入院護理' }
+                { task: '出院護理摘要', category: '出入院護理' },
+                
             ],
             '死亡': [
-                { task: '出院病歷摘要', category: '出入院護理' }
+                { task: '出院病歷摘要', category: '出入院護理' },
+                { task: '貼EKG紙', category: '出入院護理' },
+                { task: '遺體通知單', category: '出入院護理' },
+                { task: '拔IC與管路(如有需要)', category: '出入院護理' },
+                { task: '確認診斷書份數', category: '出入院護理' },
             ]
         };
 
@@ -780,12 +793,53 @@
             }
         }
 
-        // 添加模板選擇區域到新增病患表單中
+        // 更新已選擇的模板顯示
+        function updateSelectedTemplates() {
+            const selectedButtons = document.querySelectorAll('.template-btn.active');
+            const templateList = document.getElementById('template-list');
+            
+            const templates = Array.from(selectedButtons).map(btn => btn.textContent);
+            templateList.textContent = templates.length > 0 ? templates.join(', ') : '無';
+        }
+
+        // 添加模板任務到病患的檢查清單
+        function addTemplateTasksToPatient(patient, selectedTemplates) {
+            // 只添加到當前選中的班別
+            const currentShift = document.querySelector('.shift-btn.active').dataset.shift;
+            const checklist = patient.checklists[currentShift];
+            
+            selectedTemplates.forEach(templateName => {
+                const template = nursingTemplates[templateName];
+                
+                template.forEach(templateItem => {
+                    // 檢查任務是否已存在
+                    const taskExists = checklist.some(item => item.task === templateItem.task);
+                    
+                    if (!taskExists) {
+                        checklist.push({
+                            task: templateItem.task,
+                            category: templateItem.category,
+                            completed: false,
+                            time: null,
+                            isCustom: true
+                        });
+                    }
+                });
+            });
+            
+            return patient;
+        }
         function addTemplateSelectors() {
             const formGroup = document.createElement('div');
             formGroup.className = 'form-group template-selectors';
+            
+            // 獲取當前班別
+            const currentShift = document.querySelector('.shift-btn.active').dataset.shift;
+            const shiftName = shiftThemes[currentShift].name;
+            const shiftIcon = shiftThemes[currentShift].icon;
+            
             formGroup.innerHTML = `
-                <label>快速添加護理模板：</label>
+                <label>快速添加${shiftIcon} <span class="current-shift-name">${shiftName}</span> 護理模板：</label>
                 <div class="template-buttons" style ="flex-direction: column">
                     <div class="selected-templates">
                         常見常規
@@ -828,49 +882,18 @@
                 });
             });
         }
-        // 更新已選擇的模板顯示
-        function updateSelectedTemplates() {
-            const selectedButtons = document.querySelectorAll('.template-btn.active');
-            const templateList = document.getElementById('template-list');
-            
-            const templates = Array.from(selectedButtons).map(btn => btn.textContent);
-            templateList.textContent = templates.length > 0 ? templates.join(', ') : '無';
-        }
-
-        // 添加模板任務到病患的檢查清單
-        function addTemplateTasksToPatient(patient, selectedTemplates) {
-            // 為三個班別都添加模板任務
-            ['D', 'N', 'E'].forEach(shift => {
-                const checklist = patient.checklists[shift];
-                
-                selectedTemplates.forEach(templateName => {
-                    const template = nursingTemplates[templateName];
-                    
-                    template.forEach(templateItem => {
-                        // 檢查任務是否已存在
-                        const taskExists = checklist.some(item => item.task === templateItem.task);
-                        
-                        if (!taskExists) {
-                            checklist.push({
-                                task: templateItem.task,
-                                category: templateItem.category,
-                                completed: false,
-                                time: null,
-                                isCustom: true // 標記為自定義任務，以便可以刪除
-                            });
-                        }
-                    });
-                });
-            });
-            
-            return patient;
-        }
-
         // 在病患卡片中添加模板按鈕
         function addTemplateButtonsToPatientCard(patientCard, patientId) {
+            const currentShift = document.querySelector('.shift-btn.active').dataset.shift;
+            const shiftName = shiftThemes[currentShift].name;
+            const shiftIcon = shiftThemes[currentShift].icon;
+            
             const templateContainer = document.createElement('div');
             templateContainer.className = 'patient-templates';
             templateContainer.innerHTML = `
+                <div class="template-header">
+                    快速添加${shiftIcon} <span class="current-shift-name">${shiftName}</span> 模板
+                </div>
                 <div class="template-buttons">
                     <button type="button" class="template-btn small" data-template="NG" onclick="addTemplateToExistingPatient('${patientId}', 'NG')">+NG</button>
                     <button type="button" class="template-btn small" data-template="Foley" onclick="addTemplateToExistingPatient('${patientId}', 'Foley')">+Foley</button>
@@ -885,6 +908,7 @@
             const patientInfo = patientCard.querySelector('.patient-info');
             patientInfo.appendChild(templateContainer);
         }
+
         // 為已存在的病患添加模板任務
         function addTemplateToExistingPatient(patientId, templateName) {
             const patients = JSON.parse(localStorage.getItem('patients') || '[]');
@@ -1214,10 +1238,13 @@
                     
                     // 更新病患清單
                     updateAllChecklistsForShift(shift);
+                    
+                    // 更新模板選擇器的班別標識
+                    updateTemplateSelectorsShift(shift);
                 });
             });
         }
-        
+
         // 添加輔助函數來查找包含特定文本的元素
         Element.prototype.contains = function(text) {
             return this.textContent.includes(text);
@@ -1290,7 +1317,7 @@
             .checklist-category .add-task-btn {
                 margin-left: 5px;
                 background-color: transparent;
-                color: #6c757d;
+                color: white;
                 padding: 2px 6px;
                 font-size: 14px;
                 line-height: 1;
@@ -1480,6 +1507,40 @@
                     updatePatientCard(patient, shift);
                 }
             }
+        }
+
+        function updateTemplateSelectorsShift(shift) {
+            const shiftName = shiftThemes[shift].name;
+            const shiftIcon = shiftThemes[shift].icon;
+            
+            // 更新新增病患表單中的模板選擇器
+            const templateSelectorLabel = document.querySelector('.template-selectors label');
+            if (templateSelectorLabel) {
+                templateSelectorLabel.innerHTML = `快速添加${shiftIcon} <span class="current-shift-name">${shiftName}</span> 護理模板：`;
+            }
+            
+            // 更新所有病患卡片中的模板標題
+            document.querySelectorAll('.patient-templates .template-header').forEach(header => {
+                header.innerHTML = `快速添加${shiftIcon} <span class="current-shift-name">${shiftName}</span> 模板`;
+            });
+        }
+
+        // 添加班別特定的樣式
+        function addShiftSpecificStyles() {
+            const styleElement = document.createElement('style');
+            styleElement.textContent = `
+                .current-shift-name {
+                    font-weight: bold;
+                    display: inline-block;
+                }
+                
+                .template-header {
+                    margin-bottom: 8px;
+                    font-size: 14px;
+                    color: var(--primary-color);
+                }
+            `;
+            document.head.appendChild(styleElement);
         }
     </script>
 </body>
