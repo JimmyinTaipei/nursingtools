@@ -15,25 +15,6 @@ h1, h2, h3, h4 {
     margin: 0 auto;
 }
 
-/* 布局組件 */
-.navigation {
-    display: flex;
-    justify-content: center;
-    gap: 20px;
-    margin-bottom: 10px;
-    background-color: #3498db;
-    padding: 20px;
-}
-
-.navigation a {
-    color: white;
-    text-decoration: none;
-}
-
-.navigation a:hover {
-    text-decoration: underline;
-}
-
 .header {
     display: flex;
     flex-direction: column;
@@ -421,79 +402,8 @@ button:hover {
     }
 }
 
-.navigation-container {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    z-index: 1000;
-    background-color: #3498db;
-}
-
-.navigation {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 15px 20px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.nav-links {
-    display: flex;
-    justify-content: center;
-    gap: 20px;
-}
-
-.nav-toggle {
-    display: none;
-    flex-direction: column;
-    justify-content: space-between;
-    width: 30px;
-    height: 21px;
-    cursor: pointer;
-}
-
-.nav-toggle span {
-    height: 3px;
-    width: 100%;
-    background-color: white;
-    border-radius: 3px;
-    transition: all 0.3s ease;
-}
-
 /* 移動端導航樣式 */
 @media (max-width: 768px) {
-    .nav-toggle {
-        display: flex;
-    }
-
-    .nav-links {
-        position: absolute;
-        top: 60px;
-        left: 0;
-        right: 0;
-        flex-direction: column;
-        background-color: #3498db;
-        padding: 0;
-        gap: 0;
-        max-height: 0;
-        overflow: hidden;
-        transition: max-height 0.3s ease-out;
-    }
-
-    .nav-links.active {
-        max-height: 500px;
-        box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
-    }
-
-    .nav-links a {
-        padding: 15px 20px;
-        border-top: 1px solid rgba(255, 255, 255, 0.2);
-        width: 100%;
-        box-sizing: border-box;
-        text-align: left;
-    }
     
     .header {
         margin-top: 80px !important;

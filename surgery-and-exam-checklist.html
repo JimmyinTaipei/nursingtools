@@ -306,19 +306,104 @@
                 flex: 1 1 100%;
             }
         }
+        /* 添加移動端特定樣式 */
+        @media (max-width: 768px) {
+            body {
+                padding-top: 60px;
+                padding-left: 10px;
+                padding-right: 10px;
+            }
+            
+            .container {
+                padding: 10px;
+            }
+            
+            h1 {
+                margin-top: 70px !important;
+                font-size: 1.5rem !important;
+            }
+            
+            .button-container {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            
+            .button {
+                margin: 5px 0;
+                font-size: 14px;
+            }
+            
+            .template-selection {
+                flex-direction: column;
+                padding: 10px;
+            }
+            
+            .template-selection select {
+                margin-right: 0;
+                margin-bottom: 10px;
+                width: 100%;
+            }
+            
+            .template-selection .button {
+                width: 100%;
+            }
+            
+            .import-export-container .button-container {
+                flex-direction: column;
+            }
+            
+            .dialog-content {
+                width: 90%;
+                padding: 15px;
+            }
+            
+            h2 {
+                font-size: 1.2rem;
+                padding: 8px;
+            }
+            
+            .form-group input, .form-group textarea, .form-group select {
+                font-size: 16px; /* 防止iOS上的自動縮放 */
+            }
+            
+            .checklist-item {
+                padding: 12px 0;
+            }
+            
+            .checklist-item input[type="checkbox"] {
+                width: 24px;
+                height: 24px;
+            }
+            
+            .delete-item {
+                width: 36px;
+                height: 36px;
+                font-size: 20px;
+            }
+        }
     </style>
+    <link rel="stylesheet" href="css/mobile-style.css">
 </head>
 <body>
     <header>
-        <div class="navigation" style="background-color: #3498db; width: 1360px; padding:20px; position:absolute; top:0px; right:20px; left:20px">
-            <a href="user-guide.html">使用說明</a>
-            <a href="index.html">護理工作時間表</a>
-            <a href="nursing-checklist.html">護理工作Checklist</a>
-            <a href="nursing-clinical-tools.html">護理臨床小工具</a>
-            <a href="surgery-and-exam-checklist.html">手術與檢查Checklist</a>
-            <a href="clinical-cheatsheet.html">臨床懶人包</a>
-            <a href="nursing-diagnosis-search-tool.html">護理診斷查詢工具</a>
-            <a href="nursing-kardex.html">交班單（prototype）</a>
+        <div class="navigation-container">
+            <div class="navigation">
+                <div class="nav-toggle" id="nav-toggle">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+                <div class="nav-links" id="nav-links">
+                    <a href="user-guide.html">使用說明</a>
+                    <a href="index.html">護理工作時間表</a>
+                    <a href="nursing-checklist.html">護理工作Checklist</a>
+                    <a href="nursing-clinical-tools.html">護理臨床小工具</a>
+                    <a href="surgery-and-exam-checklist.html">手術與檢查Checklist</a>
+                    <a href="clinical-cheatsheet.html">臨床懶人包</a>
+                    <a href="nursing-diagnosis-search-tool.html">護理診斷查詢工具</a>
+                    <a href="nursing-kardex.html">交班單（prototype）</a>
+                </div>
+            </div>
         </div>
         <h1 style="margin-top: 60px">手術與檢查Checklist</h1>
     </header>
@@ -820,5 +905,6 @@
             loadSavedTemplates();
         });
     </script>
+    <script src="javascript/mobile-script.js"></script>
 </body>
 </html>

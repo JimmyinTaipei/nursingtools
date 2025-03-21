@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>護理診斷查詢工具</title>
+    <!-- Mobile style CSS -->
+    <link rel="stylesheet" href="css/mobile-style.css">
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
@@ -11,37 +13,16 @@
             font-family: 'Microsoft JhengHei', Arial, sans-serif;
             background-color: #f9f9f9;
             color: #333;
+            padding-top: 60px; /* Added padding for fixed navigation */
         }
         h1 {
             font-size: 32px;
             text-align: center;
             font-weight: bold;
-            margin-top:80px;
-            color:#2c3e50;
+            margin-top: 20px;
+            color: #2c3e50;
         }
-        /* 布局組件 */
-        .navigation {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            margin-bottom: 10px;
-            padding: 20px;
-            background-color: #3498db;
-            position:fixed;
-            top:0px;
-            right:0px;
-            left:0px;
-            z-index: 100;
-        }
-        .navigation a {
-            color: white;
-            text-decoration: none;
-        }
-
-        .navigation a:hover {
-            text-decoration: underline;
-        }
-        /* Additional custom styles */
+        /* Remove old navigation styles */
         .hidden {
             display: none;
         }
@@ -81,21 +62,48 @@
             max-height: 90vh;
             overflow-y: auto;
         }
+        /* Mobile-specific styles */
+        @media (max-width: 768px) {
+            .container {
+                padding: 10px;
+            }
+            .admin-content {
+                padding: 1rem;
+                width: 95%;
+            }
+            .tabs {
+                flex-direction: column;
+            }
+            .tab {
+                flex: none;
+                margin-bottom: 2px;
+                border-radius: 0;
+            }
+        }
     </style>
 </head>
 <body>
     <header>
-        <div class="navigation">
-            <a href="user-guide.html">使用說明</a>
-            <a href="index.html">護理工作時間表</a>
-            <a href="nursing-checklist.html">護理工作Checklist</a>
-            <a href="nursing-clinical-tools.html">護理臨床小工具</a>
-            <a href="surgery-and-exam-checklist.html">手術與檢查Checklist</a>
-            <a href="clinical-cheatsheet.html">臨床懶人包</a>
-            <a href="nursing-diagnosis/nursing-diagnosis-search-tool.html">護理診斷查詢工具</a>
-            <a href="nursing-kardex.html">交班單（prototype）</a>
+        <div class="navigation-container">
+            <div class="navigation">
+                <div class="nav-toggle" id="nav-toggle">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+                <div class="nav-links" id="nav-links">
+                    <a href="user-guide.html">使用說明</a>
+                    <a href="index.html">護理工作時間表</a>
+                    <a href="nursing-checklist.html">護理工作Checklist</a>
+                    <a href="nursing-clinical-tools.html">護理臨床小工具</a>
+                    <a href="surgery-and-exam-checklist.html">手術與檢查Checklist</a>
+                    <a href="clinical-cheatsheet.html">臨床懶人包</a>
+                    <a href="nursing-diagnosis-search-tool.html">護理診斷查詢工具</a>
+                    <a href="nursing-kardex.html">交班單（prototype）</a>
+                </div>
+            </div>
         </div>
-        <h1 style="font-size: 32px; text-align: center; font-weight: bold; margin-top:80px; color:#2c3e50">護理診斷查詢工具</h1>
+        <h1 style="font-size: 2rem; margin-top: 15px">護理診斷查詢工具</h1>
     </header>
 
     <main class="container mx-auto p-4">
@@ -390,7 +398,7 @@
                     "Ineffective Breathing pattern": "nursing-diagnosis/ineffective-breathing-pattern.html",
                     "Ineffective Airway clearance": "nursing-diagnosis/ineffective-airway-clearance.html"
                 };
-                localStorage.setItem('diagnosisLinks', JSON.stringify(diagnosisLinks));
+                localStorage.setItem('diagnosisLinks', JSON.stringify(initialDiagnosisLinks));
             }
             
             // Load data from localStorage
@@ -468,13 +476,13 @@
             });
             
             // Add a "More..." button if there are more examples
-            if (examples.length > 10) {
+            if (allExamples.length > 10) {
                 const moreButton = document.createElement('button');
                 moreButton.className = 'bg-gray-100 hover:bg-gray-200 text-gray-700 text-sm px-3 py-1 rounded-full';
                 moreButton.textContent = "More...";
                 moreButton.addEventListener('click', () => {
                     // Display a modal with all diagnoses instead of using search results
-                    showAllDiagnosesModal(examples);
+                    showAllDiagnosesModal(allExamples);
                 });
                 examplesContainer.appendChild(moreButton);
             }
@@ -1251,6 +1259,8 @@
         // Populate target diagnosis dropdown in aliases tab
         function populateTargetDiagnosisSelect() {
             const select = document.getElementById('targetDiagnosisSelect');
+            if (!select) return;
+            
             select.innerHTML = '<option value="">-- 選擇相關醫學診斷 --</option>';
             
             const diagnoses = Object.keys(diagnosisDatabase).sort();
@@ -1265,6 +1275,8 @@
         // Function to update aliases list
         function updateAliasesList() {
             const container = document.getElementById('aliasesContainer');
+            if (!container) return;
+            
             container.innerHTML = '';
             
             const aliases = Object.entries(diagnosisAliases).sort((a, b) => a[0].localeCompare(b[0]));
@@ -1307,37 +1319,44 @@
             });
         }
         
-        // Save alias
-        document.getElementById('saveAliasBtn').addEventListener('click', () => {
-            const alias = document.getElementById('aliasInput').value.trim();
-            const target = document.getElementById('targetDiagnosisSelect').value;
-            
-            if (alias && target) {
-                // Check if alias already exists
-                if (diagnosisAliases[alias] && 
-                    !confirm(`別名「${alias}」已存在。要覆蓋嗎？`)) {
-                    return;
+        // Save alias button handler
+        document.addEventListener('click', function(e) {
+            if (e.target && e.target.id === 'saveAliasBtn') {
+                const aliasInput = document.getElementById('aliasInput');
+                const targetSelect = document.getElementById('targetDiagnosisSelect');
+                
+                if (aliasInput && targetSelect) {
+                    const alias = aliasInput.value.trim();
+                    const target = targetSelect.value;
+                    
+                    if (alias && target) {
+                        // Check if alias already exists
+                        if (diagnosisAliases[alias] && 
+                            !confirm(`別名「${alias}」已存在。要覆蓋嗎？`)) {
+                            return;
+                        }
+                        
+                        // Add or update the alias
+                        diagnosisAliases[alias] = target;
+                        
+                        // Save to localStorage
+                        localStorage.setItem('diagnosisAliases', JSON.stringify(diagnosisAliases));
+                        
+                        // Update the aliases list
+                        updateAliasesList();
+                        
+                        // Update example buttons (to include aliases)
+                        createExampleButtons();
+                        
+                        // Clear inputs
+                        aliasInput.value = '';
+                        targetSelect.value = '';
+                        
+                        alert(`診斷別名「${alias}」已儲存！`);
+                    } else {
+                        alert('請填寫所有欄位！');
+                    }
                 }
-                
-                // Add or update the alias
-                diagnosisAliases[alias] = target;
-                
-                // Save to localStorage
-                localStorage.setItem('diagnosisAliases', JSON.stringify(diagnosisAliases));
-                
-                // Update the aliases list
-                updateAliasesList();
-                
-                // Update example buttons (to include aliases)
-                createExampleButtons();
-                
-                // Clear inputs
-                document.getElementById('aliasInput').value = '';
-                document.getElementById('targetDiagnosisSelect').value = '';
-                
-                alert(`診斷別名「${alias}」已儲存！`);
-            } else {
-                alert('請填寫所有欄位！');
             }
         });
         
@@ -1446,5 +1465,8 @@
         // Initialize data and UI
         document.addEventListener('DOMContentLoaded', initializeDatabase);
     </script>
+    
+    <!-- Mobile menu script -->
+    <script src="javascript/mobile-script.js"></script>
 </body>
 </html>

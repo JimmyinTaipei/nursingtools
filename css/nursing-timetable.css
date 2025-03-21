@@ -341,6 +341,155 @@ td.bed-number {
         flex-direction: column;
     }
 }
+/* 添加到 nursing-timetable.css 文件中 */
+
+/* 移動端適配樣式補充 */
+@media (max-width: 768px) {
+    body {
+        padding-top: 60px;
+    }
+    
+    h1 {
+        margin-top: 70px !important;
+        font-size: 1.5rem !important;
+    }
+    
+    /* 優化班別選擇器 */
+    .shift-selector {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+    }
+    
+    .shift-btn {
+        margin-bottom: 5px;
+        width: 100%;
+        padding: 12px;
+        font-size: 16px;
+    }
+    
+    /* 優化控制面板 */
+    .controls {
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    .form-group {
+        width: 100%;
+        margin-right: 0;
+    }
+    
+    input, select {
+        width: 100%;
+        padding: 12px 8px;
+        font-size: 16px; /* 防止iOS自動縮放 */
+    }
+    
+    /* 優化模板容器 */
+    .templates-grid {
+        grid-template-columns: 1fr 1fr; /* 一行兩個模板按鈕 */
+        gap: 8px;
+    }
+    
+    .template-btn {
+        padding: 8px 5px;
+    }
+    
+    .template-name {
+        font-size: 14px;
+    }
+    
+    .template-desc {
+        font-size: 12px;
+    }
+    
+    /* 優化過濾器 */
+    .filters {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    
+    .filter-item {
+        width: 100%;
+    }
+    
+    .toggle-btn {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 5px;
+    }
+    
+    /* 最後一組按鈕單獨處理 */
+    .filters > div:last-child {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        margin-top: 10px;
+    }
+    
+    .filters > div:last-child button {
+        width: 100%;
+        padding: 12px;
+    }
+    
+    /* 時間軸表格適配 */
+    .timeline-container {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        padding: 10px 5px;
+        margin: 0 -10px; /* 負邊距，讓表格可以橫向滾動超出容器 */
+    }
+    
+    /* 任務詳情彈窗 */
+    .task-details {
+        position: fixed; /* 改為固定定位 */
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 90%;
+        max-width: 350px;
+        z-index: 1001;
+    }
+    
+    /* 模板彈窗 */
+    .bed-selector-content {
+        width: 90%;
+        padding: 15px;
+    }
+    
+    .bed-input-row input {
+        font-size: 16px;
+        padding: 12px 8px;
+    }
+    
+    /* 確保任務可點擊區域夠大 */
+    .task {
+        height: 28px;
+        line-height: 20px;
+        font-size: 14px;
+    }
+    
+    /* 調整時間提示樣式 */
+    .task-time-tooltip {
+        font-size: 13px;
+        width: 95%;
+    }
+}
+
+/* 特小螢幕特別優化 (如iPhone SE等) */
+@media (max-width: 375px) {
+    .templates-grid {
+        grid-template-columns: 1fr; /* 一行一個模板按鈕 */
+    }
+    
+    .form-group label {
+        font-size: 14px;
+    }
+    
+    h1 {
+        font-size: 1.2rem !important;
+    }
+}
 
 /* Current time indicator */
 #current-time-indicator {
