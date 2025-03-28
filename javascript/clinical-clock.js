@@ -28,6 +28,9 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // 初始化鬧鐘時鐘
     updateClockDisplay();
+    
+    // 設置時間輸入欄位為當前時間
+    setCurrentTimeToInput();
 });
 
 // 初始化 DOM 元素引用
@@ -395,4 +398,16 @@ function loadAlarms() {
     if (savedAlarms) {
         alarms = JSON.parse(savedAlarms);
     }
+}
+
+// 設置時間輸入欄位為當前時間
+function setCurrentTimeToInput() {
+    if (!alarmTimeInput) return;
+    
+    const now = new Date();
+    const hours = String(now.getHours()).padStart(2, '0');
+    const minutes = String(now.getMinutes()).padStart(2, '0');
+    
+    // 設置時間輸入欄位的值為當前時間（格式：HH:MM）
+    alarmTimeInput.value = `${hours}:${minutes}`;
 }
