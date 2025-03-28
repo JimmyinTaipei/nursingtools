@@ -517,3 +517,30 @@ h2 {
 .power-input {
     appearance: textfield;
 }
+
+.special-conditions {
+    background-color:  rgb(241, 241, 241);
+}
+
+.conditions-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.condition-item {
+    display: flex;
+    align-items: center;
+    padding: 5px;
+}
+
+.condition-item input[type="checkbox"] {
+    margin-right: 8px;
+}
+
+@media (max-width: 600px) {
+    .conditions-grid {
+        grid-template-columns: 1fr;
+    }
+} 

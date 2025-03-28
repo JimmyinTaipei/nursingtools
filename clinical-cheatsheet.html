@@ -171,10 +171,17 @@
                         </td>
                     </tr>
                     <tr>
-                        <td></td>
-                        <td></td>
-                        <td class="bilingual">
-                            <span class="chinese">無反應</span>
+                        <td class="special-conditions">
+                            <span>眼睛腫脹無法睜開</span>
+                        </td>
+                        <td class="special-conditions">
+                            <div class="radio-container">
+                                <input type="checkbox" id="closeEyes" onchange="updateScore()">
+                                <label for="closeEyes">C</label>
+                            </div>
+                        </td>
+                        <td>
+                            <span>無反應</span>
                         </td>
                         <td>
                             <div class="radio-container">
@@ -193,12 +200,30 @@
                         </td>
                     </tr>
                     <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td class="bilingual">
-                            <span class="chinese">無反應</span>
+                        <td class="special-conditions">
+                            <span>氣管插管(E)<br>氣管切開(T)</span>
+                        </td>
+                        <td class="special-conditions">
+                            <div class="radio-container">
+                                <input type="checkbox" id="endotracheal" onchange="updateScore()">
+                                <label for="endotracheal">E</label>
+                            </div>
+                            <div class="radio-container">
+                                <input type="checkbox" id="tracheostomy" onchange="updateScore()">
+                                <label for="tracheostomy">T</label>
+                            </div>
+                        </td>
+                        <td class="special-conditions">
+                            <span>失語症</span>
+                        </td>
+                        <td class="special-conditions">
+                            <div class="radio-container">
+                                <input type="checkbox" id="aphasia" onchange="updateScore()">
+                                <label for="aphasia">A</label>
+                            </div>
+                        </td>
+                        <td>
+                            <span>無反應</span>
                         </td>
                         <td>
                             <div class="radio-container">
@@ -280,88 +305,6 @@
                     </div>
                 </div>
             </div>
-            
-            <!-- Interactive Pupil Assessment Tool -->
-            <div class="pupil-container">
-                <div class="pupil-side">
-                    <label class="pupil-size-label">左眼 (OS)</label>
-                    <div class="pupil" id="leftPupil">
-                        <div class="pupil-inner" id="leftPupilInner" style="width: 40%; height: 40%;"></div>
-                    </div>
-                    <div class="pupil-controls">
-                        <label for="leftPupilSize">瞳孔大小 (1-9mm):</label>
-                        <input type="range" id="leftPupilSize" min="1" max="9" value="4" oninput="updatePupilSize('left', this.value)">
-                        <span id="leftSizeValue">4mm</span>
-                    </div>
-                    <div class="pupil-reactivity">
-                        <div>
-                            <input type="radio" id="leftBrisk" name="leftReactivity" value="brisk" checked>
-                            <label for="leftBrisk">活潑</label>
-                        </div>
-                        <div>
-                            <input type="radio" id="leftSlug" name="leftReactivity" value="sluggish">
-                            <label for="leftSlug">遲緩</label>
-                        </div>
-                        <div>
-                            <input type="radio" id="leftFixed" name="leftReactivity" value="fixed">
-                            <label for="leftFixed">固定</label>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="pupil-side">
-                    <label class="pupil-size-label">右眼 (OD)</label>
-                    <div class="pupil" id="rightPupil">
-                        <div class="pupil-inner" id="rightPupilInner" style="width: 40%; height: 40%;"></div>
-                    </div>
-                    <div class="pupil-controls">
-                        <label for="rightPupilSize">瞳孔大小 (1-9mm):</label>
-                        <input type="range" id="rightPupilSize" min="1" max="9" value="4" oninput="updatePupilSize('right', this.value)">
-                        <span id="rightSizeValue">4mm</span>
-                    </div>
-                    <div class="pupil-reactivity">
-                        <div>
-                            <input type="radio" id="rightBrisk" name="rightReactivity" value="brisk" checked>
-                            <label for="rightBrisk">活潑</label>
-                        </div>
-                        <div>
-                            <input type="radio" id="rightSlug" name="rightReactivity" value="sluggish">
-                            <label for="rightSlug">遲緩</label>
-                        </div>
-                        <div>
-                            <input type="radio" id="rightFixed" name="rightReactivity" value="fixed">
-                            <label for="rightFixed">固定</label>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Pupil Assessment Recording Table -->
-            <table class="pupil-table">
-                <thead>
-                    <tr>
-                        <th>瞳孔記錄</th>
-                        <th>左眼 (OS)</th>
-                        <th>右眼 (OD)</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>大小 (Size)</td>
-                        <td id="recordLeftSize">4mm</td>
-                        <td id="recordRightSize">4mm</td>
-                    </tr>
-                    <tr>
-                        <td>對光反射 (Reactivity)</td>
-                        <td id="recordLeftReactivity">活潑 (Brisk)</td>
-                        <td id="recordRightReactivity">活潑 (Brisk)</td>
-                    </tr>
-                    <tr>
-                        <td>瞳孔等大/不等大 (Equality)</td>
-                        <td colspan="2" id="pupilEquality">瞳孔等大 (Equal)</td>
-                    </tr>
-                </tbody>
-            </table>
             
             <table class="pupil-table">
                 <thead>
@@ -831,8 +774,7 @@
                         </td>
                         <td>
                             正常: &lt;120/80 mmHg<br>
-                            高血壓前期: 120-139/80-89 mmHg<br>
-                            高血壓: ≥140/90 mmHg
+                            高血壓: 大於130 or 80 mmHg
                         </td>
                     </tr>
                     <tr>

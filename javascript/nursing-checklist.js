@@ -848,6 +848,9 @@
                     <button type="button" class="template-btn small" data-template="血糖" onclick="addTemplateToExistingPatient('${patientId}', '血糖')">+血糖</button>
                     <button type="button" class="template-btn small" data-template="I/O" onclick="addTemplateToExistingPatient('${patientId}', 'I/O')">+I/O</button>
                     <button type="button" class="template-btn small" data-template="輸血" onclick="addTemplateToExistingPatient('${patientId}', '輸血')">+輸血</button>
+                    <button type="button" class="template-btn small" data-template="出院" onclick="addTemplateToExistingPatient('${patientId}', '出院')">+出院</button>
+                    <button type="button" class="template-btn small" data-template="轉出" onclick="addTemplateToExistingPatient('${patientId}', '轉出')">+轉出</button>
+                    <button type="button" class="template-btn small" data-template="死亡" onclick="addTemplateToExistingPatient('${patientId}', '死亡')">+死亡</button>
                 </div>
             `;
             

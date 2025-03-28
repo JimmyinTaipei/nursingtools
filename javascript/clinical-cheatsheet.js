@@ -46,8 +46,33 @@ function updateScore() {
     document.getElementById('verbalScore').textContent = verbalValue || '-';
     document.getElementById('motorScore').textContent = motorValue || '-';
     
-    // Calculate total if all scores are selected
-    if (eyeValue && verbalValue && motorValue) {
+    // Check if any special conditions are selected
+    const closeEyes = document.getElementById('closeEyes')?.checked;
+    const endotracheal = document.getElementById('endotracheal')?.checked;
+    const tracheostomy = document.getElementById('tracheostomy')?.checked;
+    const aphasia = document.getElementById('aphasia')?.checked;
+    
+    // If any special condition is checked, don't calculate the total score
+    if (closeEyes || endotracheal || tracheostomy || aphasia) {
+        document.getElementById('totalScore').textContent = 'NT';
+        
+        // Create message about which components can't be assessed
+        let message = '部分評估無法執行: <br>';
+        if (closeEyes) {
+            message += '• 眼睛腫脹無法睜開 (Eyes swollen shut) <br>';
+        }
+        if (endotracheal || tracheostomy) {
+            message += '• 氣管' + (endotracheal ? '插管' : '切開') + '無法正常發聲 <br>';
+        }
+        if (aphasia) {
+            message += '• 失語症 (Aphasia) <br>';
+        }
+        message += '<br>無法計算總分 (Unable to calculate total score)';
+        
+        document.getElementById('interpretation').innerHTML = message;
+    } 
+    // Otherwise calculate normally if all scores are selected
+    else if (eyeValue && verbalValue && motorValue) {
         const totalScore = parseInt(eyeValue) + parseInt(verbalValue) + parseInt(motorValue);
         document.getElementById('totalScore').textContent = totalScore;
         
@@ -67,11 +92,16 @@ function updateScore() {
         document.getElementById('interpretation').innerHTML = '請選擇各項目分數以計算 GCS 評分 <br> Please select scores for all items to calculate GCS';
     }
 }
-
 function resetGCS() {
     document.querySelectorAll('input[type="radio"]').forEach(radio => {
         radio.checked = false;
     });
+    
+    // Reset special condition checkboxes
+    document.getElementById('closeEyes').checked = false;
+    document.getElementById('endotracheal').checked = false;
+    document.getElementById('tracheostomy').checked = false;
+    document.getElementById('aphasia').checked = false;
     
     document.querySelectorAll('td.selected-cell').forEach(cell => {
         cell.classList.remove('selected-cell');
